@@ -143,8 +143,24 @@ int main()
     */
 
 //10.选择语句和循环语句
-        
+    //选择语句:if语句、switch语句
 
+        /* int input=0;
+        printf("进入大学\n");
+        printf("要好好学习吗？(1-是 0-否)：");
+        scanf("%d", &input);
+        if (input ==1)
+        {
+            printf("好offer\n");
+        }
+        else
+        {
+            printf("卖红薯\n");
+        } */
+    
+        // 循环语句:while语句、do-while语句、for语句
+
+        
 
         return 0;
 }

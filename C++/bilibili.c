@@ -38,6 +38,15 @@ int main()
     double price = 66.6;
     printf("age = %d, price = %.1f\n", age, price); */
 
+    //输出格式控制符:
+        //%d-十进制整数
+        //%c-字符
+        //%f-浮点数-float
+        //%lf-双精度浮点数-double
+        //%s-字符串
+        //%.1f-表示小数点后保留1位
+        //%zu-size_t类型的无符号整数
+
 //4.变量和常量:局部变量和全局变量
     //变量分为两种：局部变量和全局变量
         //局部变量-{}内部定义的变量
@@ -118,7 +127,24 @@ int main()
         //字符串结束的标志是'\0'
         printf("%d\n", strlen(arr1));//strlen计算字符串长度，不包括'\0' */
          
-//8.转义字符
-    
+//8.转义字符  
+    /* 
+    printf("Hello, World!\n");//\n换行
+    printf("Hello, World!\t\n");//\t水平制表符（tab键）
+    printf("Hello, \"World\"!\n");//\"打印双引号
+    printf("Hello, \\World\\!\n");//\\打印反斜杠
+    printf("Hello\0,World");//\0字符串结束标志，后面的内容不打印 */
+    // 所有的转义字符：\? \' \" \\ \a \b \f \n \r \t \v \0 \ddd \xdd
+
+//9.注释
+    //单行注释
+    /* 
+    多行注释
+    */
+
+//10.选择语句和循环语句
+        
+
+
         return 0;
 }

@@ -1,31 +1,31 @@
 //1.初识C语言
     //1.认识C语言
-    //C语言代码中一定要有main函数
-    //主函数
+        //C语言代码中一定要有main函数
+        //主函数
 
-    //printf是一个库函数
-    //专门用来打印输出的
+        //printf是一个库函数
+        //专门用来打印输出的
 
-    //std-标准
-    //i-input
-    //o-output
+        //std-标准
+        //i-input
+        //o-output
     //2.第一个C语言项目
-    #include <stdio.h>
-    #include <string.h>//包含字符串操作相关的函数的头文件
+        #include <stdio.h>
+        #include <string.h>//包含字符串操作相关的函数的头文件
 
-    //标准的主函数的写法
-        //void main()-古老的写法
+        //标准的主函数的写法
+            //void main()-古老的写法
     
-    //C语言规定
-        //main函数是程序的入口
-        //main函数有且只有一个
-        /* int main()
-        {
-            printf("Hello, World!\n");
-            return 0;
-        } */
+        //C语言规定
+            //main函数是程序的入口
+            //main函数有且只有一个
+            /* int main()
+            {
+                printf("Hello, World!\n");
+                return 0;
+            } */
 
-        // 3.数据类型
+    // 3.数据类型
         // char-字符数据类型-1个字节              计算机中的单位：
         // short-短整型-2个字节                   bit-比特位
         // int-整形-4个字节                       byte-字节-8个比特位
@@ -220,4 +220,33 @@
     
     //11.函数       
         
-        
+        //求两个任意整数的和
+
+        //函数
+        /* int Add(int x,int y)
+        {
+            int z = 0;
+            z = x + y;
+            return z;
+        } */
+        //简化
+        /* int Add(int x,int y)
+        {
+            return x + y;
+        }
+
+        int main()
+        {
+            int n1 = 0;
+            int n2 = 0;
+            //输入
+            scanf("%d %d", &n1, &n2);
+            // 求和
+            // int sum = n1 + n2;
+            int sum = Add(n1, n2);
+            //打印
+            printf("%d\n", sum);
+            return 0;
+        } */
+
+    //12.数组

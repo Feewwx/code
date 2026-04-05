@@ -86,27 +86,52 @@
 //         cout<<c;
 //     return 0;
 // }
+// #include <iostream>
+// using namespace std;
+// int main() {
+//   int a = 0;
+//   int b = 0;
+//   int c = 0;
+//   int k = 0;
+//
+//   int a1 = 0;
+//   int b1 = 0;
+//   int c1 = 0;
+//   while (cin >> a >> b >> c >> k) {
+//     for (int i = 0; i < k; i++) {
+//       a1 = (b + c) / 2;
+//       b1 = (a + c) / 2;
+//       c1 = (a + b) / 2;
+//       a = a1;
+//       b = b1;
+//       c = c1;
+//     }
+//     cout << a << " " << b << " " << c;
+//   }
+//   return 0;
+// }
+#include <algorithm>
 #include <iostream>
 using namespace std;
 int main() {
-  int a = 0;
-  int b = 0;
-  int c = 0;
-  int k = 0;
+  int n = 0; // 需要输入的数
+  int m = 0; // 选画作的数量
+  cin >> n;
+  cin >> m;
+  int arr[10005] = {0};
+  for (int i = 0; i < n; i++)
+    cin >> arr[i];
 
-  int a1 = 0;
-  int b1 = 0;
-  int c1 = 0;
-  while (cin >> a >> b >> c >> k) {
-    for (int i = 0; i < k; i++) {
-      a1 = (b + c) / 2;
-      b1 = (a + c) / 2;
-      c1 = (a + b) / 2;
-      a = a1;
-      b = b1;
-      c = c1;
-    }
-    cout << a << " " << b << " " << c;
+  sort(arr, arr + n);
+
+  long long ans = 99999999999;
+  for (int j = 0; j <= n - m; j++) {
+    long long L =
+        (long long)arr[j + m - 1] * arr[j + m - 1] - (long long)arr[j] * arr[j];
+    if (L < ans)
+      ans = L;
   }
+  cout << ans;
+
   return 0;
 }

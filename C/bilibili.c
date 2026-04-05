@@ -1,4 +1,4 @@
-// 1.初识C语言
+// 初识C语言
 // 1.认识C语言
 // C语言代码中一定要有main函数
 // 主函数
@@ -26,10 +26,10 @@
 // }
 
 // 3.数据类型
-// char-字符数据类型-1个字节              计算机中的单位：
-// short-短整型-2个字节                   bit-比特位
-// int-整形-4个字节                       byte-字节-8个比特位
-// long-长整型-4个字节                    kb-千字节-1024字节
+// char-字符数据类型-1个字节               计算机中的单位：
+// short-短整型-2个字节                    bit-比特位
+// int-整形-4个字节                        byte-字节-8个比特位
+// long-长整型-4个字节                     kb-千字节-1024字节
 // long long-更长的整型-8个字节            mb-兆字节-1024千字节
 // float-单精度浮点型-4个字节              gb-吉字节-1024兆字节
 // double-双精度浮点型-8个字节             tb-太字节-1024吉字节
@@ -93,12 +93,12 @@
 // 全局变量：整个程序的生命周期
 
 // 6.常量
-// 1.字面常量
+// 6.1.字面常量
 // 整数常量：10、20、-30
 // 浮点数常量：3.14、66.6、-0.88
 // 字符常量：'a'、'b'、'1'、'*'
 // 字符串常量："hello"、"bit"
-// 2.const修饰的常变量
+// 6.2.const修饰的常变量
 // int main()
 // {
 //     const int a=10;
@@ -106,7 +106,7 @@
 //     //在C语言中，const修饰的a，本质上是变量，但是不能直接修改，有常量的属性
 //     return 0;
 // }
-// 3.define定义的标识符常量
+// 6.3.define定义的标识符常量
 // 预处理指令#define
 // 格式：#define 标识符 常量值
 // int main()
@@ -120,7 +120,7 @@
 //     MAX = 200;//错误，标识符常量不可修改
 //     return 0;
 // }
-// 4.枚举常量
+// 6.4.枚举常量
 // int main()
 // {
 //     enum Color {RED, GREEN, BLUE};
@@ -276,5 +276,79 @@
 //  *间接访问操作符（解引用操作符）（类型）强制类型转换
 // 关系操作符：> >= < <= != ==
 // 逻辑操作符：&& 逻辑与 || 逻辑或
-// 条件操作符：? : 如果条件为真则返回第一个操作数，否则返回第二个操作数
-// exp1(真) ? exp2(运行) : exp3(不运行)
+// 条件操作符(三目操作符)：? :
+// 如果条件为真则返回第一个操作数，否则返回第二个操作数 exp1(真) ? exp2(运行) :
+// exp3(不运行) int main() {
+//   int a = 0;
+//   scanf("%d", &a);
+//   int b = 10;
+//   a > b ? printf("a>b") : printf("a<=b");
+//   return 0;
+// }
+// 逗号运算符：,可以将多个表达式用逗号隔开，并将它们作为一个表达式来运算
+// 特点：从左向右依次计算，整个表达式的结果是最后一个表达式的结果
+// int main(){
+//     int a = 10;
+//     int b =20;
+//     int c=0;
+//     int d =(c=a-2,a=b+c,c-3);
+//     printf("%d\n",d);
+//     return 0;
+// }
+
+// 14.常见关键字
+// auto break case char const continue default do double else enum
+// extern float for goto if int long register return short signed
+// sizeof static struct switch typedef union unsigned void volatile while
+// 14.1.关键字typedef
+// typedef unsigned int uint;
+// typedef struct Node {
+//   int data;
+//   struct Node *next;
+// } Node;
+// int main() {
+//   unsigned int num = 0;
+//   uint num2 = 1;
+//   struct Node n;
+//   Node n2;
+//   return 0;
+// }
+// 14.2.关键字static
+// 修饰局部变量
+// void test() {
+//   static int a = 1;
+//   a++;
+//   printf("%d", a);
+// }
+// int main() {
+//   int i = 0;
+//   while (i < 10) {
+//     test();
+//     i++;
+//   }
+//   return 0;
+// }
+// static修饰局部变量的时候，局部变量出了作用域，不销毁
+// 本质上，static修饰局部变量的时候，改变了变量的存储位置
+// 局部变量=>全局变量
+// 修饰全局变量
+// extern int g_val;
+// int main() {
+//   printf("%d", g_val);
+//   return 0;
+// }
+// static修饰全局变量的时候，这个全局变量的外部链接属性就变成了内部链接属性
+// 其他源文件就不能再使用到这个全局变量了
+// 修饰函数
+// extern int Add(int x, int y);
+// int main() {
+//   int a = 10;
+//   int b = 20;
+//   int z = Add(a, b);
+//   printf("%d", z);
+//   return 0;
+// }
+// 一个函数本来是具有外部链接属性的，但是被static修饰的时候，它就变成了内部链接属性
+// 其他源文件就不能再使用到这个函数了
+
+// 15.#define定义常量和宏

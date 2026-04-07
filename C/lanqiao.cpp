@@ -110,28 +110,79 @@
 //   }
 //   return 0;
 // }
-#include <algorithm>
+// #include <algorithm>
+// #include <iostream>
+// using namespace std;
+// int main() {
+//   int n = 0; // 需要输入的数
+//   int m = 0; // 选画作的数量
+//   cin >> n;
+//   cin >> m;
+//   int arr[10005] = {0};
+//   for (int i = 0; i < n; i++)
+//     cin >> arr[i];
+//
+//   sort(arr, arr + n);
+//
+//   long long ans = 99999999999;
+//   for (int j = 0; j <= n - m; j++) {
+//     long long L =
+//         (long long)arr[j + m - 1] * arr[j + m - 1] - (long long)arr[j] *
+//         arr[j];
+//     if (L < ans)
+//       ans = L;
+//   }
+//   cout << ans;
+//
+//   return 0;
+// }
+// #include <iostream>
+// using namespace std;
+// int add = 0;
+// int a = 0;
+// int main() {
+//   for (int i = 0; i < 50; i++)
+//     add = add + i;
+//
+//   for (int j = 0; j < 7; j++)
+//     a = a + j;
+//
+//   int c = add - a;
+//   cout << c;
+//
+//   return 0;
+// }
 #include <iostream>
 using namespace std;
 int main() {
-  int n = 0; // 需要输入的数
-  int m = 0; // 选画作的数量
-  cin >> n;
-  cin >> m;
-  int arr[10005] = {0};
-  for (int i = 0; i < n; i++)
-    cin >> arr[i];
+  int a = 0; // 计数
+  int b = 0; // 输入的数
+  cin >> b;
+  for (int i = 1; i <= b; i++) {
+    int temp = i;
+    int c = 1; // 位数
+    bool isgood = true;
+    while (temp > 0) {
+      int d = temp % 10;
+      if (c % 2 != 0) {
+        if (d % 2 == 0) {
+          isgood = false;
+          break;
+        } else if (c % 2 == 0) {
+          if (d % 2 != 0)
+            isgood = false;
+          break;
+        }
+      }
+      temp = temp / 10;
+      c++;
+    }
 
-  sort(arr, arr + n);
-
-  long long ans = 99999999999;
-  for (int j = 0; j <= n - m; j++) {
-    long long L =
-        (long long)arr[j + m - 1] * arr[j + m - 1] - (long long)arr[j] * arr[j];
-    if (L < ans)
-      ans = L;
+    if (isgood)
+      a++;
   }
-  cout << ans;
+
+  cout << a;
 
   return 0;
 }

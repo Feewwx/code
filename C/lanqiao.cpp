@@ -152,37 +152,37 @@
 //
 //   return 0;
 // }
-#include <iostream>
-using namespace std;
-int main() {
-  int a = 0; // 计数
-  int b = 0; // 输入的数
-  cin >> b;
-  for (int i = 1; i <= b; i++) {
-    int temp = i;
-    int c = 1; // 位数
-    bool isgood = true;
-    while (temp > 0) {
-      int d = temp % 10;
-      if (c % 2 != 0) {
-        if (d % 2 == 0) {
-          isgood = false;
-          break;
-        } else if (c % 2 == 0) {
-          if (d % 2 != 0)
-            isgood = false;
-          break;
-        }
-      }
-      temp = temp / 10;
-      c++;
-    }
-
-    if (isgood)
-      a++;
-  }
-
-  cout << a;
-
-  return 0;
-}
+// #include <iostream>
+// using namespace std;
+// int main() {
+//   int a = 0; // 计数
+//   int b = 0; // 输入的数
+//   cin >> b;
+//   for (int i = 1; i <= b; i++) {
+//     int temp = i;
+//     int c = 1; // 位数
+//     bool isgood = true;
+//     while (temp > 0) {
+//       int d = temp % 10;
+//       if (c % 2 != 0) {
+//         if (d % 2 == 0) {
+//           isgood = false;
+//           break;
+//         } else if (c % 2 == 0) {
+//           if (d % 2 != 0)
+//             isgood = false;
+//           break;
+//         }
+//       }
+//       temp = temp / 10;
+//       c++;
+//     }
+//
+//     if (isgood)
+//       a++;
+//   }
+//
+//   cout << a;
+//
+//   return 0;
+// }

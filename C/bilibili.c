@@ -352,3 +352,62 @@
 // 其他源文件就不能再使用到这个函数了
 
 // 15.#define定义常量和宏
+// 15.1.define定义标识符常量
+// #define NUM 100
+// int main() {
+//   printf("%d", NUM);
+//   int n = NUM;
+//   printf("%d", n);
+//   int arr[NUM] = {0};
+//   return 0;
+// }
+// 15.2.define定义宏
+// 宏是有参数的宏，可以在宏定义中使用参数
+// #define ADD//宏名 (x, y)//宏的参数，参数是无类型 ((x) + (y))//宏体 // 宏定义
+//
+// int Add(int x, int y) { return x + y; } // 函数定义
+//
+// int main() {
+//   int a = 10;
+//   int b = 20;
+//   int c = ADD(a, b);
+//   printf("%d", c);
+//   return 0;
+// }
+
+// 16.指针
+// 16.1.内存地址
+// int main() {
+//   int a = 10; // 向内存申请4个字节，存储10
+//   &a;//取地址操作符
+//   printf("%p\n", &a); // 0x7fff7ee5a304//地址为第一个字节的地址
+//   int *p = &a;        // p就是指针变量
+//   int 说明指针指向的是一个int类型的变量（a是int类型）
+//   *说明p是指针变量
+//   *p;//解引用操作符，意思就是通过p中存放的地址，找到p所指向的对象，*p就是p指向的对象
+//   *p = 20;
+//   printf("%d\n", a);
+//   printf("%p\n", p); // 0x7fff7ee5a304
+//   char ch = 'a';
+//   char *p1 = &ch;
+//   printf("%p\n", p1);
+//   return 0;
+// }
+// 16.2.指针变量的大小
+// int main() {
+//   printf("%zu\n", sizeof(int *));    // 8
+//   printf("%zu\n", sizeof(char *));   // 8
+//   printf("%zu\n", sizeof(double *)); // 8
+//   printf("%zu\n", sizeof(float *));  // 8
+//   printf("%zu\n", sizeof(long *));   // 8
+//   printf("%zu\n", sizeof(short *));  // 8
+//   32位系统下，指针变量的大小是4字节，64位系统下，指针变量的大小是8字节
+//   return 0;
+// }
+// 不管是什么类型的指针，都是在创建指针变量
+// 指针变量是用来存放地址的
+// 指针变量的大小取决与一个地址存放的时候需要多大的内存空间
+// 32位机器上的地址：32bit位 - 4byte
+// 64位机器上的地址：64bit位 - 8byte
+
+// 17.结构体

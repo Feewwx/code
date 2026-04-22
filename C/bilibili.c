@@ -410,4 +410,26 @@
 // 32位机器上的地址：32bit位 - 4byte
 // 64位机器上的地址：64bit位 - 8byte
 
-// 17.结构体
+// // 17.结构体
+// struct Stu {
+//   // 成员
+//   char name[10];
+//   int age;
+//   char sex[10];
+//   char tele[12];
+// };
+// void print(struct Stu *ps) {
+//   printf("%s %d %s %s\n", (*ps).name, (*ps).age, (*ps).sex, (*ps).tele);
+//   //->操作符：结构体指针变量->成员名
+//   printf("%s %d %s %s\n", ps->name, ps->age, ps->sex, ps->tele);
+// }
+// int main() {
+//   struct Stu s = {"张三", 18, "男", "13812345678"};
+//   //.操作符：结构体变量.成员名
+//   printf("%s %d %s %s\n", s.name, s.age, s.sex, s.tele);
+//   print(&s);
+//   return 0;
+// }
+
+// C语言初阶
+// 18.

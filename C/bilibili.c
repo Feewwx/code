@@ -432,4 +432,44 @@
 // }
 
 // C语言初阶
-// 18.
+// 1.语句
+// 1.1.什么是语句
+// 语句可以分为以下几类：表达式语句，函数调用语句，控制语句，复合语句，空语句
+// 控制语句可以分为以下三类：
+// 1.条件表达式也叫分支语句：if语句，switch语句
+// 2.循环执行语句：do-while语句，while语句，for语句
+// 3.转向语句：break语句，goto语句，continue语句，return语句
+// while循环中的break适用于永久的终止循环，continue跳过本次循环后的代码，直接去判断部分，进行下一次循环的判断
+// 2.分支语句(选择结构)
+// 2.1.if语句
+int main() {
+  int a = 10;
+  if (a == 3) {
+    printf("hehe\n");
+  }
+  int age = 20;
+  if (age > 18) {
+    printf("成年\n");
+  }
+  int age1 = 10;
+  if (age1 < 18) {
+    printf("未成年\n");
+    printf("不能饮酒\n");
+  } else
+    printf("成年\n");
+  int age2 = 10;
+  scanf("%d", &age2);
+  if (age2 < 18)
+    printf("青少年\n");
+  else if (age2 >= 18 && age2 < 28)
+    printf("青年\n");
+  else if (age2 >= 28 && age2 < 40)
+    printf("中年\n");
+  else if (age2 >= 40 && age2 < 60)
+    printf("壮年\n");
+  else if (age2 >= 60 && age2 < 100)
+    printf("老年\n");
+  else
+    printf("不明\n");
+  return 0;
+}

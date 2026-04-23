@@ -442,34 +442,123 @@
 // while循环中的break适用于永久的终止循环，continue跳过本次循环后的代码，直接去判断部分，进行下一次循环的判断
 // 2.分支语句(选择结构)
 // 2.1.if语句
-int main() {
-  int a = 10;
-  if (a == 3) {
-    printf("hehe\n");
-  }
-  int age = 20;
-  if (age > 18) {
-    printf("成年\n");
-  }
-  int age1 = 10;
-  if (age1 < 18) {
-    printf("未成年\n");
-    printf("不能饮酒\n");
-  } else
-    printf("成年\n");
-  int age2 = 10;
-  scanf("%d", &age2);
-  if (age2 < 18)
-    printf("青少年\n");
-  else if (age2 >= 18 && age2 < 28)
-    printf("青年\n");
-  else if (age2 >= 28 && age2 < 40)
-    printf("中年\n");
-  else if (age2 >= 40 && age2 < 60)
-    printf("壮年\n");
-  else if (age2 >= 60 && age2 < 100)
-    printf("老年\n");
-  else
-    printf("不明\n");
-  return 0;
-}
+// int main() {
+//   int a = 10;
+//   if (a == 3) {
+//     printf("hehe\n");
+//   }
+//   int age = 20;
+//   if (age > 18) {
+//     printf("成年\n");
+//   }
+//   int age1 = 10;
+//   if (age1 < 18) {
+//     printf("未成年\n");
+//     printf("不能饮酒\n");
+//   } else
+//     printf("成年\n");
+//   int age2 = 10;
+//   scanf("%d", &age2);
+//   if (age2 < 18)
+//     printf("青少年\n");
+//   else if (age2 >= 18 && age2 < 28)
+//     printf("青年\n");
+//   else if (age2 >= 28 && age2 < 40)
+//     printf("中年\n");
+//   else if (age2 >= 40 && age2 < 60)
+//     printf("壮年\n");
+//   else if (age2 >= 60 && age2 < 100)
+//     printf("老年\n");
+//   else
+//     printf("不明\n");
+//   return 0;
+// }
+// int test() {
+//   int a = 4;
+//   if (a == 4)
+//     return 1;
+//   return 0;
+// }
+// int main() {
+//   int r = test();
+//   printf("%d\n", r);
+//   return 0;
+// }
+// 2.2.switch语句
+// int main() {
+//   int day = 0; // 必须为整型
+//   scanf("%d", &day);
+//   switch (day) {
+//   case 1: // 必须为字符或者整型
+//     printf("今天是周一\n");
+//     break;
+//   case 2:
+//     printf("今天是周二\n");
+//     break;
+//   case 3:
+//     printf("今天是周三\n");
+//     break;
+//   case 4:
+//     printf("今天是周四\n");
+//     break;
+//   case 5:
+//     printf("今天是周五\n");
+//     break;
+//   case 6:
+//     printf("今天是周六\n");
+//     break;
+//   case 7:
+//     printf("今天是周日\n");
+//     break;
+//   default:
+//     printf("今天是其他\n");
+//   }
+// }
+// int main() {
+//   int day = 0;
+//   scanf("%d", &day);
+//   switch (day) {
+//   case 1:
+//   case 2:
+//   case 3:
+//   case 4:
+//   case 5:
+//     printf("weekday\n");
+//     break;
+//   case 6:
+//   case 7:
+//     printf("weekend\n");
+//     break;
+//   default:
+//     printf("error\n");
+//     break;
+//   }
+//   return 0;
+// }
+// switch语句的嵌套：
+// int main() {
+//   int n = 0;
+//   int m = 0;
+//   switch (n) {
+//   case 1:
+//     m++;
+//   case 2:
+//     n++;
+//   case 3:
+//     switch (n) {
+//     case 1:
+//       n++;
+//     case 2:
+//       m++;
+//       n++;
+//       break;
+//     }
+//   case 4:
+//     m++;
+//     break;
+//   default:
+//     break;
+//   }
+//   printf("m=%d,n=%d\n", m, n);
+//   return 0;
+// }

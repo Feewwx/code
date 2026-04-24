@@ -59,9 +59,9 @@
 // 局部变量-{}内部定义的变量
 // 全局变量-{}外部定义的变量
 
-// /* short age = 20;//年龄
+// short age = 20;//年龄
 // int height = 180;//身高
-// float weight = 88.5;//体重 */
+// float weight = 88.5;//体重
 
 // int main() {
 //   int a = 10;
@@ -554,3 +554,39 @@
 // }
 
 // 3.循环语句
+// 3.1.while语句
+// int main() {
+//   if (1) { // 不判断，直接执行
+//     printf("hehe\n");
+//   }
+//   while (1) { // 死循环
+//     printf("hehe\n");
+//   }
+// }
+
+// 打印1-10数字
+// int main() {
+//   int i = 1;
+//   while (i <= 10) {
+//     printf("%d\n", i);
+//     i++;
+//   }
+//   // 或者
+//   while (1) {
+//     if (i > 10) {
+//       break; // 终止循环
+//     }
+//     continue; // 跳过当前循环continue后面的代码，继续判断下一次循环
+//     printf("%d\n", i);
+//     i++;
+//   }
+//   return 0;
+// }
+
+int main() {
+  int ch = 0;
+  while ((ch = getchar()) != EOF) { // EOF:end of file
+    putchar(ch);
+  }
+  return 0;
+}

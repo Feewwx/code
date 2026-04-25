@@ -583,10 +583,28 @@
 //   return 0;
 // }
 
+// int main() {
+//   int ch = 0;
+//   while ((ch = getchar()) != EOF) { // EOF:end of file
+//     putchar(ch);
+//   }
+//   return 0;
+// }
+
 int main() {
+  char password[20] = {0};
+  printf("请输入密码：");
+  scanf("%s", password);
   int ch = 0;
-  while ((ch = getchar()) != EOF) { // EOF:end of file
-    putchar(ch);
+  while ((ch = getchar()) != EOF) {
+    // 清除缓冲区
+  }
+  printf("请确认密码(Y/N)：");
+  int ret = getchar();
+  if (ret == 'Y' || ret == 'y') {
+    printf("Yes\n");
+  } else {
+    printf("No\n");
   }
   return 0;
 }

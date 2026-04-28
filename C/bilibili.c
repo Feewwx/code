@@ -591,20 +591,46 @@
 //   return 0;
 // }
 
-int main() {
-  char password[20] = {0};
-  printf("请输入密码：");
-  scanf("%s", password);
-  int ch = 0;
-  while ((ch = getchar()) != EOF) {
-    // 清除缓冲区
-  }
-  printf("请确认密码(Y/N)：");
-  int ret = getchar();
-  if (ret == 'Y' || ret == 'y') {
-    printf("Yes\n");
-  } else {
-    printf("No\n");
-  }
-  return 0;
-}
+// int main() {
+//   char password[20] = {0};
+//   printf("请输入密码：");
+//   scanf("%s", password);
+//   int ch = 0;
+//   while ((ch = getchar()) != EOF) {
+//     // 清除缓冲区
+//   }
+//   printf("请确认密码(Y/N)：");
+//   int ret = getchar();
+//   if (ret == 'Y' || ret == 'y') {
+//     printf("Yes\n");
+//   } else {
+//     printf("No\n");
+//   }
+//   return 0;
+// }
+
+// int main() {
+//   int i = 1;
+//   while (i <= 10) {
+//     if (i == 5)
+//       continue;
+//     printf("%d\n", i);
+//     i++;
+//   } // 死循环
+//   return 0;
+// }
+
+// 3.2.for语句
+// int main() {
+//   int i = 0;
+//   for (i = 1; i <= 10; i++) {
+//     if (i == 8) {
+//       break;
+//     }
+//     if (i == 3) {
+//       continue;
+//     }
+//     printf("%d ", i);
+//   } // 1 2 4 5 6 7
+//   return 0;
+// }

@@ -624,13 +624,38 @@
 // int main() {
 //   int i = 0;
 //   for (i = 1; i <= 10; i++) {
-//     if (i == 8) {
-//       break;
-//     }
 //     if (i == 3) {
 //       continue;
 //     }
+//     if (i == 8) {
+//       break;
+//     }
 //     printf("%d ", i);
 //   } // 1 2 4 5 6 7
+//   return 0;
+// }
+
+// for循环的判断部分省略意味着判断会衡成立
+// int main() {
+//   for (;;) {
+//     printf("hello");
+//   } // 死循环
+//   return 0;
+// }
+
+// int main() {
+//   for (int i = 0; i < 10; i++) {
+//     for (int j = 0; j < 10; j++) {
+//       printf("hehe\n");
+//     }
+//   } // 循环10*10=100次
+//   return 0;
+// }
+
+// int main() {
+//   int x, y;
+//   for (x = 0, y = 0; x < 2 && y < 5; x++, y++) {
+//     printf("hehe\n");
+//   } // 多个变量
 //   return 0;
 // }

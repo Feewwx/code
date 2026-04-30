@@ -659,3 +659,13 @@
 //   } // 多个变量
 //   return 0;
 // }
+
+// 3.3.do-while语句
+int main() {
+  int i = 1;
+  do {
+    printf("%d\n", i);
+    i++;
+  } while (i <= 10);
+  return 0;
+}

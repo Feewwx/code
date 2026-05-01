@@ -671,3 +671,55 @@
 // }
 
 // 4.函数
+// 4.1.函数的定义
+// 在计算机科学中，子程序是一个大型程序中的部分代码，由一个或多个语句块组成。
+// 它负责完成某项特定任务，而且较于其他代码，具备相对的独立性。
+
+// 一般会有输入参数并有返回值，提供对过程的封装和细节的隐藏。这些代码通常被集成为软件库
+
+// 4.2.库函数
+// 库函数一般有：IO函数，字符串操作函数，字符操作函数，内存操作函数，时间/日期函数，数学函数，其他库函数
+// https://cplusplus.com/reference/clibrary/
+// https://zh.cppreference.com/%E9%A6%96%E9%A1%B5
+
+// 4.3.自定义函数
+// int get_max(int x, int y) {
+//   return (x > y ? x : y);
+// } // 返回什么前面数据类型就写什么，无返回值就写void
+// void test() { printf("hello\n"); }
+// int main() {
+//   test();
+//   int a = 0;
+//   int b = 0;
+//   scanf("%d %d", &a, &b);
+//   int m = get_max(a, b);
+//   printf("%d\n", m);
+//   return 0;
+// }
+
+// 交换两个整形变量
+// 形式参数
+// void Swap(int x, int y) {
+//   int z = 0;
+//   z = x;
+//   x = y;
+//   y = z;
+// }//错误写法
+
+// 当实参传递给形参的时候，形参是实参的一份临时拷贝
+// 对形参的修改不会影响实参
+void Swap(int *px, int *py) {
+  int z = *px;
+  *px = *py;
+  *py = z;
+}
+int main() {
+  int a = 0;
+  int b = 0;
+  // a和b为实参
+  scanf("%d %d", &a, &b);
+  // Swap(a, b);
+  Swap(&a, &b);
+  printf("%d %d", a, b);
+  return 0;
+}

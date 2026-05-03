@@ -13,6 +13,7 @@
 
 // 2.第一个C语言项目
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h> //包含字符串操作相关的函数的头文件
 
 // 标准的主函数的写法
@@ -742,3 +743,63 @@
 // 4.4.2.传址调用
 // 传址调用是把函数外部创建变量的内存地址传递给函数参数的一种调用函数的方式
 // 这种传参方式可以让函数和函数外边的变量建立起真正的联系，也就是函数内部可以直接操作函数外部的变量
+
+// 这是一个错误的示范
+// 数组传参实际上传递的是数组首元素的地址
+// 而不是整个数组
+// 所以在函数内部计算一个函数参数部分的数组的元素个数是不靠谱的
+// int binary_search(int arr[], int k) {    //
+// 形参arr看上去是数组,本质是指针变量
+//   int sz = sizeof(arr) / sizeof(arr[0]); // err
+//   int left = 0;
+//   int right = sz - 1;
+//   while (left <= right) {
+//     int mid = left + (right - left) / 2;
+//     if (arr[mid] < k) {
+//       left = mid + 1;
+//     } else if (arr[mid] > k) {
+//       right = mid - 1;
+//     } else {
+//       return mid;
+//     }
+//   }
+//   return -1;
+// }
+
+// int cmp(const void *a, const void *b) { return *(int *)a - *(int *)b; }
+
+// int binary_search(int arr[], int k, int sz) {
+//   int left = 0;
+//   int right = sz - 1;
+//   while (left <= right) {
+//     int mid = left + (right - left) / 2;
+//     if (arr[mid] < k) {
+//       left = mid + 1;
+//     } else if (arr[mid] > k) {
+//       right = mid - 1;
+//     } else {
+//       return mid; // 找到了返回下标
+//     }
+//   }
+//   return -1; // 找不到
+// }
+
+// int main() {
+//   int arr[20] = {0};
+//   int sz = sizeof(arr) / sizeof(arr[0]);
+//   int k = 0;
+//   for (int i = 0; i < sz; i++) {
+//     scanf("%d", &arr[i]);
+//   }
+//   qsort(arr, sz, sizeof(int), cmp);
+//   printf("请输入数字：");
+//   scanf("%d", &k);
+//   int ret = binary_search(arr, k, sz);
+//   if (ret == -1) {
+//     printf("not found\n");
+//   } else {
+//     printf("found, index = %d\n", ret);
+//   }
+//   return 0;
+// }
+// 形式参数和实际参数的名字可以相同,也可以不同

@@ -12,6 +12,8 @@
 // o-output
 
 // 2.第一个C语言项目
+#include <math.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> //包含字符串操作相关的函数的头文件
@@ -803,3 +805,34 @@
 //   return 0;
 // }
 // 形式参数和实际参数的名字可以相同,也可以不同
+
+// bool isPrime(int n) {
+//   int j = 0;
+//   for (j = 2; j <= sqrt(n); j++) {
+//     if (n % j == 0) {
+//       return false;
+//     }
+//   }
+//   return true;
+// }
+// int main() {
+//   int i = 0;
+//   for (i = 100; i <= 200; i++) {
+//     if (isPrime(i)) {
+//       printf("%d\n", i);
+//     }
+//   }
+//   return 0;
+// }
+
+int Add(int n) { return n + 1; }
+int main() {
+  int num = 0;
+  int a = 0;
+  scanf("%d", &a);
+  for (int i = 0; i < a; i++) {
+    num = Add(num);
+    printf("%d\n", num);
+  }
+  return 0;
+}

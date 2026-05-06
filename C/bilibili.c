@@ -825,14 +825,78 @@
 //   return 0;
 // }
 
-int Add(int n) { return n + 1; }
-int main() {
-  int num = 0;
-  int a = 0;
-  scanf("%d", &a);
-  for (int i = 0; i < a; i++) {
-    num = Add(num);
-    printf("%d\n", num);
-  }
-  return 0;
-}
+// int Add(int n) { return n + 1; }
+// int main() {
+//   int num = 0;
+//   int a = 0;
+//   scanf("%d", &a);
+//   for (int i = 0; i < a; i++) {
+//     num = Add(num);
+//     printf("%d\n", num);
+//   }
+//   return 0;
+// }
+
+// 4.5.函数的嵌套调用和链式访问
+// 4.5.1.嵌套调用
+// void new_line() { printf("hehe\n"); }
+// void three_line() {
+//   int i = 0;
+//   for (i = 0; i < 3; i++) {
+//     new_line();
+//   }
+// }
+// int main() {
+//   three_line();
+//   return 0;
+// }
+
+// int Add(int x, int y) {
+//   return x + y;
+//   int Sub(int x, int y) { return x - y; }
+// } // 不是这样嵌套!
+// int main() {
+//   int a = 0;
+//   int b = 0;
+//   scanf("%d %d", &a, &b);
+//   printf("%d", Add(a, b));
+//   return 0;
+// }
+
+// 函数可以嵌套调用,但是不能嵌套定义
+
+// 4.5.2.链式访问
+// int main() {
+//   char arr[20] = "hello";
+//   int ret = strlen(strcat(arr, "bit"));
+//   printf("%d\n", ret);
+//   return 0;
+// }
+
+// int main() {
+// printf的返回值是打印字符的个数
+//   打印1(2)     打印2(43)    打印43
+//   printf("%d", printf("%d", printf("%d", 43)));
+//   return 0;
+// }// 结果:打印4321
+
+// Add(int x, int y) { return x + y; }
+// 函数不写返回类型的时候，默认返回int类型
+
+// void test() { printf("hello\n"); }
+// int main() {
+//   test(100); // 传了参数,但人家函数没用
+//   test();
+//   return 0;
+// }
+
+// int main(void) {}
+// 明确说明这个main函数没有参数
+
+// main函数有三个参数
+// int main(int argc, char *argv[], char *envp[]) {}
+
+// 4.6.函数的声明和定义
+// 4.6.1.函数声明
+
+// 4.6.2.函数定义

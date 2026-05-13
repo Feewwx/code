@@ -11,10 +11,14 @@
             "id": "ce654d66cbca04ab",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Notes/C.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "C"
             }
           }
         ]
@@ -182,8 +186,9 @@
   },
   "active": "ce654d66cbca04ab",
   "lastOpenFiles": [
-    "C/bilibili.md",
+    "Notes/C.md~",
     "Notes/C.md",
+    "C/bilibili.md",
     "C/C.md~",
     "Notes",
     "C/C.md",

@@ -5,10 +5,5 @@
   "monospaceFontFamily": "JetBrainsMono Nerd Font",
   "enabledCssSnippets": [
     "bg"
-  ],
-  "showViewHeader": true,
-  "interfaceFontFamily": "JetBrainsMono Nerd Font",
-  "baseFontSize": 16,
-  "baseFontSizeAction": true,
-  "nativeMenus": false
+  ]
 }

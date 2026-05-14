@@ -459,7 +459,7 @@ int main() {
 
 #define ADD(x, y)                     ((x) + (y))  // 宏定义
 //      宏名(宏的参数,参数是无类型)   宏体
-int Add(int x, int y) { return x + y; }              // 函数定义
+int Add(int x, int y) { return x + y; }            // 函数定义
 
 int main() {
     int a = 10;
@@ -621,6 +621,7 @@ int main() {
 ```
 
 ### 2.2. switch 语句
+
 ```c
 #include <stdio.h>
 
@@ -882,7 +883,6 @@ int main() {
 
 ### 4.1. 函数的定义
 
-
 在计算机科学中,子程序是一个大型程序中的部分代码,由一个或多个语句块组成
 
 它负责完成某项特定任务,而且较于其他代码,具备相对的独立性
@@ -1013,7 +1013,9 @@ int binary_search(int arr[], int k) {
   return -1;
 }
 
-int cmp(const void *a, const void *b) { return *(int *)a - *(int *)b; }
+int cmp(const void *a, const void *b) { 
+    return *(int *)a - *(int *)b; 
+}
 
 int binary_search(int arr[], int k, int sz) {
     int left = 0;
@@ -1228,6 +1230,6 @@ int Add(int x, int y) {}
 一个过程或函数在其定义或说明中有直接或间接调用自身的一种方法,通常把一个复杂的问题层层转化一个与原问题相似的规模较小的问题来求解
 递归策略只需少量的程序就可描述出解题过程所需要的多次重复计算,大大减少了程序的代码量
 
->`递归的主要思考方式在于:大事化小`
+>**`递归的主要思考方式在于:大事化小`**
 
 #### 4.7.2. 递归的两个必要条件

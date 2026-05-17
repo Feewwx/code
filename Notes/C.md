@@ -1232,4 +1232,22 @@ int Add(int x, int y) {}
 
 >**`递归的主要思考方式在于:大事化小`**
 
+```c
+#include <stdio.h>
+
+void print(unsigned int n) {
+  if (n > 9) {
+    print(n / 10);
+  }
+  printf("%d", n % 10);
+}
+
+int main() {
+  unsigned int num = 0;
+  scanf("%d", &num);
+  print(num);
+  return 0;
+}
+```
+
 #### 4.7.2. 递归的两个必要条件

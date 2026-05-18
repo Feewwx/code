@@ -1232,6 +1232,8 @@ int Add(int x, int y) {}
 
 >**`递归的主要思考方式在于:大事化小`**
 
+>`分次输出输入的数字`
+
 ```c
 #include <stdio.h>
 
@@ -1251,3 +1253,90 @@ int main() {
 ```
 
 #### 4.7.2. 递归的两个必要条件
+
+- 存在限制条件,当满足这个限制条件的时候,递归便不再继续
+- 每次递归调用之后越来越接近想要的值
+
+>`计算字符串的长度`
+
+```c
+#include <stdio.h>
+
+// int my_strlen(char str[])  // 函数部分写出数组的形式
+int my_strlen(char *str) {    // 参数部分写出指针的形式
+    if count = 0;
+    while (*str != '\0') {
+        count++;
+        str++;
+    }
+    return count;
+}
+
+// 递归求解
+int  my_strlen(char *str) {
+    if (*str != '\0') 
+        return 1 + my_strlen(str + 1);
+    else
+        return 0;
+}
+
+int main() {
+    char arr[] = "abc";
+    int len = my_strlen(arr);
+    printf("%d\n", len);
+    return 0;
+}
+```
+
+#### 4.7.3. 递归与迭代
+
+>`n的阶乘`
+
+```c
+#include <stdio.h>
+
+int fac(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * fac(n - 1);
+}
+
+// 迭代的方式-非递归
+int fac(int n) {
+    int ret = 1;
+    for (int i = 1; i <= n; i++) {
+        ret *= i;
+    }
+    return ret;
+}
+
+int main(){
+    int n = 0;
+    scanf("%d", &n);
+    int ret = fac(n);
+    printf("%d\n", ret);
+    return 0;
+}
+```
+
+>`第n个斐波那契数`
+
+**斐波那契数列:** 1 1 2 3 5 8 13 21 34 55 89 144
+
+```c
+#include <stdio.h>
+
+int feewwx(int n) {
+    if (n <= 1)
+        return n;
+    return feewwx(n - 1) + feewwx(n - 2);
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("%d\n", feewwx(n));
+    return 0;
+}
+```

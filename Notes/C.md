@@ -1322,7 +1322,7 @@ int main(){
 
 >`第n个斐波那契数`
 
-**斐波那契数列:** 1 1 2 3 5 8 13 21 34 55 89 144
+**斐波那契数列:** 1 1 2 3 5 8 13 21 34 55 89 144 ...
 
 ```c
 #include <stdio.h>
@@ -1333,6 +1333,20 @@ int feewwx(int n) {
     return feewwx(n - 1) + feewwx(n - 2);
 }
 
+// 此情况下,递归运行太慢,可以用迭代
+int feewwx(int n) {
+    int a = 1;
+    int b = 1;
+    int c = 1;  // 用来防止输入为1和2的情况
+    while (n >= 3) {
+        c = a + b;
+        a = b;
+        b = c;
+        n--;
+    }
+    return c;
+}
+
 int main() {
     int n;
     scanf("%d", &n);
@@ -1340,3 +1354,9 @@ int main() {
     return 0;
 }
 ```
+
+## 5. 数组
+
+### 5.1. 一维数组的创建和初始化
+
+#### 5.1.1. 数组的创建

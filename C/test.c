@@ -55,28 +55,41 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+//
+// void feewwx(int *A, int a, int *B, int *C) {
+//   int d = 1;
+//   while (1) {
+//     if (A[a] != 0) {
+//       B[1] = A[d];
+//       d++;
+//     } else
+//   }
+//   return feewwx(A, a - 1, B, C);
+// }
+//
+// int main() {
+//   int a = 0; // 圆盘的数量
+//   scanf("%d", &a);
+//   int A[10086] = {0};
+//   int B[10086] = {0};
+//   int C[10086] = {0};
+//   for (int i = 0; i < a; i++) {
+//     A[i] = i;
+//   }
+//   feewwx(A, a, B, C);
+//   return 0;
+// }
+
 #include <stdio.h>
 
-void feewwx(int *A, int a, int *B, int *C) {
-  int d = 1;
-  while (1) {
-    if (A[a] != 0) {
-      B[1] = A[d];
-      d++;
-    } else
-  }
-  return feewwx(A, a - 1, B, C);
-}
-
 int main() {
-  int a = 0; // 圆盘的数量
-  scanf("%d", &a);
-  int A[10086] = {0};
-  int B[10086] = {0};
-  int C[10086] = {0};
-  for (int i = 0; i < a; i++) {
-    A[i] = i;
+  int arr[3][4] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 4; j++) {
+      printf("%d ", arr[i][j]);
+    }
+    printf("\n");
   }
-  feewwx(A, a, B, C);
   return 0;
 }

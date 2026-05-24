@@ -81,15 +81,61 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+//
+// int main() {
+//   int arr[3][4] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+//   for (int i = 0; i < 3; i++) {
+//     for (int j = 0; j < 4; j++) {
+//       printf("%d ", arr[i][j]);
+//     }
+//     printf("\n");
+//   }
+//   return 0;
+// }
+
+// #include <stdio.h>
+//
+// int main() {
+//   int arr[10] = {0};
+//
+//   printf("%p\n", arr); // 首元素地址
+//   printf("%p\n", arr + 1);
+//
+//   printf("%p\n", &arr[0]); // 首元素地址
+//   printf("%p\n", &arr[0] + 1);
+//
+//   printf("%p\n", &arr); // 数组地址
+//   printf("%p\n", &arr + 1);
+//
+//   int n = sizeof(arr);
+//   printf("%d\n", n);
+//
+//   return 0;
+// }
+
+// #include <stdio.h>
+//
+// int main() {
+//   int arr[3][4] = {0};
+//   printf("%p\n", arr);
+//   printf("%p\n", arr + 1);
+//   return 0;
+// }
+
 #include <stdio.h>
 
 int main() {
-  int arr[3][4] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-  for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < 4; j++) {
-      printf("%d ", arr[i][j]);
-    }
-    printf("\n");
-  }
+  int arr[3][4] = {0};
+
+  printf("%p\n", arr);     // 0x7ffe950eec50
+  printf("%p\n", arr + 1); // 0x7ffe950eec60
+
+  printf("%d\n", sizeof(arr));                        // 48
+  printf("%d\n", sizeof(arr[0]));                     // 16
+  printf("%d\n", sizeof(arr[0][0]));                  // 4
+  printf("%d\n", sizeof(arr) / sizeof(arr[0]));       // 3
+  printf("%d\n", sizeof(arr[0]) / sizeof(arr[0][0])); // 4
+
   return 0;
 }

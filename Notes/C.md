@@ -1459,7 +1459,7 @@ int main() {
 
 ### 5.4. 数组作为函数参数
 
-#### 5.4.1. 冒泡排序函数的错误设计
+#### 5.4.1. 冒泡排序法
 
 ```c
 #include <stdio.h>
@@ -1469,9 +1469,9 @@ void bubble_sort(int arr[], int sz) {
     // int sz = sizeof(arr) / sizeof(arr[0]);
     // err,数组名本质上是数组首元素的地址,因此应该使用指针来接收
     // 这里的arr看似是数组,但是实际上是指针变量
-    for (int i = 0; i < sz; i++) {
-        for (int j = 0; j < sz - 1 - i; j++) {
-            if (arr[j] > arr[j + 1]) {
+    for (int i = 0; i < sz - 1; i++) {          // 趟数
+        for (int j = 0; j < sz - 1 - i; j++) {  // 一趟冒泡排序
+            if (arr[j] > arr[j + 1]) {          // 交换
                 int temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
@@ -1479,8 +1479,6 @@ void bubble_sort(int arr[], int sz) {
         }
     }
 }
-
-// 形参是指针的形式
 
 int main() {
     int arr[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
@@ -1493,4 +1491,61 @@ int main() {
 }
 ```
 
-#### 5.4.2. 数组名是什么
+#### 5.4.2. 数组名
+
+##### 5.4.2.1. 一维数组的数组名的理解
+
+数组名确实能表示数组首元素的地址,**但是有两个例外**:
+
+- sizeof(数组名):这里的数组名表示整个数组,计算的是整个数组的大小
+- &数组名:这里的数组名表示整个数组,取出的是整个数组的地址
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[10] = {0};
+
+    // 首元素地址
+    printf("%p\n", arr);          // 0x7ffc02bce4f0
+    printf("%p\n", arr + 1);      // 0x7ffc02bce4f4
+
+    // 首元素地址
+    printf("%p\n", &arr[0]);      // 0x7ffc02bce4f0
+    printf("%p\n", &arr[0] + 1);  // 0x7ffc02bce4f4
+
+    // 数组地址
+    printf("%p\n", &arr);         // 0x7ffc02bce4f0
+    printf("%p\n", &arr + 1);     // 0x7ffc02bce518
+
+    int n = sizeof(arr);
+    printf("%d\n", n);
+
+    return 0;
+}
+```
+
+##### 5.4.2.2. 二维数组的数组名的理解
+
+二维数组的首元素地址是第一行的地址
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[3][4] = {0};
+
+    printf("%p\n", arr);      // 0x7ffe950eec50   
+    printf("%p\n", arr + 1);  // 0x7ffe950eec60     
+    
+    printf("%d\n", sizeof(arr));                         // 48
+    printf("%d\n", sizeof(arr[0]));                      // 16
+    printf("%d\n", sizeof(arr[0][0]));                   // 4
+    printf("%d\n", sizeof(arr) / sizeof(arr[0]));        // 3
+    printf("%d\n", sizeof(arr[0]) / sizeof(arr[0][0]));  // 4
+
+    return 0;
+}
+```
+
+##### 5.4.3. 

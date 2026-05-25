@@ -73,7 +73,7 @@
               "type": "markdown",
               "state": {
                 "file": "Notes/C.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -172,7 +172,6 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Notes/C.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -230,6 +229,7 @@
   },
   "active": "6b860dbce532f8cf",
   "lastOpenFiles": [
+    "Notes/C.md",
     "C/bilibili.md",
     "C/C.md",
     "C/`.txt",

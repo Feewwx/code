@@ -72,7 +72,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "C/C.md",
+                "file": "Notes/C.md",
                 "mode": "preview",
                 "source": false
               },
@@ -172,7 +172,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "C/C.md",
+            "file": "Notes/C.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",

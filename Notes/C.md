@@ -1259,7 +1259,7 @@ int main() {
 
 // int my_strlen(char str[])  // 函数部分写出数组的形式
 int my_strlen(char *str) {    // 参数部分写出指针的形式
-    if count = 0;
+    int count = 0;
     while (*str != '\0') {
         count++;
         str++;
@@ -1389,7 +1389,7 @@ int arr[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int main() {
     int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int sz = sizeof(arr) / sizeof(arr[0]);
-    fot (int i = 0; i < sz; i++) {
+    for (int i = 0; i < sz; i++) {
         printf("%d\n", arr[i]);
         printf("&arr[%d] = %p\n", i, &arr[i]);
     }
@@ -1402,9 +1402,9 @@ int main() {
 #### 5.2.1. 二维数组的创建
 
 ```c
-int arr[3][4]
-char arr[3][5]
-double arr[2][4]
+int arr[3][4];
+char arr[3][5];
+double arr[2][4];
 ```
 
 #### 5.2.2. 二维数组的初始化
@@ -1449,7 +1449,7 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int arr[] = { 1, 2, 3, 4, 5, 6 }
+    int arr[] = { 1, 2, 3, 4, 5, 6 };
     for (int i = 0; i < 10; i++) {
         printf("%d\n", arr[i]);
     }
@@ -1555,6 +1555,8 @@ int main() {
 test.c 测试游戏的逻辑
 ```c
 #include <stdio.h>
+#include <stdlib.h>
+#include "game.h"
 
 void menu() {
     printf("**********************************\n");
@@ -1635,18 +1637,18 @@ void DisplayBoard(char board[ROW][COL], int row, int col) {
 
         // 打印数据
         for (int j = 0; j < col; j++) {
-            printf("%c", board[i][j]);
-            if (j == col - 1) {
+            printf(" %c ", board[i][j]);
+            if (j < col - 1) {
                 printf("|");
             }
         }
         printf("\n");
 
         // 打印分割信息
-        if (i == row - 1) {
+        if (i < row - 1) {
             for (int j = 0; j < col; j++) {
                 printf("---");
-                if (j == col - 1) {
+                if (j < col - 1) {
                     printf("|");
                 }
             }
@@ -1682,8 +1684,8 @@ void ComputerMove(char board[ROW][COL], int row, int col) {
     while (1) {
         x = rand() % row;  // 0~2
         y = rand() % col;  // 0~2
-        if (board[x - 1][y - 1] == ' ') {
-            board[x - 1][y - 1] = '#';
+        if (board[x][y] == ' ') {
+            board[x][y] = '#';
             break;
         }
     }

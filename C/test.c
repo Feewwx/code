@@ -123,19 +123,60 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+//
+// int main() {
+//   int arr[3][4] = {0};
+//
+//   printf("%p\n", arr);     // 0x7ffe950eec50
+//   printf("%p\n", arr + 1); // 0x7ffe950eec60
+//
+//   printf("%d\n", sizeof(arr));                        // 48
+//   printf("%d\n", sizeof(arr[0]));                     // 16
+//   printf("%d\n", sizeof(arr[0][0]));                  // 4
+//   printf("%d\n", sizeof(arr) / sizeof(arr[0]));       // 3
+//   printf("%d\n", sizeof(arr[0]) / sizeof(arr[0][0])); // 4
+//
+//   return 0;
+// }
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 int main() {
-  int arr[3][4] = {0};
+  char out_arr[11][11];
+  char in_arr[11][11];
+  int arr[20];
 
-  printf("%p\n", arr);     // 0x7ffe950eec50
-  printf("%p\n", arr + 1); // 0x7ffe950eec60
+  memset(out_arr, '0', sizeof(out_arr));
+  memset(in_arr, '#', sizeof(in_arr));
 
-  printf("%d\n", sizeof(arr));                        // 48
-  printf("%d\n", sizeof(arr[0]));                     // 16
-  printf("%d\n", sizeof(arr[0][0]));                  // 4
-  printf("%d\n", sizeof(arr) / sizeof(arr[0]));       // 3
-  printf("%d\n", sizeof(arr[0]) / sizeof(arr[0][0])); // 4
+  srand(time(NULL));
+  for (int i = 0; i < 20; i++) {
+    arr[i] = rand() % 9 + 1;
+  }
 
+  for (int i = 0; i < 20; i = i + 2) {
+    in_arr[arr[i]][arr[i + 1]] = '*';
+  }
+
+  for (int i = 0; i < 11; i++) {
+    for (int j = 0; j < 11; j++) {
+      printf("%c  ", in_arr[i][j]);
+    }
+    printf("\n");
+  }
+
+  printf("\n");
+  printf("\n");
+
+  for (int i = 0; i < 11; i++) {
+    for (int j = 0; j < 11; j++) {
+      printf("%c  ", out_arr[i][j]);
+    }
+    printf("\n");
+  }
   return 0;
 }

@@ -148,22 +148,23 @@
 int main() {
   char out_arr[11][11];
   char in_arr[11][11];
-  int arr[20];
 
-  memset(out_arr, '0', sizeof(out_arr));
-  memset(in_arr, '#', sizeof(in_arr));
+  memset(in_arr, '0', sizeof(in_arr));
+  memset(out_arr, '#', sizeof(out_arr));
 
   srand(time(NULL));
-  for (int i = 0; i < 20; i++) {
-    arr[i] = rand() % 9 + 1;
+  for (int i = 0; i < 10; i++) {
+    int x = rand() % 9 + 1;
+    int y = rand() % 9 + 1;
+    if (in_arr[x][y] == '0') {
+      in_arr[x][y] = '1';
+    } else {
+      i--;
+    }
   }
 
-  for (int i = 0; i < 20; i = i + 2) {
-    in_arr[arr[i]][arr[i + 1]] = '*';
-  }
-
-  for (int i = 0; i < 11; i++) {
-    for (int j = 0; j < 11; j++) {
+  for (int i = 1; i < 10; i++) {
+    for (int j = 1; j < 10; j++) {
       printf("%c  ", in_arr[i][j]);
     }
     printf("\n");
@@ -172,8 +173,8 @@ int main() {
   printf("\n");
   printf("\n");
 
-  for (int i = 0; i < 11; i++) {
-    for (int j = 0; j < 11; j++) {
+  for (int i = 1; i < 10; i++) {
+    for (int j = 1; j < 10; j++) {
       printf("%c  ", out_arr[i][j]);
     }
     printf("\n");

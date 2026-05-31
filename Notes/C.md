@@ -1768,4 +1768,115 @@ char IsWin(char board[ROW][COL], int row, int col);
 
 #### 5.5.2. 扫雷
 
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
+int main() {
+    char out_arr[11][11];
+    char in_arr[11][11];
+
+    memset(in_arr, '0', sizeof(in_arr));
+    memset(out_arr, '#', sizeof(out_arr));
+
+    srand(time(NULL));
+    for (int i = 0; i < 10; i++) {
+        int x = rand() % 9 + 1;
+        int y = rand() % 9 + 1;
+        if (in_arr[x][y] == '0') {
+            in_arr[x][y] = '1';
+        } else {
+            i--;
+        }
+    }
+
+    printf("**********************************\n");
+    printf("********  1.play  0.exit  ********\n");
+    printf("**********************************\n");
+
+    int a = 0;
+    int win = 0;
+    printf("请选择:>");
+    scanf("%d", &a);
+        if (a == 1) {
+
+        for (int i = 0; i < 10; i++) {
+            printf("%d  ", i);
+        }
+        printf("\n");
+
+        for (int i = 1; i < 10; i++) {
+            printf("%d  ", i);
+            for (int j = 1; j < 10; j++) {
+                printf("%c  ", in_arr[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("\n");
+        printf("\n");
+
+        for (int i = 0; i < 10; i++) {
+            printf("%d  ", i);
+        }
+        printf("\n");
+
+        for (int i = 1; i < 10; i++) {
+            printf("%d  ", i);
+            for (int j = 1; j < 10; j++) {
+                printf("%c  ", out_arr[i][j]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+
+        while (1) {
+
+            printf("请输入坐标");
+            int x = 0;
+            int y = 0;
+            scanf("%d%d", &y, &x);
+
+            if (x > 10 || x < 1 || y > 10 || y < 1) {
+                printf("请输入正确的坐标");
+                return 0;
+            } else if (in_arr[x][y] == '1') {
+                printf("game over");
+                return 0;
+            } else {
+                int a = in_arr[x + 1][y + 1] + in_arr[x][y + 1] + in_arr[x - 1][y + 1] +
+                        in_arr[x + 1][y] + in_arr[x - 1][y] + in_arr[x + 1][y - 1] +
+                        in_arr[x][y - 1] + in_arr[x - 1][y - 1];
+                out_arr[x][y] = a - 8 * '0' + '0';
+            }
+            for (int i = 0; i < 10; i++) {
+                printf("%d  ", i);
+            }
+            printf("\n");
+
+            for (int i = 1; i < 10; i++) {
+                printf("%d  ", i);
+                for (int j = 1; j < 10; j++) {
+                    printf("%c  ", out_arr[i][j]);
+                }
+                printf("\n");
+            }
+            printf("\n");
+
+            win++;
+            if (win == 71) {
+                printf("you win");
+                return 0;
+            }
+        }
+    } else if (a == 0) {
+        return 0;
+    } else {
+        printf("请输入正确的数字");
+        return 0;
+    }
+    return 0;
+}
+```

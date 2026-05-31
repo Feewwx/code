@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "Notes/C.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -186,6 +186,8 @@
   },
   "active": "ce654d66cbca04ab",
   "lastOpenFiles": [
+    "Notes/C.md~",
+    "Notes/C.md",
     "C/test.c~",
     "C/test.c",
     "C/test1.c~",
@@ -193,11 +195,8 @@
     "C/test1.c",
     "Python/2.py~",
     "Python/2.py",
-    "Notes/C.md~",
     "C/game1/game.c~",
     "C/game1/test.c~",
-    "C/game1/game.h~",
-    "Notes/C.md",
     "C/bilibili.md",
     "C/C.md",
     "2026-05-11.md",

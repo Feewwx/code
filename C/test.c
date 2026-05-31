@@ -163,7 +163,13 @@ int main() {
     }
   }
 
+  for (int i = 0; i < 10; i++) {
+    printf("%d  ", i);
+  }
+  printf("\n");
+
   for (int i = 1; i < 10; i++) {
+    printf("%d  ", i);
     for (int j = 1; j < 10; j++) {
       printf("%c  ", in_arr[i][j]);
     }
@@ -173,7 +179,13 @@ int main() {
   printf("\n");
   printf("\n");
 
+  for (int i = 0; i < 10; i++) {
+    printf("%d  ", i);
+  }
+  printf("\n");
+
   for (int i = 1; i < 10; i++) {
+    printf("%d  ", i);
     for (int j = 1; j < 10; j++) {
       printf("%c  ", out_arr[i][j]);
     }

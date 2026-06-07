@@ -72,16 +72,61 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notes/C.md",
-                "mode": "preview",
+                "file": "Notes/C/2. C语言初阶/C语言初阶.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "C"
-            }
+              "title": "C语言初阶"
+            },
+            "group": "12f51425920951db"
           }
         ],
         "currentTab": 1
+      },
+      {
+        "id": "b423eefa10e57545",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ca05c92c1c14a415",
+            "type": "leaf",
+            "state": {
+              "type": "localgraph",
+              "state": {
+                "file": "Notes/C/2. C语言初阶/C语言初阶.md",
+                "options": {
+                  "collapse-filter": true,
+                  "search": "",
+                  "localJumps": 1,
+                  "localBacklinks": true,
+                  "localForelinks": true,
+                  "localInterlinks": false,
+                  "showTags": false,
+                  "showAttachments": false,
+                  "hideUnresolved": false,
+                  "collapse-color-groups": true,
+                  "colorGroups": [],
+                  "collapse-display": true,
+                  "showArrow": false,
+                  "textFadeMultiplier": 0,
+                  "nodeSizeMultiplier": 1,
+                  "lineSizeMultiplier": 1,
+                  "collapse-forces": true,
+                  "centerStrength": 0.518713248970312,
+                  "repelStrength": 10,
+                  "linkStrength": 1,
+                  "linkDistance": 250,
+                  "scale": 3.1361530242007696,
+                  "close": false
+                }
+              },
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            },
+            "group": "12f51425920951db"
+          }
+        ]
       }
     ],
     "direction": "vertical"
@@ -230,8 +275,10 @@
   },
   "active": "6b860dbce532f8cf",
   "lastOpenFiles": [
-    "未命名.base",
+    "Notes/C/2. C语言初阶/3. 循环语句/3. 循环语句.md",
+    "Notes/C/1. 初识C语言/8. 选择语句和循环语句/8.1. 选择语句/8.1. 选择语句.md",
     "Notes/C.md",
+    "未命名.base",
     "C/bilibili.md",
     "C/C.md",
     "C/`.txt",

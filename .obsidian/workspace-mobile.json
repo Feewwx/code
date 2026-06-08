@@ -4,127 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "7d34d572d476dbf1",
+        "id": "a1c0a01c47f8b337",
         "type": "tabs",
         "children": [
           {
-            "id": "8c39cad342802f5c",
+            "id": "52671a8e2c043cc0",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "C/C.md",
-                "mode": "preview",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "C"
-            },
-            "group": "f9957b744bee8c63"
-          }
-        ]
-      },
-      {
-        "id": "1a5353368c7dbdff",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "7533283466864722",
-            "type": "leaf",
-            "state": {
-              "type": "localgraph",
-              "state": {
-                "file": "C/C.md",
-                "options": {
-                  "collapse-filter": false,
-                  "search": "",
-                  "localJumps": 1,
-                  "localBacklinks": true,
-                  "localForelinks": true,
-                  "localInterlinks": false,
-                  "showTags": false,
-                  "showAttachments": false,
-                  "hideUnresolved": false,
-                  "collapse-color-groups": false,
-                  "colorGroups": [],
-                  "collapse-display": true,
-                  "showArrow": false,
-                  "textFadeMultiplier": -2.5,
-                  "nodeSizeMultiplier": 1,
-                  "lineSizeMultiplier": 1,
-                  "collapse-forces": false,
-                  "centerStrength": 0.518713248970312,
-                  "repelStrength": 10,
-                  "linkStrength": 1,
-                  "linkDistance": 250,
-                  "scale": 1.5139544549922002,
-                  "close": true
-                }
-              },
+              "type": "graph",
+              "state": {},
               "icon": "lucide-git-fork",
               "title": "关系图谱"
-            },
-            "group": "f9957b744bee8c63"
-          },
-          {
-            "id": "6b860dbce532f8cf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Notes/C/2. C语言初阶/C语言初阶.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "C语言初阶"
-            },
-            "group": "12f51425920951db"
-          }
-        ],
-        "currentTab": 1
-      },
-      {
-        "id": "b423eefa10e57545",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "ca05c92c1c14a415",
-            "type": "leaf",
-            "state": {
-              "type": "localgraph",
-              "state": {
-                "file": "Notes/C/2. C语言初阶/C语言初阶.md",
-                "options": {
-                  "collapse-filter": true,
-                  "search": "",
-                  "localJumps": 1,
-                  "localBacklinks": true,
-                  "localForelinks": true,
-                  "localInterlinks": false,
-                  "showTags": false,
-                  "showAttachments": false,
-                  "hideUnresolved": false,
-                  "collapse-color-groups": true,
-                  "colorGroups": [],
-                  "collapse-display": true,
-                  "showArrow": false,
-                  "textFadeMultiplier": 0,
-                  "nodeSizeMultiplier": 1,
-                  "lineSizeMultiplier": 1,
-                  "collapse-forces": true,
-                  "centerStrength": 0.518713248970312,
-                  "repelStrength": 10,
-                  "linkStrength": 1,
-                  "linkDistance": 250,
-                  "scale": 3.1361530242007696,
-                  "close": false
-                }
-              },
-              "icon": "lucide-git-fork",
-              "title": "关系图谱"
-            },
-            "group": "12f51425920951db"
+            }
           }
         ]
       }
@@ -217,7 +108,6 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Notes/C.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -273,8 +163,16 @@
       "bases:新建数据库": false
     }
   },
-  "active": "6b860dbce532f8cf",
+  "active": "52671a8e2c043cc0",
   "lastOpenFiles": [
+    "Notes/C/2. C语言初阶/C语言初阶.md",
+    "Notes/C/2. C语言初阶/5. 数组/5.1. 一维数组的创建和初始化/5.1. 一维数组的创建和初始化.md",
+    "Notes/C/C.md",
+    "Notes/C/1. 初识C语言/4. 变量和常量/4.1. 变量/4.1. 变量.md",
+    "Notes/C/2. C语言初阶/5. 数组/5.2. 二维数组的创建和初始化/5.2.2. 二维数组的初始化/5.2.2. 二维数组的初始化.md",
+    "Notes/C/2. C语言初阶/5. 数组/5.5. 数据实例/5.5.2. 扫雷/5.5.2. 扫雷.md",
+    "Notes/C/2. C语言初阶/5. 数组/5.5. 数据实例/5.5. 数据实例.md",
+    "Notes/C/2. C语言初阶/5. 数组/5.5. 数据实例/5.5.1. 三子棋/5.5.1. 三子棋.md",
     "Notes/C/2. C语言初阶/3. 循环语句/3. 循环语句.md",
     "Notes/C/1. 初识C语言/8. 选择语句和循环语句/8.1. 选择语句/8.1. 选择语句.md",
     "Notes/C.md",

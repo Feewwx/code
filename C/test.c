@@ -248,10 +248,37 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+// int main() {
+//   int a = 3;
+//   int b = -5;
+//   printf("%d\n", a ^ b); // -8
+//   return 0;
+// }
+
 #include <stdio.h>
+#include <string.h>
+
+struct Stu {
+  char name[20];
+  int age;
+  double score;
+};
+
+void set_stu(struct Stu *s) {
+  // strcpy((*s).name, "zhangsan");
+  // (*s).age = 20;
+  // (*s).score = 100.0;
+  strcpy(s->name, "zhangsan");
+  s->age = 20;
+  s->score = 100.0;
+}
+
+void print_stu(struct Stu s) { printf("%s %d %.1f\n", s.name, s.age, s.score); }
+
 int main() {
-  int a = 3;
-  int b = -5;
-  printf("%d\n", a ^ b); // -8
+  struct Stu s = {0};
+  set_stu(&s);
+  print_stu(s);
   return 0;
 }

@@ -2151,3 +2151,67 @@ int main() {
 ### 6.9. 逗号表达式
 
 ` exp1, exp2, exp3, ...expN `
+
+### 6.10. 下标引用操作符
+
+` [] `
+
+` arr[7] => *(arr + 7) => *(7 + arr) => 7[arr] `
+
+### 6.11. 函数调用操作符
+
+` () `
+
+```c
+#include <stdio.h>
+
+int Add(int x, int y) {
+    return x + y;
+}
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int c = Add(a, b);  // ()就是函数调用操作符
+    return 0;
+}
+```
+
+### 6.12. 结构体成员操作符
+
+` .  -> `
+
+`结构体.成员名`
+
+`结构体指针->成员名`
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+struct Stu {
+    char name[20];
+    int age;
+    double score;
+};
+
+void set_stu(struct Stu *s) {
+    // strcpy((*s).name, "zhangsan");
+    // (*s).age = 20;
+    // (*s).score = 100.0;
+    strcpy(s->name, "zhangsan");
+    s->age = 20;
+    s->score = 100.0;
+}
+
+void print_stu(struct Stu s) {
+    printf("%s %d %.1f\n", s.name, s.age, s.score);
+}
+
+int main() {
+    struct Stu s = {0};
+    set_stu(&s);
+    print_stu(s);
+    return 0;
+}
+```

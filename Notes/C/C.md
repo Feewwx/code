@@ -2215,3 +2215,21 @@ int main() {
     return 0;
 }
 ```
+
+### 6.13. 表达式求值
+
+#### 6.13.1. 隐式类型转换
+
+```c
+#include <stdio.h>
+
+int main() {
+    char c = 1;
+    printf("%u\n",sizeof(c));  // 1
+    printf("%u\n",sizeof(+c));  // 4
+    printf("%u\n",sizeof(-c));  // 4
+    return 0;
+}
+```
+
+> char参与运算时自动提升为int(历史遗留问题)

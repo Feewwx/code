@@ -256,29 +256,44 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+// #include <string.h>
+//
+// struct Stu {
+//   char name[20];
+//   int age;
+//   double score;
+// };
+//
+// void set_stu(struct Stu *s) {
+//   // strcpy((*s).name, "zhangsan");
+//   // (*s).age = 20;
+//   // (*s).score = 100.0;
+//   strcpy(s->name, "zhangsan");
+//   s->age = 20;
+//   s->score = 100.0;
+// }
+//
+// void print_stu(struct Stu s) { printf("%s %d %.1f\n", s.name, s.age,
+// s.score); }
+//
+// int main() {
+//   struct Stu s = {0};
+//   set_stu(&s);
+//   print_stu(s);
+//   return 0;
+// }
+
 #include <stdio.h>
-#include <string.h>
-
-struct Stu {
-  char name[20];
-  int age;
-  double score;
-};
-
-void set_stu(struct Stu *s) {
-  // strcpy((*s).name, "zhangsan");
-  // (*s).age = 20;
-  // (*s).score = 100.0;
-  strcpy(s->name, "zhangsan");
-  s->age = 20;
-  s->score = 100.0;
-}
-
-void print_stu(struct Stu s) { printf("%s %d %.1f\n", s.name, s.age, s.score); }
 
 int main() {
-  struct Stu s = {0};
-  set_stu(&s);
-  print_stu(s);
-  return 0;
+  int a = 0x11223344;
+  int *pa = &a; // p是指针变量
+  *pa = 0;      // 解引用操作符
+  char *pc = (char *)pa;
+  *pc = 0; // 只改变了第一个地址
+  printf("pa = %p\n", pa);
+  printf("pa + 1 = %p\n", pa + 1);
+  printf("pc = %p\n", pc);
+  printf("pc + 1 = %p\n", pc + 1);
 }

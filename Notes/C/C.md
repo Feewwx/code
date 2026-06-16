@@ -2369,7 +2369,7 @@ int *test() {
 
 int main() {
     int *p = test();
-    // *p = NULL - *p是野狗(野指针)
+    // *p = NULL - *p是野狗(野指针)(NULL把野狗拴住了)
     printf("people1\n");
     printf("people2\n");  // 可能小狗跟着路人走了,路人越多,找回狗的概率就越小
     if (p != NULL) {

@@ -284,16 +284,28 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+//
+// int main() {
+//   int a = 0x11223344;
+//   int *pa = &a; // p是指针变量
+//   *pa = 0;      // 解引用操作符
+//   char *pc = (char *)pa;
+//   *pc = 0; // 只改变了第一个地址
+//   printf("pa = %p\n", pa);
+//   printf("pa + 1 = %p\n", pa + 1);
+//   printf("pc = %p\n", pc);
+//   printf("pc + 1 = %p\n", pc + 1);
+// }
+
 #include <stdio.h>
 
 int main() {
-  int a = 0x11223344;
-  int *pa = &a; // p是指针变量
-  *pa = 0;      // 解引用操作符
-  char *pc = (char *)pa;
-  *pc = 0; // 只改变了第一个地址
-  printf("pa = %p\n", pa);
-  printf("pa + 1 = %p\n", pa + 1);
-  printf("pc = %p\n", pc);
-  printf("pc + 1 = %p\n", pc + 1);
+  int arr[10] = {0};
+  int sz = sizeof(arr) / sizeof(arr[0]);
+  char arr1[10] = {'a'};
+  int sz1 = sizeof(arr1) / sizeof(arr1[0]);
+  printf("%d", sz);
+  printf("%d", sz1);
+  return 0;
 }

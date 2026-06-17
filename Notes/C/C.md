@@ -2390,3 +2390,75 @@ int main() {
 ### 7.4. 指针运算
 
 #### 7.4.1. 指针+-整数
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[10] = {0};
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    int *p = arr;
+    for (int i = 0; i < sz; i++) {
+        // *p = 1;
+        // p++;
+        *(p+i) = 1;
+    }
+    return 0;
+}
+```
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int my_strlen(char *str) {
+    int count = 0;
+    while (*str != '\0') {
+        count++;
+        str++;
+    }
+    return count;
+}
+
+int main() {
+    int len = my_strlen("hello");
+    printf("%d\n", len);
+    return 0;
+}
+```
+
+#### 7.4.2. 指针-指针
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[10] = {0};
+    printf("%d\n" &arr[9] - &arr[0]);   //  9
+    printf("%d\n", &arr[0] - &arr[9]);  // -9
+    return 0;
+}
+```
+
+|指针-指针|得到的值是指针间元素的个数
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int my_strlen(char *str) {
+    char *start = str;
+    while (*str != '\0') {
+        str++;
+    }
+    return (str - start);
+}
+
+int main() {
+    int len = my_strlen("hello");
+    printf("%d\n", len);
+    return 0;
+}
+```
+
+#### 7.4.3. 指针的关系运算

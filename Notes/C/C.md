@@ -2462,3 +2462,123 @@ int main() {
 ```
 
 #### 7.4.3. 指针的关系运算
+
+```c
+#include <stdio.h>
+
+#define N_VALUES 5
+
+int main() {
+    int values[N_VALUES] = {10, 20, 30, 40, 50};
+    int *vp;
+
+    for (vp = &values[N_VALUES]; vp > &values[0];) {
+        *--vp = 0;
+    }
+
+    return 0;
+}
+```
+
+```c
+#include <stdio.h>
+
+#define N_VALUES 5
+
+int main() {
+    int values[N_VALUES] = {11, 22, 33, 44, 55};
+    int *vp;
+
+    for (vp = &values[N_VALUES - 1]; vp >= &values[0]; vp--) {
+        *vp = 0;
+    }
+
+    return 0;
+}
+```
+
+- 我们应该避免第二种实现方式,因为**标准**并不保证它可行
+
+**标准规定:**
+```
+允许指向数组元素的指针与指向数组最后一个元素后面的那个内存位置的指针比较
+但是不允许与指向第一个元素之前的那个内存位置的指针进行比较
+```
+
+### 7.5. 指针和数组
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    printf("%p\n", arr);
+    printf("%p\n", &arr[0]);
+    return 0;
+}
+```
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int *p = arr;
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    for (int i = 0; i < sz; i++) {
+        printf("&arr[%d] = %p ======= p + %d = %p\n", i, &arr[i], i, p + i);
+    }
+    return 0;
+}
+```
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+    int *p = arr;
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    for (int i = 0; i < sz; i++) {
+        printf("%d", *(p + i));
+    }
+    return 0;
+}
+```
+
+### 7.6. 二级指针
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 0;
+    int *pa = &a;     // 一级指针
+    int **ppa = &pa;  // 二级指针
+    return 0;
+}
+```
+- *ppa => pa
+- **ppa => a
+
+指针理论上可以有∞级,但现实中没人会用二级以上的指针
+
+### 7.7. 指针数组
+
+- 存放指针的数组就是指针数组
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int c = 30;
+    // int *pa = &a;
+    // int *pb = &b;
+    // int *pc = &c;
+    // 太慢了
+    int *parr[] = {&a, &b, &c};  // 存放指针的数组--指针数组
+    return 0;
+}
+```

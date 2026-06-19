@@ -2620,3 +2620,107 @@ int main() {
 ```
 
 ## 8. 结构体
+
+### 8.1. 结构体的声明
+
+#### 8.1.1. 结构的基础知识
+
+- 结构是一些值的集合,这些值称为成员变量,结构的每个成员可以是不同类型的变量
+
+#### 8.1.2. 结构的声明
+
+```c
+struct Peo {
+    char name[10];
+    char tele[12];
+    char sex[5];
+    int age;
+};
+```
+
+#### 8.1.3. 结构成员的类型
+
+- 结构的成员可以是标量,数组,指针,甚至是其他结构体
+
+#### 8.1.4. 结构体变量的定义和初始化
+
+```c
+#include <stdio.h>
+
+struct Peo {
+    char name[10];
+    char tele[12];
+    char sex[5];
+    int age;
+} p1, p2;
+
+struct Peo p3, p4;
+
+struct St {
+    struct Peo p;
+    int num;
+    float f;
+};  // 结构体的嵌套
+
+int main() {
+    struct Peo p5, p6;  // 更推荐这种方式
+    struct Peo p7 = {"zhangsan", "13800138000", "男", 20};
+    struct St s1 = {{"lisi", "13800138000", "男", 20}, 100, 3.14};
+    printf("%s %s %s %d\n", p7.name, p7.tele, p7.sex, p7.age);
+    printf("%s %s %s %d %d %f\n", s1.p.name, s1.p.tele, s1.p.sex, s1.p.age, s1.num, s1.f);
+    return 0;
+}
+```
+
+### 8.2. 结构体成员的访问
+
+```c
+void print_peo(struct Peo p) {
+    printf("%s %s %s %d\n", p7.name, p7.tele, p7.sex, p7.age);
+    printf("%s %s %s %d\n", (*p7).name, (*p7).tele, (*p7).sex, (*p7).age);
+}
+
+void print_st(struct St s) {
+    printf("%s %s %s %d %d %f\n", s1.p.name, s1.p.tele, s1.p.sex, s1.p.age, s1.num, s1.f);
+    printf("%s %s %s %d %d %f\n", (*s1).p.name, (*s1).p.tele, (*s1).p.sex, (*s1).p.age, (*s1).num, (*s1).f);
+}
+```
+
+### 8.3. 结构体传参
+
+```c
+#include <stdio.h>
+struct Peo {
+    char name[10];
+    char tele[12];  
+    char sex[5];
+    int age;
+};
+
+struct St {
+    char name[10];
+    char tele[12];
+    char sex[5];
+    int age;
+};
+
+void print1(struct Peo p) {
+    printf("%s %s %s %d\n", p.name, p.tele, p.sex, p.age);
+}
+
+void print2(struct St *s) {
+    printf("%s %s %s %d\n", s->name, s->tele, s->sex, s->age);
+}
+
+int main() {
+    struct Peo p = {"zhangsan", "13800138000", "男", 20};
+    struct St s = {"lisi", "13800138000", "男", 20};
+
+    print1(p);  // 传结构体
+    print2(&s);  // 传地址
+
+    return 0;
+}
+```
+
+# [[C语言进阶]]

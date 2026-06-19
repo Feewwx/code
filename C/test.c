@@ -298,14 +298,47 @@
 //   printf("pc + 1 = %p\n", pc + 1);
 // }
 
+// #include <stdio.h>
+//
+// int main() {
+//   int arr[10] = {0};
+//   int sz = sizeof(arr) / sizeof(arr[0]);
+//   char arr1[10] = {'a'};
+//   int sz1 = sizeof(arr1) / sizeof(arr1[0]);
+//   printf("%d", sz);
+//   printf("%d", sz1);
+//   return 0;
+// }
+
 #include <stdio.h>
+struct Peo {
+  char name[10];
+  char tele[12];
+  char sex[5];
+  int age;
+};
+
+struct St {
+  char name[10];
+  char tele[12];
+  char sex[5];
+  int age;
+};
+
+void print1(struct Peo p) {
+  printf("%s %s %s %d\n", p.name, p.tele, p.sex, p.age);
+}
+
+void print2(struct St *s) {
+  printf("%s %s %s %d\n", s->name, s->tele, s->sex, s->age);
+}
 
 int main() {
-  int arr[10] = {0};
-  int sz = sizeof(arr) / sizeof(arr[0]);
-  char arr1[10] = {'a'};
-  int sz1 = sizeof(arr1) / sizeof(arr1[0]);
-  printf("%d", sz);
-  printf("%d", sz1);
+  struct Peo p = {"zhangsan", "13800138000", "男", 20};
+  struct St s = {"lisi", "13800138000", "男", 20};
+
+  print1(p);
+  print2(&s);
+
   return 0;
 }

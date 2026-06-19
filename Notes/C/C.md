@@ -2582,3 +2582,41 @@ int main() {
     return 0;
 }
 ```
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[3][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("%d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+```
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr1[4] = {1, 2, 3, 4};
+    int arr2[4] = {2, 3, 4, 5};
+    int arr3[4] = {3, 4, 5, 6};
+
+    int *parr[3] = {arr1, arr2, arr3};  // 我愿称之为数组指针数组
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("%d ", parr[i][j]);  // parr[i][j] = *(*(parr + i) + j)
+        }  // * 和 [] 都是解引用
+        printf("\n");
+    }
+    return 0;
+}
+```
+
+## 8. 结构体

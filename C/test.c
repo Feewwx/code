@@ -310,35 +310,47 @@
 //   return 0;
 // }
 
+// #include <stdio.h>
+// struct Peo {
+//   char name[10];
+//   char tele[12];
+//   char sex[5];
+//   int age;
+// };
+//
+// struct St {
+//   char name[10];
+//   char tele[12];
+//   char sex[5];
+//   int age;
+// };
+//
+// void print1(struct Peo p) {
+//   printf("%s %s %s %d\n", p.name, p.tele, p.sex, p.age);
+// }
+//
+// void print2(struct St *s) {
+//   printf("%s %s %s %d\n", s->name, s->tele, s->sex, s->age);
+// }
+//
+// int main() {
+//   struct Peo p = {"zhangsan", "13800138000", "男", 20};
+//   struct St s = {"lisi", "13800138000", "男", 20};
+//
+//   print1(p);
+//   print2(&s);
+//
+//   return 0;
+// }
 #include <stdio.h>
-struct Peo {
-  char name[10];
-  char tele[12];
-  char sex[5];
-  int age;
-};
-
-struct St {
-  char name[10];
-  char tele[12];
-  char sex[5];
-  int age;
-};
-
-void print1(struct Peo p) {
-  printf("%s %s %s %d\n", p.name, p.tele, p.sex, p.age);
-}
-
-void print2(struct St *s) {
-  printf("%s %s %s %d\n", s->name, s->tele, s->sex, s->age);
-}
 
 int main() {
-  struct Peo p = {"zhangsan", "13800138000", "男", 20};
-  struct St s = {"lisi", "13800138000", "男", 20};
-
-  print1(p);
-  print2(&s);
-
+  int n = 9;
+  float *pFloat = (float *)&n;
+  printf("n的值为:%d\n", n);
+  printf("pFloat的值为:%f\n", *pFloat);
+  *pFloat = 9.0;
+  printf("n的值为:%d\n", n);
+  printf("*pFloat的值为:%f\n", *pFloat);
   return 0;
 }

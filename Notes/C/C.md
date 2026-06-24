@@ -2890,7 +2890,7 @@ int main() {
     printf("pFloat的值为:%f\n", *pFloat);  // pFloat的值为:0.000000
     *pFloat = 9.0;
     printf("n的值为:%d\n", n);             // n的值为:1091567616
-    printf("*pFloat的值为:%f\n", *pFloat); // n的值为:1091567616
+    printf("*pFloat的值为:%f\n", *pFloat); // *pFloat的值为:9.000000
     return 0;
 }
 ```

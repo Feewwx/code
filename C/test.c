@@ -342,15 +342,60 @@
 //
 //   return 0;
 // }
+// #include <stdio.h>
+//
+// int main() {
+//   int n = 9;
+//   float *pFloat = (float *)&n;
+//   printf("n的值为:%d\n", n);
+//   printf("pFloat的值为:%f\n", *pFloat);
+//   *pFloat = 9.0;
+//   printf("n的值为:%d\n", n);
+//   printf("*pFloat的值为:%f\n", *pFloat);
+//   return 0;
+// }
+
+// #include <stdio.h>
+// int main() {
+//   const char *p1 = "abc";
+//   const char *p2 = "abc";
+//   char *p3 = "abc";
+//   char *p4 = "abc";
+//   char arr5[] = "abc";
+//   char arr6[] = "abc";
+//   char *p5 = arr5;
+//   char *p6 = arr6;
+//   if (p1 == p2)
+//     printf("ok");
+//   else
+//     printf("no");
+//   if (p3 == p4)
+//     printf("ok");
+//   else
+//     printf("no");
+//   if (p5 == p6)
+//     printf("ok");
+//   else
+//     printf("no");
+//   return 0;
+// }
+
 #include <stdio.h>
 
 int main() {
-  int n = 9;
-  float *pFloat = (float *)&n;
-  printf("n的值为:%d\n", n);
-  printf("pFloat的值为:%f\n", *pFloat);
-  *pFloat = 9.0;
-  printf("n的值为:%d\n", n);
-  printf("*pFloat的值为:%f\n", *pFloat);
+  int arr[10] = {0};
+  printf("%p\n", arr);
+  printf("%p\n", arr + 1);
+
+  printf("%p\n", &arr[0]);
+  printf("%p\n", &arr[0] + 1);
+
+  printf("%p\n", &arr);
+  printf("%p\n", &arr + 1);
+
+  int (*p)[10] = &arr;
+
+  int sz = sizeof(arr);
+  printf("%d\n", sz);
   return 0;
 }

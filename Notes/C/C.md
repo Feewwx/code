@@ -2982,3 +2982,158 @@ printf("n的值为:%d\n", n);
 又强制以int类型输出了,计算机以整形的方式看他
 `01000001000100000000000000000000`转换为十进制为1091567616
 因此输出1091567616
+
+## 2. 指针的进阶
+
+### 2.1. 字符指针
+
+```c
+#include <stdio.h>
+
+int main() {
+    char ch = 'w';
+    char *pc = &ch;
+    *pc = 'w';
+    return 0;
+}
+```
+####
+```c
+#include <stdio.h>
+
+int main() {
+    char *pstr = "hello";
+    printf("%s\n", pstr);
+    return 0;
+}
+```
+> 字符指针中存放的是字符串首字符的地址
+
+```c
+#include <stdio.h>
+
+int main() {
+    const char *p1 = "abc";
+    const char *p2 = "abc";
+
+    char *p3 = "abc";
+    char *p4 = "abc";
+  
+    char arr5[] = "abc";
+    char arr6[] = "abc";
+    char *p5 = arr5;
+    char *p6 = arr6;
+    
+    if (p1 == p2)
+        printf("ok");
+    else  // ok
+        printf("no");
+    
+    if (p3 == p4)
+        printf("ok");
+    else  // ok
+        printf("no");
+    
+    if (p5 == p6)
+        printf("ok");
+    else  // no
+        printf("no");
+   
+    return 0;
+}
+```
+
+### 2.2. 指针数组
+
+- 存放指针的数组就是指针数组
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int c = 30;
+    int *parr[] = {&a, &b, &c};  // 指针数组
+    return 0;
+}
+```
+####
+```c
+#include <stdio.h>
+
+int main() {
+    int arr1[4] = {1, 2, 3, 4};
+    int arr2[4] = {2, 3, 4, 5};
+    int arr3[4] = {3, 4, 5, 6};
+
+    int *parr[3] = {arr1, arr2, arr3};  // 数组指针数组
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++) {
+            printf("%d ", parr[i][j]);  // parr[i][j] = *(*(parr + i) + j)
+        }  // * 和 [] 都是解引用
+        printf("\n");
+    }
+    return 0;
+}
+```
+
+### 2.3. 数组指针
+
+#### 2.3.1. 数组指针的定义
+
+#### 2.3.2. &数组名VS数组名
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[10] = {0};
+    printf("%p\n", arr);        // 0x7ffdef398000
+    printf("%p\n", arr+1);      // 0x7ffdef398004
+
+    printf("%p\n", &arr[0]);    // 0x7ffdef398000
+    printf("%p\n", &arr[0]+1);  // 0x7ffdef398004
+
+    printf("%p\n", &arr);       // 0x7ffdef398000
+    printf("%p\n", &arr+1);     // 0x7ffdef398028
+                                // 16进制的28就是10进制的40
+    int (*p)[10] = &arr;        // 数组指针就是这样存放整个数组的地址的
+
+    int sz = sizeof(arr);           
+    printf("%d\n", sz);         // 40
+    return 0;
+}
+```
+
+数组名通常表示的都是数组首元素的地址,**但是有两个例外:**
+
+- 1. sizeof(数组名),这里的数组名表示整个数组,计算的是整个数组的大小
+- 2. &数组名,这里的数组名表示整个数组,取出的是整个数组的地址
+
+#### 2.3.3. 数组指针的使用
+
+### 2.4. 指针传参和数组传参
+
+#### 2.4.1. 一维数组传参
+
+#### 2.4.2. 二维数组传参
+
+#### 2.4.3. 一维指针传参
+
+#### 2.4.4. 二维指针传参
+
+### 2.5. 函数指针
+
+### 2.6. 函数指针数组
+
+### 2.7. 指向函数指针数组的指针
+
+### 2.8. 回调函数 2.5. 函数指针
+
+### 2.6. 函数指针数组
+
+### 2.7. 指向函数指针数组的指针
+
+### 2.8. 回调函数

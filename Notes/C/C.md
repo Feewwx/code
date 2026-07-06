@@ -3231,7 +3231,42 @@ int main() {
 
 #### 2.4.1. 一维数组传参
 
+```c
+#include <stdio.h>
+
+void test(int arr[]) {}
+void test(int arr[10]) {}
+
+void test(int *arr) {}
+void test2(int *arr[20]) {}
+void test2(int **arr) {}
+
+int main() {
+    int arr[10] = {0};
+    int *arr2[20] = {0};
+    test(arr);
+    test2(arr2);
+}
+```
+
 #### 2.4.2. 二维数组传参
+
+```c
+#include <stdio.h>
+
+void test(int arr[3][5]) {}
+void test(int arr[][]) {}  // err
+void test(int arr[][5]) {}
+
+void test(int *arr) {}  // err
+void test(int *arr[5]) {}  // err
+void test(int (*arr)[5]) {}
+void test(int **arr) {}  // err
+
+int main() {
+    int arr[3][5]} = {0};
+    test(arr);
+```
 
 #### 2.4.3. 一维指针传参
 

@@ -3386,6 +3386,7 @@ int Div(int x, int y) {
     return x / y;
 }
 
+// 回调函数
 void calc(int (*pf)(int, int)) {
     int x = 0;
     int y = 0;
@@ -3459,12 +3460,17 @@ int main() {
 
 ### 2.6. 函数指针数组
 
+```c
+int main() {
+    int (*arr[4])(int, int) = {Add, Sub, Mul, Div};
+    for (int i = 0; i < 4; i++) {
+        int ret = arr[i](2, 3);
+        printf("%d\n", ret);
+    }
+    return 0;
+}
+```
+
 ### 2.7. 指向函数指针数组的指针
 
-### 2.8. 回调函数 2.5. 函数指针
-
-### 2.6. 函数指针数组
-
-### 2.7. 指向函数指针数组的指针
-
-### 2.8. 回调函数
+### 2.8. 回调函数 

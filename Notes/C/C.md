@@ -3302,6 +3302,8 @@ int main() {
 
 ### 2.5. 函数指针
 
+#### 2.5.1. 函数指针的定义
+
 **数组指针:** - 指向数组的指针就是数组指针
 
 **函数指针:** - 指向函数的指针就是函数指针
@@ -3338,6 +3340,119 @@ int main() {
     printf("%d\n", ret);
 
     calc(Add);
+    return 0;
+}
+```
+#####
+```c
+typedef void (*pf_t)(int);
+
+int main() {
+    (*(void (*)())0)();
+    void (*signal(int, void (*)(int)))(int);
+    pf_t signal(int, pf_t);
+    return 0;
+}
+```
+
+#### 2.5.2. 函数指针的用途
+
+> 写一个计算器
+
+```c
+#include <stdio.h>
+
+void menu() {
+    printf("**********************************\n");
+    printf("********  1.add  2.sub  **********\n");
+    printf("********  3.mul  4.div  **********\n");
+    printf("***********  0.exit  *************\n");
+    printf("**********************************\n");
+}
+
+int Add(int x, int y) {
+    return x + y;
+}
+
+int Sub(int x, int y) {
+    return x - y;
+}
+
+int Mul(int x, int y) {
+    return x * y;
+}
+
+int Div(int x, int y) {
+    return x / y;
+}
+
+void calc(int (*pf)(int, int)) {
+    int x = 0;
+    int y = 0;
+    int ret = 0;
+
+    printf("请输入2个操作数:>");
+    scanf("%d %d", &x, &y);
+    ret = pf(x, y);
+    printf("%d\n", ret);
+}
+
+int main() {
+    int input = 0;
+    // int x = 0;
+    // int y = 0;
+    // int ret = 0;
+
+    do {
+        menu();
+        printf("请选择:>");
+        scanf("%d", &input);
+        // printf("请输入2个操作数:>");
+        // scanf("%d %d", &x, &y);
+        // 如果想退出或者输入错误,不能直接退出,必须先输入两个操作数才能退出,很怪
+        // 解决方法:把输入两个操作数的步骤塞入case里
+
+        switch (input) {
+            case 1:
+                // printf("请输入2个操作数:>");
+                // scanf("%d %d", &x, &y);
+                // ret = Add(x, y);
+                // printf("%d\n", ret);
+                calc(Add);
+                break;
+            case 2:
+                // printf("请输入2个操作数:>");
+                // scanf("%d %d", &x, &y);
+                // ret = Sub(x, y);
+                // printf("%d\n", ret);
+                calc(Sub);
+                break;
+            case 3:
+                // printf("请输入2个操作数:>");
+                // scanf("%d %d", &x, &y);
+                // ret = Mul(x, y);
+                // printf("%d\n", ret);
+                calc(Mul);
+                break;
+            case 4:
+                // printf("请输入2个操作数:>");
+                // scanf("%d %d", &x, &y);
+                // ret = Div(x, y);
+                // printf("%d\n", ret);
+                calc(Div);
+                break;
+
+            // 新问题:代码太过冗余,难维护
+            // 解决方法:函数指针
+
+            case 0:
+                printf("已退出\n");
+                break;
+            default:
+                printf("输入错误\n");
+                break;
+        }
+    } while (input);
     return 0;
 }
 ```

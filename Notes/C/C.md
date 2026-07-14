@@ -3435,7 +3435,7 @@ int Div(int x, int y) {
     return x / y;
 }
 
-// 回调函数
+// 回调函数 - 通过函数指针调用的函数
 void calc(int (*pf)(int, int)) {
     int x = 0;
     int y = 0;
@@ -3598,3 +3598,62 @@ int (*(*ppfArr)[5])(int, int) = &pfArr;
 ```
 
 ### 2.8. 回调函数 
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int cmp_int(const void *e1, const void *e2) {
+    // if (*(int*)e1 > *(int*)e2)
+    //     return 1;
+    // else if (*(int*)e1 == *(int*)e2)
+    //     return 0;
+    // else
+    //     return -1;
+    return *(const int *)a - *(const int *)b;
+}                                            
+                                             
+int main() {                                 
+    int arr[] = {5, 2, 8, 1, 9, 3};          
+    int sz = sizeof(arr) / sizeof(arr[0]);   
+                                             
+    qsort(arr, sz, sizeof(int), cmp_int);    
+                                             
+    for (int i = 0; i < sz; i++) {           
+        printf("%d ", arr[i]);               
+    }                                        
+    printf("\n");                            
+    return 0;                                
+}
+```
+####
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Stu {
+    char name[10];
+    int age;
+};
+
+int cmp_stu_by_name(const void *e1, const void *e2) {
+    // strcmp => >0 ==0 <0
+    return strcmp(((struct Stu*)e1)-> name, ((struct Stu*)e2)-> name);
+}
+
+int cmp_stu_by_age(const void *e1, const void *e2) {
+    return ((struct Stu*)e1)-> age - ((struct Stu*)e2)-> age;
+}
+
+void test() {
+    struct Stu s[] = {{"zhangsan", 15}, {"lisi", 30}, {"wangwu", 25}};
+    int sz = sizeof(s) / sizeof(s[0]);
+    qsort(s, sz, sizeof(s[0]), cmp_stu_by_name);
+}
+
+int main() {
+    test();
+    return 0;
+}
+```

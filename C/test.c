@@ -553,24 +553,34 @@
 //   return 0;
 // }
 
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+//
+// int cmp_int(const void *e1, const void *e2) {
+//     if (*(int *)e1 > *(int *)e2)
+//         return 1;
+//     else if (*(int *)e1 == *(int *)e2)
+//         return 0;
+//     else
+//         return -1;
+// }
+//
+// int main() {
+//     int arr[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+//     int sz = sizeof(arr) / sizeof(arr[0]);
+//     qsort(arr, sz, sizeof(arr[0]), cmp_int);
+//     for (int i = 0; i < sz; i++) {
+//         printf("%d ", arr[i]);
+//     }
+//     return 0;
+// }
 
-int cmp_int(const void *e1, const void *e2) {
-    if (*(int *)e1 > *(int *)e2)
-        return 1;
-    else if (*(int *)e1 == *(int *)e2)
-        return 0;
-    else
-        return -1;
-}
+#include <stdio.h>
 
 int main() {
-    int arr[] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-    int sz = sizeof(arr) / sizeof(arr[0]);
-    qsort(arr, sz, sizeof(arr[0]), cmp_int);
-    for (int i = 0; i < sz; i++) {
-        printf("%d ", arr[i]);
-    }
+    int arr[4] = {1, 2, 3, 4};
+    printf("%d\n", sizeof(&arr));
+    printf("%p\n", &arr);
+    printf("%p\n", &arr + 1);
     return 0;
 }

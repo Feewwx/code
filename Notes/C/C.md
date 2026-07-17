@@ -3090,6 +3090,7 @@ int main() {
 
 int main() {
     int arr[10] = {0};
+
     printf("%p\n", arr);        // 0x7ffdef398000
     printf("%p\n", arr+1);      // 0x7ffdef398004
 

@@ -3083,8 +3083,6 @@ int main() {
 
 #### 2.3.1. 数组指针的定义
 
-#### 2.3.2. &数组名VS数组名
-
 ```c
 #include <stdio.h>
 
@@ -3113,7 +3111,7 @@ int main() {
 - 1. sizeof(数组名),这里的数组名表示整个数组,计算的是整个数组的大小
 - 2. &数组名,这里的数组名表示整个数组,取出的是整个数组的地址
 
-#### 2.3.3. 数组指针的使用
+#### 2.3.2. 数组指针的使用
 
 ```c
 #include <stdio.h>
@@ -3685,3 +3683,5 @@ void bubble_sort(void *base, int sz, int width, int(*cmp)(const void *e1, const 
     }
 }
 ```
+
+## 3. 字符函数和字符串函数

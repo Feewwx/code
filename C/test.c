@@ -575,12 +575,31 @@
 //     return 0;
 // }
 
+// #include <stdio.h>
+//
+// int main() {
+//     int arr[4] = {1, 2, 3, 4};
+//     printf("%d\n", sizeof(&arr));
+//     printf("%p\n", &arr);
+//     printf("%p\n", &arr + 1);
+//     return 0;
+// }
+
 #include <stdio.h>
 
+char *my_strcpy(char *arr1, char *arr2, int sz) {
+    for (int i = 0; i < sz; i++) {
+        arr1[i] = arr2[i];
+    }
+    char *p = arr1;
+    return p;
+}
+
 int main() {
-    int arr[4] = {1, 2, 3, 4};
-    printf("%d\n", sizeof(&arr));
-    printf("%p\n", &arr);
-    printf("%p\n", &arr + 1);
+    char arr1[] = "abc";
+    char arr2[20] = {0};
+    int sz = sizeof(arr1) / sizeof(arr1[0]);
+    my_strcpy(arr2, arr1, sz);
+    printf("%s\n", arr2);
     return 0;
 }

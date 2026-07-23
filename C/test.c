@@ -585,21 +585,41 @@
 //     return 0;
 // }
 
+// #include <stdio.h>
+//
+// char *my_strcpy(char *arr1, char *arr2, int sz) {
+//     for (int i = 0; i < sz; i++) {
+//         arr1[i] = arr2[i];
+//     }
+//     char *p = arr1;
+//     return p;
+// }
+//
+// int main() {
+//     char arr1[] = "abc";
+//     char arr2[20] = {0};
+//     int sz = sizeof(arr1) / sizeof(arr1[0]);
+//     my_strcpy(arr2, arr1, sz);
+//     printf("%s\n", arr2);
+//     return 0;
+// }
+
 #include <stdio.h>
 
-char *my_strcpy(char *arr1, char *arr2, int sz) {
-    for (int i = 0; i < sz; i++) {
-        arr1[i] = arr2[i];
-    }
+char *my_strcat(char *arr1, char *arr2) {
     char *p = arr1;
+    while (*arr1 != '\0') {
+        arr1++;
+    }
+    while (*arr1++ = *arr2++) {
+        ;
+    }
     return p;
 }
 
 int main() {
-    char arr1[] = "abc";
-    char arr2[20] = {0};
-    int sz = sizeof(arr1) / sizeof(arr1[0]);
-    my_strcpy(arr2, arr1, sz);
-    printf("%s\n", arr2);
+    char arr1[20] = "hello";
+    my_strcat(arr1, " world");
+    printf("%s\n", arr1);
     return 0;
 }

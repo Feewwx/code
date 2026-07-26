@@ -2942,7 +2942,7 @@ V = 9.6f => 1001.10..............
 **例:**
 - V = 0.5f => 0.1
 - V = (-1)^0 * 1.0 * 2^(-1)
-- S = 0 M = 0 E = -1 + 127 = 126 / + 1023 = 1022
+- S = 0 M = 0 E = -1 + 127 = 126 ( + 1023 = 1022 )
 ####
 - V = 5.5f => 101.1
 - V = (-1)^0 * 1.011 * 2^(2)
@@ -3873,6 +3873,78 @@ int main() {
         printf("arr1 == arr2\n");
     else
         printf("arr1 > arr2\n");
+    return 0;
+}
+```
+
+#### 3.1.5. 长度受限函数制的字符串
+
+- 以上函数皆为长度不受限制的字符串函数,非常地暴力
+- 实际上,C语言也提供了长度受限制的字符串函数,它们在函数传参的时候加上了字符串的字节数
+
+- strncpy
+- strncat
+- strncmp
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char arr1[20] = "abcdef";
+    char arr2[] = "hello world";
+    char arr3[] = "fewx";
+    strncpy(arr1, arr2, 5);
+    printf("%s\n", arr1);  // hellof
+    strncpy(arr1, arr3, 5);
+    printf("%s\n", arr1);  // fewx
+    // 原因:字符串长度不够,就会自动填充'\0'
+    strncat(arr1, arr3, 6);  // 不会填充'\0',只会在末尾加上一个'\0'
+    printf("%s\n", arr1);  // abcdeffewx
+    return 0;
+}
+```
+
+#### 3.1.6. strstr
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char email[] = "fewx@fewx.dev";
+    char substr[] = "dev";
+    char *ret = strstr(email, substr);
+    if (ret == NULL) {
+        printf("字串不存在\n");
+    } else {
+        printf("%s\n", ret);
+    }
+    return 0;
+}
+```
+
+> strstr 函数的作用是在字符串中查找子字符串,如果找到子字符串,则返回子字符串的开始的位置
+
+> 模拟实现
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+char *my_strstr() {
+
+}
+
+int main() {
+    char email[] = "fewx@fewx.dev";
+    char substr[] = "dev";
+    char *ret = my_strstr(email, substr);
+    if (ret == NULL) {
+        printf("字串不存在\n");
+    } else {
+        printf("%s\n", ret);
+    }
     return 0;
 }
 ```

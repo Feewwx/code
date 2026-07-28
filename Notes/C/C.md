@@ -3686,9 +3686,7 @@ void bubble_sort(void *base, int sz, int width, int(*cmp)(const void *e1, const 
 
 ## 3. 字符串函数
 
-### 3.1. 函数介绍
-
-#### 3.1.1. strlen
+### 3.1. strlen
 
 ```c
 #include <string.h>
@@ -3729,7 +3727,7 @@ int main() {
 }
 ```
 
-#### 3.1.2. strcpy
+### 3.2. strcpy
 
 ```c
 #include <stdio.h>
@@ -3778,7 +3776,7 @@ int main() {
 }
 ```
 
-#### 3.1.3. strcat
+### 3.3. strcat
 
 ```c
 #include <stdio.h>
@@ -3824,7 +3822,7 @@ int main() {
 
 - strcat无法自己给自己追加
 
-#### 3.1.4. strcmp
+### 3.4. strcmp
 
 ```c
 #include <stdio.h>
@@ -3877,7 +3875,7 @@ int main() {
 }
 ```
 
-#### 3.1.5. 长度受限函数制的字符串
+### 3.5. 长度受限函数制的字符串
 
 - 以上函数皆为长度不受限制的字符串函数,非常地暴力
 - 实际上,C语言也提供了长度受限制的字符串函数,它们在函数传参的时候加上了字符串的字节数
@@ -3905,7 +3903,7 @@ int main() {
 }
 ```
 
-#### 3.1.6. strstr
+### 3.6. strstr
 
 ```c
 #include <stdio.h>
@@ -3964,7 +3962,7 @@ int main() {
 }
 ```
 
-#### 3.1.7. strtok
+### 3.7. strtok
 
 ```c
 #include <stdio.h>
@@ -3995,3 +3993,115 @@ int main() {
 - 如果找到关键字符,则返回关键字符前字符串起始位置的地址
 
 - 只需要在第一次调用时传入目标字符串,后面只需要传入 NULL 即可,函数会自动顺着上一次的查找位置查找
+
+### 3.8. strerror
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+
+int main() {
+    // printf("%s\n", strerror(0));
+    // printf("%s\n", strerror(1));
+    // printf("%s\n", strerror(2));
+    // printf("%s\n", strerror(3));
+    // printf("%s\n", strerror(4));
+    // printf("%s\n", strerror(5));
+    // ...可以看不同的错误码
+
+    FILE *pf = fopen("test.txt", "r");
+    if (pf == NULL) {
+        printf("%s\n", strerror(errno));  // 可以看到文件打开失败的错误码
+    }
+    // errno - C语言设置的一个全局的存放错误码的变量
+}
+```
+
+> strerror 函数的作用是返回对应的错误码的字符串
+
+## 4. 字符函数
+
+### 4.1. 字符分类函数
+
+| 函数     | 如果他的参数符合下列条件就返回真                                         |
+|----------|--------------------------------------------------------------------------|
+| iscntrl  | 任何控制字符(包括'\0')                                                   |
+| isspace  | 空白字符( 空格' ' 换页'\f' 换行'\n' 回车'\r' 制表'\t' 垂直制表符号'\v' ) |
+| isdigit  | 数字字符(0-9)                                                            |
+| isxdigit | 十六进制数字字符(0-9和a-f和A-F)                                          |
+| islower  | 小写字母(a-z)                                                            |
+| isupper  | 大写字母(A-Z)                                                            |
+| isalpha  | 字母(包括大小写字母)                                                     |
+| isalnum  | 字母或数字(a-z,A-Z,0-9)                                                  |
+| ispunct  | 标点符号,任何不属于数字和字母的图形字符                                  |
+| isgraph  | 图形字符(数字和字母和标点符号)                                           |
+| isprint  | 可打印字符(数字和字母和标点符号和空格)                                   |
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    int a = isspace(' ');
+    printf("%d\n", a);  // 返回非零数
+    return 0;
+}
+```
+
+### 4.2. 字符转换函数
+
+```c
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    printf("%c\n", tolower('A'));  // a
+    printf("%c\n", toupper('a'));  // A
+    return 0;
+}
+```
+
+## 5. 内存函数
+
+### 5.1. memcpy
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[10] = {0};
+    memcpy(arr2, arr1, 30);
+    return 0;
+}
+```
+
+> memcpy 函数的特点是什么类型都能直接拷贝
+
+> 模拟实现
+
+```c
+#include <stdio.h>
+
+void *my_memcpy(void *dest, const void *src, size_t n) {
+    void *ret = dest;
+    while (n--) {
+        *(char *)dest = *(char *)src;
+        dest = (char *)dest + 1;
+        src = (char *)src + 1;
+    }
+    return ret;
+}
+
+int main() {
+    int arr1[] = {1, 2, 3, 4, 5};
+    int arr2[10] = {0};
+    my_memcpy(arr2, arr1, 30);
+    return 0;
+}
+```
+
+- memcpy 负责拷贝两块独立空间中的数据
+- 重叠内存的拷贝,就需要memmove上场了

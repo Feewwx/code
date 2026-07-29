@@ -4105,3 +4105,19 @@ int main() {
 
 - memcpy 负责拷贝两块独立空间中的数据
 - 重叠内存的拷贝,就需要memmove上场了
+
+### 5.2. memmove
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    memmove(arr + 2, arr, sizeof(int[5]));
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+```

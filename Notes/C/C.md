@@ -4121,3 +4121,20 @@ int main() {
     return 0;
 }
 ```
+
+> 模拟实现
+
+```c
+#include <stdio.h>
+
+void *my_memmove(void *dest, const void *src, size_t n) {}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    my_memmove(arr + 2, arr, sizeof(int[5]));
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+```

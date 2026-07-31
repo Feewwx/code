@@ -4127,7 +4127,22 @@ int main() {
 ```c
 #include <stdio.h>
 
-void *my_memmove(void *dest, const void *src, size_t n) {}
+void *my_memmove(void *dest, const void *src, size_t n) {
+    void *ret = dest;
+    if (dest < src) {
+        while (n--) {
+            *(char *)dest = *(char *)src;
+            dest = (char *)dest + 1;
+            src = (char *)src + 1;
+        }
+    }
+    else {
+        while (n--) {
+            *((char *)dest + n) = *((char *)src + n);
+        }
+    }
+    return ret;
+}
 
 int main() {
     int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};

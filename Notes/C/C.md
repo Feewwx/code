@@ -4153,3 +4153,5 @@ int main() {
     return 0;
 }
 ```
+
+### 5.3. memcmp

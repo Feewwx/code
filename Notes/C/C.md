@@ -4168,3 +4168,21 @@ int main() {
     return 0;
 }
 ```
+
+### 5.4. memset
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char arr[] = "hello world";
+    memset(arr, 'x', 5);
+    printf("%s\n", arr);  // xxxxx world
+    memset(arr + 6, 'x', 5);
+    printf("%s\n", arr);  // xxxxx xxxxx
+    return 0;
+}
+```
+
+## 6. 自定义类型

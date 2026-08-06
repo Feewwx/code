@@ -604,22 +604,34 @@
 //     return 0;
 // }
 
-#include <stdio.h>
+// #include <stdio.h>
+//
+// char *my_strcat(char *arr1, char *arr2) {
+//     char *p = arr1;
+//     while (*arr1 != '\0') {
+//         arr1++;
+//     }
+//     while (*arr1++ = *arr2++) {
+//         ;
+//     }
+//     return p;
+// }
+//
+// int main() {
+//     char arr1[20] = "hello";
+//     my_strcat(arr1, " world");
+//     printf("%s\n", arr1);
+//     return 0;
+// }
 
-char *my_strcat(char *arr1, char *arr2) {
-    char *p = arr1;
-    while (*arr1 != '\0') {
-        arr1++;
-    }
-    while (*arr1++ = *arr2++) {
-        ;
-    }
-    return p;
-}
+#include <stdio.h>
+#include <string.h>
 
 int main() {
-    char arr1[20] = "hello";
-    my_strcat(arr1, " world");
-    printf("%s\n", arr1);
+    char arr[] = "hello world";
+    memset(arr, 'x', 5);
+    printf("%s\n", arr); // xxxxx world
+    memset(arr + 6, 'x', 5);
+    printf("%s\n", arr); // xxxxx xxxxx
     return 0;
 }

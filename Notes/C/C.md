@@ -4193,10 +4193,38 @@ int main() {
 
 > 结构是一些值的集合,这些值称为成员变量,结构的每个成员可以是不同类型的变量
 
+```c
+struct Stu {
+    char name[20];
+    int age;
+}
+```
+
 #### 6.1.2. 结构的自引用
 
 #### 6.1.3. 结构体变量的定义和初始化
 
+```c
+struct Stu {
+    char name[20];
+    int age;
+} s1, s2;  // s1,s2是全局变量
+
+int main() {
+    struct Stu s3; // s3是局部变量
+    return 0;
+}
+```
+
+> 匿名结构体类型
+
+```c
+struct {
+    int a;
+    char b;
+    float c;
+} x;
+```
 #### 6.1.4. 结构体内存对齐
 
 #### 6.1.5. 结构体传参

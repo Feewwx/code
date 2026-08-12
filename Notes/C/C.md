@@ -4197,21 +4197,51 @@ int main() {
 struct Stu {
     char name[20];
     int age;
-}
+};
 ```
 
 #### 6.1.2. 结构的自引用
 
+```c
+struct Node {
+    int data;
+    struct Node *next;
+};
+```
+> 错误示范
+
+```c
+typedef struct {
+    int data;
+    Node *next;  // err
+} Node;
+```
+
 #### 6.1.3. 结构体变量的定义和初始化
 
 ```c
+struct Point {
+    int x;
+    int y;
+} p1 = {2, 3};  // 声明类型的同时定义变量p1同时赋值
+
+struct score {
+    int n;
+    char ch;
+};
+
 struct Stu {
     char name[20];
     int age;
+    struct score s;
 } s1, s2;  // s1,s2是全局变量
 
 int main() {
+    struct Point p2;  // 定义
+    struct Point p3 = {x, y};  // 初始化:定义变量的同时赋初值
     struct Stu s3; // s3是局部变量
+    struct Stu s4 = {"zhangsan", 20, {10, 'a'}};  // 初始化
+    printf("%s %d %d %c\n", s4.name, s4.age, s4.s.n, s4.s.ch);
     return 0;
 }
 ```
@@ -4224,7 +4254,19 @@ struct {
     char b;
     float c;
 } x;
+
+struct {
+    int a;
+    char b;
+    float c;
+} a[20], *p;
+
+int main() {
+    p = &x;  // err,虽然看着一样,但在编译器看这是两个不同的结构体
+    return 0;
+}
 ```
+
 #### 6.1.4. 结构体内存对齐
 
 #### 6.1.5. 结构体传参

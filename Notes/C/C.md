@@ -4279,13 +4279,76 @@ int main() {
 
     - 如果嵌套了结构体,只需假设被嵌套的结构体里的成员在嵌套结构体中即可(就像自定义函数那样)
 
+```c
+#include <stdio.h>
+
+struct S {
+    int i;  // 4
+    double d;  // 8
+};
+
+int main() {
+    printf("%d\n", sizeof(struct S));  // 16
+    return 0;
+}
+```
+
 - **为什么存在内存对齐?**
 
     - cpu发现缓存未命中时,会去内存中一次4字节或8字节(大部分)的提取64字节的数据,如果内存不对齐,就会乱七八糟的
 
     - 结构体的内存对齐是拿空间换取时间的做法
 
+> 默认对齐数也可以修改
+
+```c
+#include <stdio.h>
+
+#pragma pack(4)  // 默认对齐数改为4
+
+struct S {
+    int i;
+    double d;
+};
+
+#pragma pack()  // 改回默认对齐数
+
+int main() {
+    printf("%d\n", sizeof(struct S));  // 12
+    return 0;
+}
+```
 #### 6.1.5. 结构体传参
+
+```c
+#include <stdio.h>
+
+struct S {
+    int data[1000];
+    int num;
+};
+
+void print(struct S s) {
+    for (int i = 0; i < 3; i++) {
+        printf("%d\n", s.data[i]);
+    }
+    printf("%d\n", s.num);
+}
+
+void printp(struct S *s) {
+    for (int i = 0; i < 3; i++) {
+        printf("%d\n", s->data[i]);
+    }
+    printf("%d\n", s->num);
+}
+
+int main() {
+    struct S s = { {1, 2, 3}, 100 };
+    print(s);    // 传值调用
+    printp(&s);  // 传址调用
+    return 0;
+}  // 更推荐传址调用
+```
 
 #### 6.1.6. 结构体实现位段(位段的填充&可移植性)
 

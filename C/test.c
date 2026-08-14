@@ -624,14 +624,26 @@
 //     return 0;
 // }
 
+// #include <stdio.h>
+// #include <string.h>
+//
+// int main() {
+//     char arr[] = "hello world";
+//     memset(arr, 'x', 5);
+//     printf("%s\n", arr); // xxxxx world
+//     memset(arr + 6, 'x', 5);
+//     printf("%s\n", arr); // xxxxx xxxxx
+//     return 0;
+// }
+
 #include <stdio.h>
-#include <string.h>
+
+struct S {
+    int i;
+    double d;
+};
 
 int main() {
-    char arr[] = "hello world";
-    memset(arr, 'x', 5);
-    printf("%s\n", arr); // xxxxx world
-    memset(arr + 6, 'x', 5);
-    printf("%s\n", arr); // xxxxx xxxxx
+    printf("%d\n", sizeof(struct S));
     return 0;
 }

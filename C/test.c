@@ -648,17 +648,33 @@
 //     return 0;
 // }
 
+// #include <stdio.h>
+//
+// enum color { RED, GREEN, BLUE };
+//
+// enum sex { MALE = 1, FEMALE };
+//
+// int main() {
+//     printf("%d\n", RED);    // 0
+//     printf("%d\n", GREEN);  // 1
+//     printf("%d\n", BLUE);   // 2
+//     printf("%d\n", MALE);   // 1
+//     printf("%d\n", FEMALE); // 2
+//     return 0;
+// }
+
 #include <stdio.h>
 
-enum color { RED, GREEN, BLUE };
-
-enum sex { MALE = 1, FEMALE };
+union Un {
+    int a;
+    char c;
+};
 
 int main() {
-    printf("%d\n", RED);    // 0
-    printf("%d\n", GREEN);  // 1
-    printf("%d\n", BLUE);   // 2
-    printf("%d\n", MALE);   // 1
-    printf("%d\n", FEMALE); // 2
+    union Un u;
+    u.a = 0x11223344;
+    u.c = 0x55;
+    printf("%d\n", u.a);
+    printf("%d\n", u.c);
     return 0;
 }

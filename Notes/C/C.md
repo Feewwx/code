@@ -4742,3 +4742,43 @@ int main() {
 - 唯一不同的是联合所有成员共用一块空间,占用的大小只会是最大的成员的大小
 
 ## 7. 动态内存管理
+
+### 7.1 动态内存函数
+
+#### 7.1.1 malloc和free
+
+```c
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    int arr[10] = {0};  // 栈
+
+    int *p = (int *)malloc(40);  // 在堆里取40字节空间
+    if (p == NULL) {
+        printf("%s\n", strerror(errno));
+        return 1;
+    }
+    for (int i = 0; i < 10; i++) {
+        *(p + i) = i;
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", *(p + i));
+    }
+
+    free(p);  // 释放40字节空间
+    p = NULL;  // 清空指针保险
+
+    return 0;
+}
+```
+
+#### 7.1.2 calloc
+
+#### 7.1.3 realloc
+
+### 7.2 常见动态内存错误
+
+### 7.3 练习

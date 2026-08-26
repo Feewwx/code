@@ -663,18 +663,38 @@
 //     return 0;
 // }
 
-#include <stdio.h>
+// #include <stdio.h>
+//
+// union Un {
+//     int a;
+//     char c;
+// };
+//
+// int main() {
+//     union Un u;
+//     u.a = 0x11223344;
+//     u.c = 0x55;
+//     printf("%d\n", u.a);
+//     printf("%d\n", u.c);
+//     return 0;
+// }
 
-union Un {
-    int a;
-    char c;
-};
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main() {
-    union Un u;
-    u.a = 0x11223344;
-    u.c = 0x55;
-    printf("%d\n", u.a);
-    printf("%d\n", u.c);
+    int *p = (int *)malloc(40);
+    if (p == NULL) {
+        printf("%s\n", strerror(errno));
+        return 1;
+    }
+    for (int i = 0; i < 10; i++) {
+        *(p + i) = i;
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", *(p + i));
+    }
     return 0;
 }

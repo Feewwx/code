@@ -4748,17 +4748,14 @@ int main() {
 #### 7.1.1 malloc和free
 
 ```c
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 int main() {
     int arr[10] = {0};  // 栈
 
     int *p = (int *)malloc(40);  // 在堆里取40字节空间
     if (p == NULL) {
-        printf("%s\n", strerror(errno));
         return 1;
     }
     for (int i = 0; i < 10; i++) {
@@ -4776,6 +4773,24 @@ int main() {
 ```
 
 #### 7.1.2 calloc
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *p = (int *)calloc(10, sizeof(int));
+    if (p == NULL) {
+        return 1;
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", *(p + i));  // 0 0 0 0 0 0 0 0 0 0
+    }  // calloc函数在创建的时候会自动把所有空间初始化为0
+    free(p);
+    p = NULL;
+    return 0;
+}
+```
 
 #### 7.1.3 realloc
 

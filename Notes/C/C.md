@@ -4779,13 +4779,14 @@ int main() {
 #include <stdlib.h>
 
 int main() {
-    int *p = (int *)calloc(10, sizeof(int));
+    int *p = (int *)calloc(10, sizeof(int));  // 在堆上申请10*4=40字节空间
     if (p == NULL) {
         return 1;
     }
     for (int i = 0; i < 10; i++) {
         printf("%d ", *(p + i));  // 0 0 0 0 0 0 0 0 0 0
-    }  // calloc函数在创建的时候会自动把所有空间初始化为0
+    }  // 和malloc的区别在于calloc函数在创建的时候会自动把所有空间初始化为0
+
     free(p);
     p = NULL;
     return 0;
@@ -4794,6 +4795,64 @@ int main() {
 
 #### 7.1.3 realloc
 
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(40);
+    if (NULL == p) {
+        return 1;
+    }
+    for (int i = 0; i < 10; i++) {
+        *(p + i) = i;
+    }
+
+    int *ptr = (int *)realloc(p, 80);  // 扩容40字节=>80字节
+    if (ptr != NULL) {
+        p = ptr;  // 防止NULL覆盖掉p
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", *(p + i));
+    }
+
+    free(p);
+    p = NULL;
+    return 0;
+}
+```
+
+- 内存后面刚好有空闲 → 原地扩容,地址不变(常见于小块内存)
+
+- 后面没位置 → 搬新家,新地址,旧块释放
+
+> realloc 也可以实现类似malloc和calloc的功能
+
+```c
+realloc(NULL, 40);  // 等价于malloc(40);
+```
+
+> 用动态内存管理升级之前的通讯录
+
+```c
+static int EnsureCapacity(Contact *p) {
+    if (p->count < p->capacity)
+        return 1;
+
+    int newCap = (p->capacity == 0) ? 3 : p->capacity * 2;
+    PeoInfo *tmp = (PeoInfo *)realloc(p->data, sizeof(PeoInfo) * newCap);
+
+    if (tmp == NULL) {          
+        printf("内存不足,扩容失败\n");
+        return 0;
+    }
+
+    p->data = tmp;
+    p->capacity = newCap;
+    return 1;
+}
+```
+
 ### 7.2 常见动态内存错误
 
-### 7.3 练习
+### 7.3 柔性数组

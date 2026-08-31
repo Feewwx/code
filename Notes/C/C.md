@@ -4743,9 +4743,9 @@ int main() {
 
 ## 7. 动态内存管理
 
-### 7.1 动态内存函数
+### 7.1. 动态内存函数
 
-#### 7.1.1 malloc和free
+#### 7.1.1. malloc和free
 
 ```c
 #include <stdio.h>
@@ -4772,7 +4772,7 @@ int main() {
 }
 ```
 
-#### 7.1.2 calloc
+#### 7.1.2. calloc
 
 ```c
 #include <stdio.h>
@@ -4793,7 +4793,7 @@ int main() {
 }
 ```
 
-#### 7.1.3 realloc
+#### 7.1.3. realloc
 
 ```c
 #include <stdio.h>

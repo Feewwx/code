@@ -4853,6 +4853,4 @@ static int EnsureCapacity(Contact *p) {
 }
 ```
 
-### 7.2 常见动态内存错误
-
-### 7.3 柔性数组
+### 7.2. 柔性数组

@@ -712,27 +712,53 @@
 //     return 0;
 // }
 
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+//
+// int main() {
+//     int *p = (int *)malloc(40);
+//     if (NULL == p) {
+//         return 1;
+//     }
+//     for (int i = 0; i < 10; i++) {
+//         *(p + i) = i;
+//     }
+//     int *ptr = (int *)realloc(p, 80);
+//     if (ptr != NULL) {
+//         p = ptr;
+//     }
+//     for (int i = 0; i < 10; i++) {
+//         printf("%d ", *(p + i));
+//     }
+//
+//     free(p);  // 释放40字节空间
+//     p = NULL; // 清空指针保险
+//
+//     return 0;
+// }
 
-int main() {
-    int *p = (int *)malloc(40);
-    if (NULL == p) {
-        return 1;
-    }
-    for (int i = 0; i < 10; i++) {
-        *(p + i) = i;
-    }
-    int *ptr = (int *)realloc(p, 80);
-    if (ptr != NULL) {
-        p = ptr;
-    }
-    for (int i = 0; i < 10; i++) {
-        printf("%d ", *(p + i));
-    }
-
-    free(p);  // 释放40字节空间
-    p = NULL; // 清空指针保险
-
-    return 0;
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+//
+// // void GetMemory(char **p) {
+// void GetMemory(char *p) {
+//     *p = (char *)malloc(100);
+// }
+//
+// void Test(void) {
+//     char *str = NULL;
+//     GetMemory(&str);
+//     strcpy(str, "hello");
+//     printf(str);
+//     // free(str);
+//     // str = NULL;
+// }
+//
+// int main() {
+//     Test();
+//     return 0;
+// }
+int *twoSum(int *nums, int numsSize, int target, int *returnSize) {
+    for (int i = 0; i <)
 }

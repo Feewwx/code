@@ -775,37 +775,60 @@
 //     printf("%d\n", sz);
 // }
 
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+//
+// struct S {
+//     int n;
+//     int *arr; // 方法2
+// };
+//
+// int main() {
+//     int sz = sizeof(struct S);
+//     printf("%d\n", sz); // 4
+//
+//     struct S *p = (struct S *)malloc(sizeof(struct S)); // 方法2
+//     if (p == NULL) {
+//         return 1;
+//     }
+//     p->n = 10;
+//     p->arr = (int *)malloc(40); // 方法2
+//
+//     for (int i = 0; i < 10; i++) {
+//         p->arr[i] = i;
+//         printf("%d ", p->arr[i]); // 0 1 2 3 4 5 6 7 8 9
+//     }
+//
+//     struct S *ps = (struct S *)realloc(p, sizeof(struct S) + 80); // 扩容
+//     if (ps != NULL) {
+//         p = ps;
+//     }
+//     // ...
+//     free(p);
+//     p = NULL;
+//
+//     return 0;
+// }
 
-struct S {
-    int n;
-    int *arr; // 方法2
-};
+#include <errno.h>
+#include <stdio.h>
+#include <string.h>
 
 int main() {
-    int sz = sizeof(struct S);
-    printf("%d\n", sz); // 4
+    FILE *pf = fopen("/home/fewx/Text File (1).txt", "r");
 
-    struct S *p = (struct S *)malloc(sizeof(struct S)); // 方法2
-    if (p == NULL) {
+    if (pf == NULL) {
+        printf("%s\n", strerror(errno));
         return 1;
     }
-    p->n = 10;
-    p->arr = (int *)malloc(40); // 方法2
 
-    for (int i = 0; i < 10; i++) {
-        p->arr[i] = i;
-        printf("%d ", p->arr[i]); // 0 1 2 3 4 5 6 7 8 9
-    }
-
-    struct S *ps = (struct S *)realloc(p, sizeof(struct S) + 80); // 扩容
-    if (ps != NULL) {
-        p = ps;
-    }
     // ...
-    free(p);
-    p = NULL;
+    // 读文件操作
+    // ...
+
+    // 关闭文件
+    fclose(pf);
+    pf = NULL;
 
     return 0;
 }

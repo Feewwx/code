@@ -4954,31 +4954,92 @@ FILE *fp;
 | "wb+"(读写)  | 为了读和写,新建一个新的二进制文件       | 建立一个新的文件   |
 | "ab+"(读写)  | 打开一个二进制文件,在文件末尾进行读和写 | 建立一个新的文件   |
 
+第一块:主模式 r / w / a
+
+| 字母 |  全名  |         干什么          | 文件不存在时 |
+|------|--------|-------------------------|--------------|
+| r    | read   | 只读,从开头读           | 报错         |
+| w    | write  | 只写,而且先清空重建     | 新建         |
+| a    | append | 只写,但位置永远钉在末尾 | 新建         |
+
+  r 和 a 都要求"文件本来就有内容我也能接着用",只有 w 是"我不管旧内容,直接推倒重来";
+  想累积就得用 a,这也是日志文件的标准做法——跑一次程序追加一行,旧记录全保留
+
+第二块:b = binary,二进制
+
+  Linux 上可以无视它——Linux 文本文件和二进制文件内核眼里没区别,都是字节流,所以 r 和 rb 在 Linux 行为完全一样
+  Windows:Windows 文本模式会把 \n 自动翻译成 \r\n(回车+换行),存进去的文件和字节数都会变
+
+第三块:+ = 追加相反方向的能力
+
+  - r+:本来只能读,加号后能写了(文件还是得存在,不清空)
+  - w+:本来只能写,加号后能读了(清空行为不变)
+  - a+:本来只能写,加号后能读了(写永远在末尾的行为不变)
+
 ```c
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
-#include <errno.h>
 
-int main() 
-{
-    FILE* pf = fopen("/home/fewx/Text File (1).txt", "r");
+int main() {
 
-    if (pf == NULL) 
-    {
+    FILE *pf = fopen("/home/fewx/hello world.txt", "w+");
+
+    if (pf == NULL) {
         printf("%s\n", strerror(errno));
         return 1;
     }
 
-    // ...
-    // 读文件操作
-    // ...
+    // 写文件操作
+    if (fputs("hello world", pf) == EOF) {
+        printf("写入失败\n");
+        fclose(pf);
+        return 1;
+    }
 
-    // 关闭文件
+    rewind(pf); // 写完位置在末尾,拨回开头再读
+
+    // 读文件操作
+    int ch = 0;
+    while ((ch = fgetc(pf)) != EOF) {
+        printf("%c", ch); // hello world
+    }
+    printf("\n");
+
     fclose(pf);
     pf = NULL;
 
     return 0;
 }
+```
+
+#### 8.3.3. 函数
+
+##### 8.3.3.1. fopen和fclose
+
+```c
+FILE *pf = fopen("test.txt", "w+");  // 打开文件
+if (pf == NULL) { /* 打开失败,别往下走 */ }
+
+fclose(pf);  // 关闭文件
+```
+
+##### 8.3.3.2. fputc
+
+```c
+fputc('A', pf);              // 写一个字符到 pf
+int ch = fgetc(pf);          // 读一个字符;返回 EOF 就是读到头了
+printf("%c\n", ch);
+```
+
+##### 8.3.3.3. fputs和fgets
+
+```c
+fputs("hello world\n", pf);  // 写一整行(不会自动补 \n,记得自己加)
+
+char line[100];
+fgets(line, sizeof(line), pf);   // 读一整行(最多 99 字符,带 \n 一起存进 line)
+printf("%s", line);              // fgets 存了 \n,所以这里别再加 \n
 ```
 
 ### 8.4. 文件的顺序读写

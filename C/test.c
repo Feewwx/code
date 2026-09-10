@@ -810,37 +810,37 @@
 //     return 0;
 // }
 
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>
-
-int main() {
-    // "w+" = 不存在就创建,存在就清空,且可读可写
-    FILE *pf = fopen("/home/fewx/hello world.txt", "w+");
-
-    if (pf == NULL) {
-        printf("%s\n", strerror(errno));
-        return 1;
-    }
-
-    // 写文件操作
-    if (fputs("hello world", pf) == EOF) {
-        printf("写入失败\n");
-        fclose(pf);
-        return 1;
-    }
-
-    rewind(pf); // 写完位置在末尾,拨回开头再读
-
-    // 读文件操作
-    int ch = 0;
-    while ((ch = fgetc(pf)) != EOF) {
-        printf("%c", ch); // hello world
-    }
-    printf("\n");
-
-    fclose(pf);
-    pf = NULL;
-
-    return 0;
-}
+// #include <errno.h>
+// #include <stdio.h>
+// #include <string.h>
+//
+// int main() {
+//     // "w+" = 不存在就创建,存在就清空,且可读可写
+//     FILE *pf = fopen("/home/fewx/hello world.txt", "w+");
+//
+//     if (pf == NULL) {
+//         printf("%s\n", strerror(errno));
+//         return 1;
+//     }
+//
+//     // 写文件操作
+//     if (fputs("hello world", pf) == EOF) {
+//         printf("写入失败\n");
+//         fclose(pf);
+//         return 1;
+//     }
+//
+//     rewind(pf); // 写完位置在末尾,拨回开头再读
+//
+//     // 读文件操作
+//     int ch = 0;
+//     while ((ch = fgetc(pf)) != EOF) {
+//         printf("%c", ch); // hello world
+//     }
+//     printf("\n");
+//
+//     fclose(pf);
+//     pf = NULL;
+//
+//     return 0;
+// }

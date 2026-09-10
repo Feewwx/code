@@ -4986,7 +4986,13 @@ int main() {
     FILE *pf = fopen("/home/fewx/hello world.txt", "w+");
 
     if (pf == NULL) {
-        printf("%s\n", strerror(errno));
+        // printf("%s\n", strerror(errno));
+        // perror("");    // 输出:No such file or directory
+        // perror(NULL);  // 效果和上面的一样
+
+        perror("fopen");  // 输出:fopen: No such file or directory
+        // 更推荐这种写法
+
         return 1;
     }
 
@@ -4997,12 +5003,12 @@ int main() {
         return 1;
     }
 
-    rewind(pf); // 写完位置在末尾,拨回开头再读
+    rewind(pf);  // 写完位置在末尾,拨回开头再读
 
     // 读文件操作
     int ch = 0;
     while ((ch = fgetc(pf)) != EOF) {
-        printf("%c", ch); // hello world
+        printf("%c", ch);  // hello world
     }
     printf("\n");
 
@@ -5024,7 +5030,7 @@ if (pf == NULL) { /* 打开失败,别往下走 */ }
 fclose(pf);  // 关闭文件
 ```
 
-##### 8.3.3.2. fputc
+##### 8.3.3.2. fputc和fgetc
 
 ```c
 fputc('A', pf);              // 写一个字符到 pf
@@ -5038,8 +5044,69 @@ printf("%c\n", ch);
 fputs("hello world\n", pf);  // 写一整行(不会自动补 \n,记得自己加)
 
 char line[100];
-fgets(line, sizeof(line), pf);   // 读一整行(最多 99 字符,带 \n 一起存进 line)
-printf("%s", line);              // fgets 存了 \n,所以这里别再加 \n
+fgets(line, sizeof(line), pf);  // 读一整行(最多 99 字符,带 \n 一起存进 line)
+printf("%s", line);             // fgets 存了 \n,所以这里别再加 \n
+```
+
+##### 8.3.3.4. fscanf和fprintf
+
+```c
+struct Stu {
+    char name[10];
+    int age;
+    char sex[10];
+    char telephone[12];
+};
+
+struct Stu s = {"zhangsan", 20, "男", "13800138000"};
+fprintf(pf, "%s %d %s %s\n", s.name, s.age, s.sex, s.telephone);
+
+fprintf(pf, "num = %d , weight =  %.1f kg\n", 7, 65.5);  // 带格式串往文件写
+
+int n;
+fscanf(pf, "%d", &n);  // 从文件按格式读;返回 1 表示成功读到一个数
+fscanf(pf, "%s %d %s %s", s.name, &(s.age), s.sex, s.telephone);
+
+char buf[64];
+snprintf(buf, sizeof(buf), "温度 %.1f 度", 36.5);  // 不写文件,写进内存字符串。以后拼日志最常用
+```
+
+##### 8.3.3.5. fread和fwrite
+
+```c
+int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+fwrite(arr, sizeof(int), 10, pf);  // 把 arr 的 10 个 int 整个倒进文件
+fread(arr, sizeof(int), 10, pf);   // 一口气捞回来。参数永远:目标,单位大小,个数,文件
+```
+
+定位
+
+```c
+rewind(pf);                  // 位置滚回开头,写完想读、读完想写,先来一下
+fseek(pf, 100, SEEK_SET);    // 跳到距开头 100 字节处,SEEK_CUR 相对当前位置,SEEK_END 相对末尾
+fseek(pf, 0, SEEK_END);      // 跳到文件末尾(量文件大小的第一步)
+
+long size = ftell(pf);       // 问当前位置的字节偏移,上面跳完再问,size 就是文件总大小
+```
+
+状态
+
+```c
+if (feof(pf))    // 问:是不是读过头/到文件尾了?(注意:是读过头才返回真,不是"下一个是尾")
+if (ferror(pf))  // 问:刚才读写有没有出错
+
+clearerr(pf);    // 把 feof/ferror 的标志清掉,文件还能接着用
+```
+
+杂项
+
+```c
+remove("test.txt");        // 删文件
+rename("a.txt", "b.txt");  // 改名/移动
+
+
+int ch = fgetc(pf);   // 读走一个字符
+ungetc(ch, pf);       // 又塞回去,下次 fgetc 读到的还是它。以后写解析器用
 ```
 
 ### 8.4. 文件的顺序读写

@@ -69,6 +69,8 @@ CMake不仅可以生成可执行文件,还可以生成库文件(动态库/静态
 
 ### 2.2.1. 共处一室
 
+#### 2.2.1.1. 准备工作
+
 为了方便讲解,我们先新建几个文件
 
 > add.c
@@ -147,6 +149,8 @@ int main()
 }
 ```
 
+#### 2.2.1.2. 目录结构
+
 > 上述文件的目录结构如下：
 
 ```bash
@@ -160,7 +164,7 @@ eza --tree
 └── sub.c
 ```
 
-> 添加CMakeLists.txt
+#### 2.2.1.3. 添加CMakeLists.txt
 
 在上述文件目录下新建一个文件`CMakeLists.txt`
 
@@ -184,4 +188,102 @@ project(<PROJECT-NAME>
        [DESCRIPTION <project-description-string>]
        [HOMEPAGE_URL <url-string>]
        [LANGUAGES <language-name>...])
+```
+
+- `add_executable` 定义工程会胜场一个可执行程序
+
+```cmake
+add_executable(可执行程序名 源文件名称)
+```
+
+-
+    - 这里的可执行程序名和project中的项目名没有任何关系
+    - 源文件可以是一个也可以是多个,如有多个可用空格或`;`间隔
+
+```cmake
+# 样式1
+add_executable(app add.c div.c main.c mult.c sub.c)
+# 样式2
+add_executable(app add.c;div.c;main.c;mult.c;sub.c)
+```
+
+#### 2.2.1.4. 执行CMake命令
+
+将 CMakeLists.txt 文件编辑好之后,就可以执行 cmake命令 了
+
+```bash
+cmake CMakeLists.txt文件所在路径
+```
+
+> 例子
+
+```bash
+pwd
+/home/fewx/code/CMake
+
+cmake .
+-- The C compiler identification is GNU 16.2.1
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/fewx/code/CMake
+
+eza --tree
+.
+├── add.c
+├── cmake_install.cmake
+├── CMakeCache.txt
+├── CMakeFiles
+│   ├── 4.4.3
+│   │   ├── CMakeCCompiler.cmake
+│   │   ├── CMakeDetermineCompilerABI_C.bin
+│   │   ├── CMakeSystem.cmake
+│   │   └── CompilerIdC
+│   │       ├── a.out
+│   │       ├── CMakeCCompilerId.c
+│   │       └── tmp
+│   ├── app.dir
+│   │   ├── build.make
+│   │   ├── cmake_clean.cmake
+│   │   ├── compiler_depend.make
+│   │   ├── compiler_depend.ts
+│   │   ├── depend.make
+│   │   ├── DependInfo.cmake
+│   │   ├── flags.make
+│   │   ├── link.txt
+│   │   └── progress.make
+│   ├── cmake.check_cache
+│   ├── CMakeConfigureLog.yaml
+│   ├── CMakeDirectoryInformation.cmake
+│   ├── CMakeScratch
+│   ├── InstallScripts.json
+│   ├── Makefile.cmake
+│   ├── Makefile2
+│   ├── pkgRedirects
+│   ├── progress.marks
+│   └── TargetDirectories.txt
+├── CMakeLists.txt
+├── div.c
+├── head.h
+├── main.c
+├── Makefile
+├── mult.c
+└── sub.c
+
+make
+[ 16%] Building C object CMakeFiles/app.dir/main.c.o
+[ 33%] Building C object CMakeFiles/app.dir/add.c.o
+[ 50%] Building C object CMakeFiles/app.dir/sub.c.o
+[ 66%] Building C object CMakeFiles/app.dir/mult.c.o
+[ 83%] Building C object CMakeFiles/app.dir/div.c.o
+[100%] Linking C executable app
+[100%] Built target app
+
+ls
+ add.c   cmake_install.cmake   CMakeFiles       div.c    main.c     mult.c
+󰡯 app     CMakeCache.txt        CMakeLists.txt   head.h   Makefile   sub.c
 ```

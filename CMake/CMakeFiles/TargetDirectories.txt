@@ -1,3 +1,0 @@
-/home/fewx/code/CMake/CMakeFiles/app.dir
-/home/fewx/code/CMake/CMakeFiles/edit_cache.dir
-/home/fewx/code/CMake/CMakeFiles/rebuild_cache.dir

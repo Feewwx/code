@@ -1,7 +1,7 @@
 {
 	"InstallScripts" : 
 	[
-		"/home/fewx/code/CMake/cmake_install.cmake"
+		"/home/fewx/code/CMake/build/cmake_install.cmake"
 	],
 	"Parallel" : false
 }

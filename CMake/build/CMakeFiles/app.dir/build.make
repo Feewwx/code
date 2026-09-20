@@ -56,7 +56,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/fewx/code/CMake
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fewx/code/CMake
+CMAKE_BINARY_DIR = /home/fewx/code/CMake/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/app.dir/depend.make
@@ -73,9 +73,9 @@ CMakeFiles/app.dir/codegen:
 .PHONY : CMakeFiles/app.dir/codegen
 
 CMakeFiles/app.dir/main.c.o: CMakeFiles/app.dir/flags.make
-CMakeFiles/app.dir/main.c.o: main.c
+CMakeFiles/app.dir/main.c.o: /home/fewx/code/CMake/main.c
 CMakeFiles/app.dir/main.c.o: CMakeFiles/app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/app.dir/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/app.dir/main.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/main.c.o -MF CMakeFiles/app.dir/main.c.o.d -o CMakeFiles/app.dir/main.c.o -c /home/fewx/code/CMake/main.c
 
 CMakeFiles/app.dir/main.c.i: cmake_force
@@ -87,9 +87,9 @@ CMakeFiles/app.dir/main.c.s: cmake_force
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fewx/code/CMake/main.c -o CMakeFiles/app.dir/main.c.s
 
 CMakeFiles/app.dir/add.c.o: CMakeFiles/app.dir/flags.make
-CMakeFiles/app.dir/add.c.o: add.c
+CMakeFiles/app.dir/add.c.o: /home/fewx/code/CMake/add.c
 CMakeFiles/app.dir/add.c.o: CMakeFiles/app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/app.dir/add.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/app.dir/add.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/add.c.o -MF CMakeFiles/app.dir/add.c.o.d -o CMakeFiles/app.dir/add.c.o -c /home/fewx/code/CMake/add.c
 
 CMakeFiles/app.dir/add.c.i: cmake_force
@@ -101,9 +101,9 @@ CMakeFiles/app.dir/add.c.s: cmake_force
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fewx/code/CMake/add.c -o CMakeFiles/app.dir/add.c.s
 
 CMakeFiles/app.dir/sub.c.o: CMakeFiles/app.dir/flags.make
-CMakeFiles/app.dir/sub.c.o: sub.c
+CMakeFiles/app.dir/sub.c.o: /home/fewx/code/CMake/sub.c
 CMakeFiles/app.dir/sub.c.o: CMakeFiles/app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/app.dir/sub.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/app.dir/sub.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/sub.c.o -MF CMakeFiles/app.dir/sub.c.o.d -o CMakeFiles/app.dir/sub.c.o -c /home/fewx/code/CMake/sub.c
 
 CMakeFiles/app.dir/sub.c.i: cmake_force
@@ -115,9 +115,9 @@ CMakeFiles/app.dir/sub.c.s: cmake_force
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fewx/code/CMake/sub.c -o CMakeFiles/app.dir/sub.c.s
 
 CMakeFiles/app.dir/mult.c.o: CMakeFiles/app.dir/flags.make
-CMakeFiles/app.dir/mult.c.o: mult.c
+CMakeFiles/app.dir/mult.c.o: /home/fewx/code/CMake/mult.c
 CMakeFiles/app.dir/mult.c.o: CMakeFiles/app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/app.dir/mult.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/app.dir/mult.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/mult.c.o -MF CMakeFiles/app.dir/mult.c.o.d -o CMakeFiles/app.dir/mult.c.o -c /home/fewx/code/CMake/mult.c
 
 CMakeFiles/app.dir/mult.c.i: cmake_force
@@ -129,9 +129,9 @@ CMakeFiles/app.dir/mult.c.s: cmake_force
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fewx/code/CMake/mult.c -o CMakeFiles/app.dir/mult.c.s
 
 CMakeFiles/app.dir/div.c.o: CMakeFiles/app.dir/flags.make
-CMakeFiles/app.dir/div.c.o: div.c
+CMakeFiles/app.dir/div.c.o: /home/fewx/code/CMake/div.c
 CMakeFiles/app.dir/div.c.o: CMakeFiles/app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/app.dir/div.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fewx/code/CMake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/app.dir/div.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/app.dir/div.c.o -MF CMakeFiles/app.dir/div.c.o.d -o CMakeFiles/app.dir/div.c.o -c /home/fewx/code/CMake/div.c
 
 CMakeFiles/app.dir/div.c.i: cmake_force
@@ -161,7 +161,7 @@ app: CMakeFiles/app.dir/div.c.o
 app: CMakeFiles/app.dir/build.make
 app: CMakeFiles/app.dir/compiler_depend.ts
 app: CMakeFiles/app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fewx/code/CMake/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fewx/code/CMake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -173,6 +173,6 @@ CMakeFiles/app.dir/clean:
 .PHONY : CMakeFiles/app.dir/clean
 
 CMakeFiles/app.dir/depend:
-	cd /home/fewx/code/CMake && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fewx/code/CMake /home/fewx/code/CMake /home/fewx/code/CMake /home/fewx/code/CMake /home/fewx/code/CMake/CMakeFiles/app.dir/DependInfo.cmake "--color=$(COLOR)" app
+	cd /home/fewx/code/CMake/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/fewx/code/CMake /home/fewx/code/CMake /home/fewx/code/CMake/build /home/fewx/code/CMake/build /home/fewx/code/CMake/build/CMakeFiles/app.dir/DependInfo.cmake "--color=$(COLOR)" app
 .PHONY : CMakeFiles/app.dir/depend
 

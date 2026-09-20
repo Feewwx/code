@@ -60,7 +60,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/fewx/code/CMake
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fewx/code/CMake
+CMAKE_BINARY_DIR = /home/fewx/code/CMake/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fewx/code/CMake/CMakeFiles /home/fewx/code/CMake//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fewx/code/CMake/build/CMakeFiles /home/fewx/code/CMake/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fewx/code/CMake/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fewx/code/CMake/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

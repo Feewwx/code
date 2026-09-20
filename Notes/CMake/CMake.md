@@ -232,6 +232,10 @@ cmake .
 -- Generating done (0.0s)
 -- Build files have been written to: /home/fewx/code/CMake
 
+# 当执行cmake命令之后,CMakeLists.txt 中的命令就会被执行,所以一定要注意给 cmake 命令指定路径的时候一定不能出错
+
+# 执行命令之后,看一下源文件所在目录中是否多了一些文件:
+
 eza --tree
 .
 ├── add.c
@@ -274,6 +278,8 @@ eza --tree
 ├── mult.c
 └── sub.c
 
+# 我们可以看到在对应的目录下生成了一个makefile文件,此时再执行make命令,就可以对项目进行构建得到所需的可执行程序了
+
 make
 [ 16%] Building C object CMakeFiles/app.dir/main.c.o
 [ 33%] Building C object CMakeFiles/app.dir/add.c.o
@@ -287,3 +293,16 @@ ls
  add.c   cmake_install.cmake   CMakeFiles       div.c    main.c     mult.c
 󰡯 app     CMakeCache.txt        CMakeLists.txt   head.h   Makefile   sub.c
 ```
+
+最终可执行程序app就被编译出来了(这个名字是在CMakeLists.txt中指定的)
+
+> 为了防止文件太乱,其实可以这样做
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+### 2.2.2. VIP包间

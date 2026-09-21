@@ -374,3 +374,31 @@ eza --tree
 ```bash
 make
 ```
+
+## 2.3. 私人定制
+
+### 2.3.1. 定义变量
+
+在上面的例子中一共提供了5个源文件,假设这5个源文件需要反复被使用
+每次都直接将它们的名字写出来很麻烦且容易出错,此时我们就需要定义一个变量,将文件名对应的字符串存储起来
+在cmake里定义变量需要使用set
+
+```cmake
+# set 指令的语法是:
+# [] 中的参数为可选项,如果不需要可以不写
+set(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]])
+```
+
+- `VAR` 变量名
+
+- `VALUE` 变量值
+
+```cmake
+# 方式1: 各个源文件之间使用空格间隔
+set(SRC_LIST add.c  div.c   main.c  mult.c  sub.c)
+
+# 方式2: 各个源文件之间使用分号 ; 间隔
+set(SRC_LIST add.c;div.c;main.c;mult.c;sub.c)
+
+add_executable(app  ${SRC_LIST})
+```

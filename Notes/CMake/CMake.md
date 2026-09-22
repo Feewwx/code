@@ -402,3 +402,5 @@ set(SRC_LIST add.c;div.c;main.c;mult.c;sub.c)
 
 add_executable(app  ${SRC_LIST})
 ```
+
+### 2.3.2. 指定使用的C++标准

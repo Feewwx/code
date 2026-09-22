@@ -13,7 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/fewx/code/CMake/main.c" "CMakeFiles/app.dir/main.c.o" "gcc" "CMakeFiles/app.dir/main.c.o.d"
   "/home/fewx/code/CMake/mult.c" "CMakeFiles/app.dir/mult.c.o" "gcc" "CMakeFiles/app.dir/mult.c.o.d"
   "/home/fewx/code/CMake/sub.c" "CMakeFiles/app.dir/sub.c.o" "gcc" "CMakeFiles/app.dir/sub.c.o.d"
-  "" "app" "gcc" "CMakeFiles/app.dir/link.d"
+  "" "/home/fewx/code/CMake/bin/app" "gcc" "CMakeFiles/app.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

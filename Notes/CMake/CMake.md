@@ -169,7 +169,7 @@ eza --tree
 在上述文件目录下新建一个文件`CMakeLists.txt`
 
 ```cmake
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 project(CALC)
 add_executable(app add.c sub.c mult.c div.c main.c)
 ```
@@ -190,7 +190,7 @@ project(<PROJECT-NAME>
        [LANGUAGES <language-name>...])
 ```
 
-- `add_executable` 定义工程会胜场一个可执行程序
+- `add_executable` 定义工程会生成一个可执行程序
 
 ```cmake
 add_executable(可执行程序名 源文件名称)
@@ -404,3 +404,53 @@ add_executable(app  ${SRC_LIST})
 ```
 
 ### 2.3.2. 指定使用的C++标准
+
+在编写C++程序的时候,可能会用到C++11,C++14,C++17,C++20等新特性
+那么就要在编译的时候在编译命令中指定出要使用哪个标准:
+
+```bash
+# 指定出要使用C++11标准编译程序
+gcc *.cpp -std=c++11 -o app
+```
+
+C++标准对应有一个宏叫作 `CMAKE_CXX_STANDARD`
+
+在CMake中想要指定C++标准有两种方式:
+
+#### 2.3.2.1. 在CMakeLists.txt中通过set命令指定
+
+```cmake
+#增加-std=c++11
+set(CMAKE_CXX_STANDARD 11)
+#增加-std=c++14
+set(CMAKE_CXX_STANDARD 14)
+#增加-std=c++17
+set(CMAKE_CXX_STANDARD 17)
+```
+
+#### 2.3.2.2. 在执行cmake命令的时候指定出这个宏的值
+
+```bash
+#增加-std=c++11
+cmake CMakeLists.txt文件路径 -DCMAKE_CXX_STANDARD=11
+#增加-std=c++14
+cmake CMakeLists.txt文件路径 -DCMAKE_CXX_STANDARD=14
+#增加-std=c++17
+cmake CMakeLists.txt文件路径 -DCMAKE_CXX_STANDARD=17
+```
+
+### 2.3.3. 指定输出的路径
+
+在CMake中指定可执行程序的输出路径,也对应一个宏
+叫作 `EXECUTABLE_OUTPUT_PATH`,它的值还是通过`set`命令进行设置:
+
+```cmake
+# 创建字符变量
+set(PROJ /home/robin/Linux/Sort)
+# 指定输出的路径
+set(EXECUTABLE_OUTPUT_PATH ${PROJ}/bin)
+```
+
+- 如果最后的子目录不存在,cmake会在配置阶段自动创建
+
+- 由于可执行程序是基于cmake命令生成的makefile文件然后再执行make命令得到的,所以如果指定的是相对路径,那其中的.其实是makefile文件所在的目录

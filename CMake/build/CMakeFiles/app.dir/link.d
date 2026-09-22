@@ -1,4 +1,4 @@
-app: \
+/home/fewx/code/CMake/bin/app: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/16/crtbeginS.o \

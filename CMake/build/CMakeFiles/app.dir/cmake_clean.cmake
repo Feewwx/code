@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "/home/fewx/code/CMake/bin/app"
+  "/home/fewx/code/CMake/bin/app.pdb"
   "CMakeFiles/app.dir/link.d"
   "CMakeFiles/app.dir/add.c.o"
   "CMakeFiles/app.dir/add.c.o.d"
@@ -10,8 +12,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/app.dir/mult.c.o.d"
   "CMakeFiles/app.dir/sub.c.o"
   "CMakeFiles/app.dir/sub.c.o.d"
-  "app"
-  "app.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -454,3 +454,19 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJ}/bin)
 - 如果最后的子目录不存在,cmake会在配置阶段自动创建
 
 - 由于可执行程序是基于cmake命令生成的makefile文件然后再执行make命令得到的,所以如果指定的是相对路径,那其中的.其实是makefile文件所在的目录
+
+## 2.4. 搜索文件
+
+如果一个项目里面源文件很多,不方便一一罗列,我们可以使用`aux_source_directory`或者`file`命令来搜索文件
+
+### 2.4.1. aux_source_directory
+
+在CMake中使用`aux_source_directory`命令可以查找某个路径下的所有源文件,命令格式为:
+
+```cmake
+aux_source_directory(<dir> <variable>)
+```
+
+- `dir` 要搜索的目录
+
+- `variable` 将从dir目录下搜索到的源文件列表存储到该变量中

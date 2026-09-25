@@ -290,8 +290,8 @@ make
 [100%] Built target app
 
 ls
- add.c   cmake_install.cmake   CMakeFiles       div.c    main.c     mult.c
-󰡯 app     CMakeCache.txt        CMakeLists.txt   head.h   Makefile   sub.c
+ add.c   cmake_install.cmake   CMakeFiles       div.c    main.c     mult.c
+󰡯 app     CMakeCache.txt        CMakeLists.txt   head.h   Makefile   sub.c
 ```
 
 最终可执行程序app就被编译出来了(这个名字是在CMakeLists.txt中指定的)
@@ -470,3 +470,31 @@ aux_source_directory(<dir> <variable>)
 - `dir` 要搜索的目录
 
 - `variable` 将从dir目录下搜索到的源文件列表存储到该变量中
+
+```cmake
+cmake_minimum_required(VERSION 3.16)
+project(CALC)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+# 搜索 src 目录下的源文件
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src SRC_LIST)
+add_executable(app  ${SRC_LIST})
+```
+
+### 2.4.2. file
+
+在CMake中使用`file`命令可以搜索文件(file的用法不止于此),命令格式为:
+
+```cmake
+file(GLOB/GLOB_RECURSE 变量名 要搜索的文件路径和文件类型)
+```
+
+- `GLOB` 将指定目录下搜索到的满足条件的所有文件名生成一个列表,并将其存储到变量中
+
+- `GLOB_RECURSE` 递归搜索指定目录,将搜索到的满足条件的文件名生成一个列表,并将其存储到变量中
+
+> 搜索当前目录的src目录下所有的源文件,并存储到变量中
+
+```cmake
+file(GLOB MAIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
+file(GLOB MAIN_HEAD ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
+```

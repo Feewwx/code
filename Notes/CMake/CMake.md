@@ -498,3 +498,31 @@ file(GLOB/GLOB_RECURSE 变量名 要搜索的文件路径和文件类型)
 file(GLOB MAIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
 file(GLOB MAIN_HEAD ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 ```
+
+- `CMAKE_CURRENT_SOURCE_DIR` 宏表示当前访问的CMakeLists.txt文件所在的路径
+
+> 关于要搜索的文件路径和类型也可加引号,也可不加
+
+```cmake
+file(GLOB MAIN_SRC "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
+```
+
+## 2.5. 包含头文件
+
+当头文件很多不方便一一列举时,或者头文件和源代码不在一个目录时
+
+cmake为我们提供了一种方式能方便的包含所需的头文件,他就是:
+
+`include_directories`
+
+```cmake
+include_directories(headpath)
+```
+
+- `headpath` 头文件的路径
+
+> 举例
+
+```cmake
+include_directories(${PROJECT_SOURCE_DIR}/include)
+```

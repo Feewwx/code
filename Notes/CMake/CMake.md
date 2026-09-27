@@ -291,7 +291,7 @@ make
 
 ls
  add.c   cmake_install.cmake   CMakeFiles       div.c    main.c     mult.c
-󰡯 app     CMakeCache.txt        CMakeLists.txt   head.h   Makefile   sub.c
+ app     CMakeCache.txt        CMakeLists.txt   head.h   Makefile   sub.c
 ```
 
 最终可执行程序app就被编译出来了(这个名字是在CMakeLists.txt中指定的)
@@ -526,3 +526,5 @@ include_directories(headpath)
 ```cmake
 include_directories(${PROJECT_SOURCE_DIR}/include)
 ```
+
+## 2.6. 制作动态库或静态库

@@ -1,8 +1,8 @@
-####### https://www.bilibili.com/video/BV14s4y1g7Zj
-####### https://subingwen.cn/cmake/CMake-primer/
-####### https://subingwen.cn/cmake/CMake-advanced/
+######## https://www.bilibili.com/video/BV14s4y1g7Zj
+######## https://subingwen.cn/cmake/CMake-primer/
+######## https://subingwen.cn/cmake/CMake-advanced/
 
-# 1. CMake概述
+# [[CMake概述]]
 
 我们在学习C语言的时候,我们知道源文件是如何变成可执行文件的
 
@@ -37,11 +37,11 @@ CMakeLists.txt(编写文件)->cmake(执行命令)->Makefile(文件)->make(调用
 - 简化编译构建过程和编译过程
 - 可扩展:可以为CMake编写特定功能的模块
 
-> CMake 一个字节都不编译。它只是把编译命令写成脚本
+> CMake 一个字节都不编译. 它只是把编译命令写成脚本
 
 CMake不仅可以生成可执行文件,还可以生成库文件(动态库/静态库)
 
-# 2. CMake的使用
+# [[CMake的使用]]
 
 ## 2.1. 注释
 
@@ -151,7 +151,7 @@ int main()
 
 #### 2.2.1.2. 目录结构
 
-> 上述文件的目录结构如下：
+> 上述文件的目录结构如下:
 
 ```bash
 eza --tree
@@ -410,7 +410,7 @@ add_executable(app  ${SRC_LIST})
 
 ```bash
 # 指定出要使用C++11标准编译程序
-gcc *.cpp -std=c++11 -o app
+g++ *.cpp -std=c++11 -o app
 ```
 
 C++标准对应有一个宏叫作 `CMAKE_CXX_STANDARD`
@@ -453,7 +453,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJ}/bin)
 
 - 如果最后的子目录不存在,cmake会在配置阶段自动创建
 
-- 由于可执行程序是基于cmake命令生成的makefile文件然后再执行make命令得到的,所以如果指定的是相对路径,那其中的.其实是makefile文件所在的目录
+- 由于可执行程序是基于cmake命令生成的makefile文件然后再执行make命令得到的,所以如果指定的是相对路径,那它其实是相对于makefile文件所在的目录
 
 ## 2.4. 搜索文件
 
@@ -582,7 +582,7 @@ add_library(calc STATIC ${SRC_LIST})
 add_library(库名称 SHARED 源文件1 源文件2 源文件3 ...)
 ```
 
-linux和windows下静态库文件命名格式不同:
+linux和windows下动态库文件命名格式不同:
 
 - linux下库文件命名格式为 `lib库名称.so`
 
@@ -598,7 +598,7 @@ file(GLOB SRC_LIST "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_library(calc SHARED ${SRC_LIST})
 ```
 
-这样最终就会生成对应的静态库文件 `libcalc.so`
+这样最终就会生成对应的动态库文件 `libcalc.so`
 
 ### 2.6.3. 指定输出路径
 
@@ -636,3 +636,1254 @@ add_library(calc STATIC ${SRC_LIST})
 ```
 
 ## 2.7. 包含库文件
+
+在编写程序的过程中,可能会用到一些系统提供的动态库或者自己制作出的动态库或者静态库文件
+
+cmake中为我们提供了相关的加载库的命令
+
+### 2.7.1. 两条链接命令
+
+```cmake
+# 老写法:全局命令,对它之后出现的所有 target 都生效
+link_libraries(库名称1 库名称2 库名称3 ...)
+
+# 现代写法:指定作用在哪个 target 上
+target_link_libraries(
+    <target>
+    <PRIVATE|PUBLIC|INTERFACE> <item>
+    <PRIVATE|PUBLIC|INTERFACE> <item>...)
+```
+
+**推荐一律用 `target_link_libraries`**,`link_libraries` 是过时写法
+
+关于库名:
+
+- 可以是全名,也可以是去掉 lib 前缀和后缀的名字
+
+关于 `target`:
+
+- `target` 指定要加载的库的文件的名字
+
+    - 该文件可能是一个源文件
+    - 该文件可能是一个动态库/静态库文件
+    - 该文件可能是一个可执行文件
+
+### 2.7.2. 链接库路径
+
+如果库不是系统提供的(自己制作或者使用第三方提供的),可能出现找不到的情况
+
+此时可以将库的路径也指定出来:
+
+```cmake
+link_directories(库路径1 库路径2 库路径3 ...)
+```
+
+这个命令只管"链接时去哪找库文件",跟静态库/动态库无关
+
+### 2.7.3. 静态库和动态库的区别
+
+**唯一跟静态/动态有关的是加载时机:**
+
+- 静态库会在生成可执行程序的链接阶段被打包到可执行程序中,所以可执行程序启动,静态库就被加载到内存中了
+- 动态库在生成可执行程序的链接阶段不会被打包到可执行程序中
+当可执行程序被启动并且调用了动态库中的函数的时候,动态库才会被加载到内存
+
+因此,在cmake中指定要链接的动态库的时候,应该将命令写到生成了可执行文件之后:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+# 添加并指定最终生成的可执行程序名
+add_executable(app ${SRC_LIST})
+# 指定可执行程序要链接的动态库名字
+target_link_libraries(app pthread)
+```
+
+在 `target_link_libraries(app pthread)` 中:
+
+- `app`: 对应的是最终生成的可执行程序的名字
+- `pthread`:这是可执行程序要加载的动态库,这个库是系统提供的线程库,全名为 `libpthread.so`
+在指定的时候一般会掐头(`lib`)去尾(`.so`)
+
+### 2.7.4. PUBLIC / PRIVATE / INTERFACE
+
+`PRIVATE|PUBLIC|INTERFACE` 是链接的访问权限,默认为 `PUBLIC`:
+
+- 如果各个动态库之间没有依赖关系,无需做任何设置,三者没有区别,一般无需指定,使用默认的 `PUBLIC` 即可
+- 动态库的链接具有传递性,如果动态库 A 链接了动态库 B 和 C,动态库 D 链接了动态库 A
+此时动态库 D 相当于也链接了动态库 B 和 C,并可以使用动态库 B 和 C 中定义的方法
+
+```cmake
+target_link_libraries(A B C)
+target_link_libraries(D A)
+```
+
+- `PUBLIC` 在 public 后面的库会被 Link 到前面的 target 中,并且里面的符号也会被导出,提供给第三方使用
+- `PRIVATE` 在 private 后面的库仅被 link 到前面的 target 中,并且终结掉,第三方不能感知你调了啥库
+- `INTERFACE` 在 interface 后面引入的库不会被链接到前面的 target 中,只会导出符号
+
+```cmake
+target_link_libraries(A PUBLIC B PUBLIC C)
+target_link_libraries(D PUBLIC A)
+```
+
+- PRIVATE:我用 B,但跟你无关,你链我的时候不需要知道 B
+- PUBLIC:我用 B,你也得跟着用 B
+- INTERFACE:我自己不用 B,但用我的人必须用
+
+### 2.7.5. 链接第三方动态库
+
+现在,自己生成了一个动态库,对应的目录结构如下:
+
+```bash
+eza --tree
+.
+├── build
+├── CMakeLists.txt
+├── include
+│   └── head.h            # 动态库对应的头文件
+├── lib
+│   └── libcalc.so        # 自己制作的动态库文件
+└── main.cpp              # 测试用的源文件
+
+3 directories, 4 files
+```
+
+假设在测试文件 main.cpp 中既使用了自己制作的动态库 libcalc.so 又使用了系统提供的线程库
+如果 CMakeLists.txt 这样写:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+add_executable(app ${SRC_LIST})
+target_link_libraries(app pthread calc)
+```
+
+在最后一行中,`pthread`, `calc` 都是可执行程序 `app` 要链接的动态库的名字
+
+你会发现 **这个版本编不过** `pthread` 是系统库,链接器在标准目录里就能找到
+而 `libcalc.so` 在你项目的 `lib/` 里,不在链接器的默认搜索路径中,所以链接阶段就会报:
+
+```
+/usr/bin/ld: cannot find -lcalc
+```
+
+**告诉链接器去哪找库** 在生成可执行程序之前加上:
+
+```cmake
+link_directories(path)
+```
+
+所以修改之后的 CMakeLists.txt 文件应该是这样的:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+file(GLOB SRC_LIST ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+# 指定源文件或者动态库对应的头文件路径
+include_directories(${PROJECT_SOURCE_DIR}/include)
+# 指定要链接的动态库的路径
+link_directories(${PROJECT_SOURCE_DIR}/lib)
+# 添加并生成一个可执行程序
+add_executable(app ${SRC_LIST})
+# 指定要链接的动态库
+target_link_libraries(app pthread calc)
+```
+
+**运行期**
+
+如果你是用 gcc 编译,这个问题会看得更清楚:
+
+```bash
+gcc main.c -L./lib -lcalc -o app
+```
+
+- 编译:成功,`-L./lib` 告诉链接器去哪找
+- 运行:`./app` → 直接报 `cannot open shared object file`
+
+因为链接器找库和程序运行时找库,是两套完全独立的机制:
+
+- **链接期**:`ld` 按 `link_directories`(等价 `-L`)给的目录找
+- **运行期**:`ld.so` 按 rpath, `LD_LIBRARY_PATH`, `/etc/ld.so.conf`, 标准目录找
+
+`-L` 把路径传给 ld 之后,ld 编完就走了,**这个路径没有留在可执行文件里**,所以运行期 ld.so 无从得知
+
+那上面那版为什么在 `build` 目录里跑得好好的?
+因为 **CMake 把 `link_directories` 那个路径刻进了可执行文件的 rpath**,ld.so 运行时按它就能找到
+但这个 rpath 是绝对路径,指向你的源码目录,所以:
+
+- 把 app 装到别处(`make install`),CMake 会把它清掉
+- 把 app 拷给别人,对方机器上没这个目录
+
+这两种情况都会让报错回来:
+
+```
+./app
+./app: error while loading shared libraries: libcalc.so: cannot open shared object file: No such file or directory
+```
+
+要彻底解决,得让 app 在运行期也能找到库:设 `RPATH`,或者运行时给 `LD_LIBRARY_PATH`,或者 `make install` 时把 `.so` 装进系统库目录
+
+## 2.8. 日志
+
+在CMake中可以向用户显示一条消息,该命令的名字为message:
+
+```cmake
+message([STATUS|WARNING|AUTHOR_WARNING|FATAL_ERROR|SEND_ERROR] "message to display" ...)
+```
+
+- (无) : 重要消息
+- STATUS : 非重要消息
+- WARNING : CMake 警告, 会继续执行
+- AUTHOR_WARNING : CMake 警告 (dev), 会继续执行
+- SEND_ERROR : CMake 错误, 继续执行,但是会跳过生成的步骤
+- FATAL_ERROR : CMake 错误, 终止所有处理过程
+
+(CMake 3.17 起还有一个 DEPRECATION,专门标记过时用法,跟着 CMAKE_ERROR_DEPRECATED / CMAKE_WARN_DEPRECATED 的设置走)
+
+CMake的命令行工具会在stdout上显示STATUS消息,在stderr上显示其他所有消息
+
+CMake警告和错误消息的文本显示使用的是一种简单的标记语言,文本没有缩进,超过长度的行会回卷,段落之间以新行做为分隔符
+
+```cmake
+# 输出一般日志信息
+message(STATUS "source path: ${PROJECT_SOURCE_DIR}")
+# 输出警告信息
+message(WARNING "source path: ${PROJECT_SOURCE_DIR}")
+# 输出错误信息
+message(FATAL_ERROR "source path: ${PROJECT_SOURCE_DIR}")
+```
+
+## 2.9. 变量操作
+
+### 2.9.1. 追加
+
+有时候项目中的源文件并不一定都在同一个目录中, 但是这些源文件最终却需要一起进行编译来生成最终的可执行文件或者库文件
+如果我们通过file命令对各个目录下的源文件进行搜索, 最后还需要做一个字符串拼接的操作, 关于字符串拼接可以使用set命令也可以使用list命令
+
+#### 2.9.1.1. 使用set拼接
+
+如果使用set进行字符串拼接, 对应的命令格式如下:
+
+```cmake
+set(变量名1 ${变量名1} ${变量名2} ...)
+```
+
+关于上面的命令其实就是将从第二个参数开始往后所有的字符串进行拼接, 最后将结果存储到第一个参数中 
+如果第一个参数中原来有数据会对原数据进行覆盖
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+set(TEMP "hello,world")
+file(GLOB SRC_1 ${PROJECT_SOURCE_DIR}/src1/*.cpp)
+file(GLOB SRC_2 ${PROJECT_SOURCE_DIR}/src2/*.cpp)
+# 追加(拼接)
+set(SRC_1 ${SRC_1} ${SRC_2} ${TEMP})
+message(STATUS "message: ${SRC_1}")
+```
+
+#### 2.9.1.2. 使用list拼接
+
+如果使用list进行字符串拼接, 对应的命令格式如下:
+
+```cmake
+list(APPEND <list> [<element> ...])
+```
+
+list命令的功能比set要强大, 字符串拼接只是它的其中一个功能, 所以需要在它第一个参数的位置指定出我们要做的操作 
+APPEND表示进行数据追加, 后边的参数和set就一样了.
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+set(TEMP "hello,world")
+file(GLOB SRC_1 ${PROJECT_SOURCE_DIR}/src1/*.cpp)
+file(GLOB SRC_2 ${PROJECT_SOURCE_DIR}/src2/*.cpp)
+# 追加(拼接)
+list(APPEND SRC_1 ${SRC_1} ${SRC_2} ${TEMP})
+message(STATUS "message: ${SRC_1}")
+```
+
+在CMake中, 使用set命令可以创建一个list. 一个 list 内部是由分号 `;` 分割的一组字符串 
+例如, `set(var a b c d e)` 命令将会创建一个 list: `a;b;c;d;e`, 但是最终打印变量值的时候得到的是 `abcde`.
+
+```cmake
+set(tmp1 a;b;c;d;e)
+set(tmp2 a b c d e)
+message(${tmp1})
+message(${tmp2})
+```
+
+输出的结果:
+
+```
+abcde
+abcde
+```
+
+### 2.9.2. 字符串移除
+
+我们在通过file搜索某个目录就得到了该目录下所有的源文件, 但是其中有些源文件并不是我们所需要的, 比如:
+
+```bash
+eza --tree
+.
+├── add.cpp
+├── div.cpp
+├── main.cpp
+├── mult.cpp
+└── sub.cpp
+
+0 directories, 5 files
+```
+
+在当前这个目录有五个源文件, 其中main.cpp是一个测试文件. 如果我们想要把计算器相关的源文件生成一个动态库给别人使用 
+那么只需要add.cpp, div.cpp, mult.cpp, sub.cpp这四个源文件就可以了 
+此时, 就需要将main.cpp从搜索到的数据中剔除出去, 想要实现这个功能, 也可以使用list
+
+```cmake
+list(REMOVE_ITEM <list> <value> [<value> ...])
+```
+
+通过上面的命令原型可以看到删除和追加数据类似, 只不过是第一个参数变成了REMOVE_ITEM.
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+set(TEMP "hello,world")
+file(GLOB SRC_1 ${PROJECT_SOURCE_DIR}/*.cpp)
+# 移除前日志
+message(STATUS "message: ${SRC_1}")
+# 移除 main.cpp
+list(REMOVE_ITEM SRC_1 ${PROJECT_SOURCE_DIR}/main.cpp)
+# 移除后日志
+message(STATUS "message: ${SRC_1}")
+```
+
+可以看到, 在第8行把将要移除的文件的名字指定给list就可以了
+但是一定要注意通过 file 命令搜索源文件的时候得到的是文件的绝对路径(在list中每个文件对应的路径都是一个item, 并且都是绝对路径) 
+那么在移除的时候也要将该文件的绝对路径指定出来才可以, 否则移除操作不会成功.
+
+关于list命令还有其它功能, 但是并不常用, 在此就不一一进行举例介绍了.
+
+- **LENGTH** - 获取 list 的长度
+
+  ```cmake
+  list(LENGTH <list> <output variable>)
+  ```
+
+  - `LENGTH`: 子命令, 用于读取列表长度
+  - `<list>`: 当前操作的列表
+  - `<output variable>`: 新创建的变量, 用于存储列表的长度
+
+- **GET** - 读取列表中指定索引的元素, 可以指定多个索引
+
+  ```cmake
+  list(GET <list> <element index> [<element index> ...] <output variable>)
+  ```
+
+  - `<list>`: 当前操作的列表
+  - `<element index>`: 列表元素的索引
+    - 从0开始编号, 索引0的元素为列表中的第一个元素
+    - 索引也可以是负数, -1表示列表的最后一个元素, -2表示列表倒数第二个元素, 以此类推
+    - 当索引(不管是正还是负)超过列表的长度, 运行会报错
+  - `<output variable>`: 新创建的变量, 存储指定索引元素的返回结果, 也是一个列表
+
+- **JOIN** - 将列表中的元素用连接符(字符串)连接起来组成一个字符串
+
+  ```cmake
+  list(JOIN <list> <glue> <output variable>)
+  ```
+
+  - `<list>`: 当前操作的列表
+  - `<glue>`: 指定的连接符(字符串)
+  - `<output variable>`: 新创建的变量, 存储返回的字符串
+
+- **FIND** - 查找列表中是否存在指定的元素, 如果未找到返回 -1
+
+  ```cmake
+  list(FIND <list> <value> <output variable>)
+  ```
+
+  - `<list>`: 当前操作的列表
+  - `<value>`: 需要在列表中搜索的元素
+  - `<output variable>`: 新创建的变量
+    - 如果列表 `<list>` 中存在 `<value>`, 那么返回 `<value>` 在列表中的索引
+    - 如果未找到则返回 -1
+
+- **APPEND** - 将元素追加到列表中
+
+  ```cmake
+  list(APPEND <list> [<element> ...])
+  ```
+
+- **INSERT** - 在 list 中指定的位置插入若干元素
+
+  ```cmake
+  list(INSERT <list> <element_index> <element> [<element> ...])
+  ```
+
+- **PREPEND** - 将元素插入到列表的 0 索引位置
+
+  ```cmake
+  list(PREPEND <list> [<element> ...])
+  ```
+
+- **POP_BACK** - 将列表中最后的元素移除
+
+  ```cmake
+  list(POP_BACK <list> [<out-var>...])
+  ```
+
+- **POP_FRONT** - 将列表中第一个元素移除
+
+  ```cmake
+  list(POP_FRONT <list> [<out-var>...])
+  ```
+
+- **REMOVE_ITEM** - 将指定的元素从列表中移除
+
+  ```cmake
+  list(REMOVE_ITEM <list> <value> [<value> ...])
+  ```
+
+- **REMOVE_AT** - 将指定索引的元素从列表中移除
+
+  ```cmake
+  list(REMOVE_AT <list> <index> [<index> ...])
+  ```
+
+- **REMOVE_DUPLICATES** - 移除列表中的重复元素
+
+  ```cmake
+  list(REMOVE_DUPLICATES <list>)
+  ```
+
+- **REVERSE** - 列表翻转
+
+  ```cmake
+  list(REVERSE <list>)
+  ```
+
+- **SORT** - 列表排序
+
+  ```cmake
+  list(SORT <list> [COMPARE <compare>] [CASE <case>] [ORDER <order>])
+  ```
+
+  - `COMPARE`: 指定排序方法, 有如下几种值可选
+    - `STRING`: 按照字母顺序进行排序, 为默认的排序方法
+    - `FILE_BASENAME`: 如果是一系列路径名, 会使用 basename 进行排序
+    - `NATURAL`: 使用自然数顺序排序
+  - `CASE`: 指明是否大小写敏感, 有如下几种值可选
+    - `SENSITIVE`: 按照大小写敏感的方式进行排序, 为默认值
+    - `INSENSITIVE`: 按照大小写不敏感方式进行排序
+  - `ORDER`: 指明排序的顺序, 有如下几种值可选
+    - `ASCENDING`: 按照升序排列, 为默认值
+    - `DESCENDING`: 按照降序排列
+
+## 2.10. 宏定义
+
+在进行程序测试的时候, 我们可以在代码中添加一些宏定义, 通过这些宏来控制这些代码是否生效, 如下所示:
+
+```c
+#include <stdio.h>
+#define NUMBER  3
+
+int main()
+{
+    int a = 10;
+#ifdef DEBUG
+    printf("我是一个程序猿, 我不会爬树...\n");
+#endif
+    for(int i=0; i<NUMBER; ++i)
+    {
+        printf("hello, GCC!!!\n");
+    }
+    return 0;
+}
+```
+
+在程序的第七行对DEBUG宏进行了判断, 如果该宏被定义了, 那么第八行就会进行日志输出, 如果没有定义这个宏, 第八行就相当于被注释掉了 
+因此最终无法看到日志输出(上述代码中并没有定义这个宏).
+
+为了让测试更灵活, 我们可以不在代码中定义这个宏, 而是在测试的时候去把它定义出来, 其中一种方式就是在gcc/g++命令中去指定, 如下:
+
+```bash
+gcc test.c -DDEBUG -o app
+```
+
+在gcc/g++命令中通过参数 `-D` 指定出要定义的宏的名字, 这样就相当于在代码中定义了一个宏, 其名字为DEBUG.
+
+在CMake中我们也可以做类似的事情, 对应的命令叫做 `add_definitions`:
+
+```cmake
+add_definitions(-D宏名称)
+```
+
+针对于上面的源文件编写一个CMakeLists.txt, 内容如下:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(TEST)
+# 自定义 DEBUG 宏
+add_definitions(-DDEBUG)
+add_executable(app ./test.c)
+```
+
+通过这种方式, 上述代码中的第八行日志就能够被输出出来了.
+# [[预定义宏]]
+
+下面的列表中为大家整理了一些 CMake 中常用的宏:
+
+| 宏                         | 功能                                                                        |
+|----------------------------|-----------------------------------------------------------------------------|
+| `PROJECT_SOURCE_DIR`       | 使用 cmake 命令后紧跟的目录, 一般是工程的根目录                             |
+| `PROJECT_BINARY_DIR`       | 执行 cmake 命令的目录                                                       |
+| `CMAKE_CURRENT_SOURCE_DIR` | 当前处理的 CMakeLists.txt 所在的路径                                        |
+| `CMAKE_CURRENT_BINARY_DIR` | 当前处理的 CMakeLists.txt 对应的构建目录                                    |
+| `EXECUTABLE_OUTPUT_PATH`   | 重新定义目标二进制可执行文件的存放位置                                      |
+| `LIBRARY_OUTPUT_PATH`      | 重新定义目标链接库文件的存放位置                                            |
+| `PROJECT_NAME`             | 返回通过 PROJECT 指令定义的项目名称                                         |
+| `CMAKE_BINARY_DIR`         | 项目实际构建路径, 假设在 build 目录进行的构建, 那么得到的就是这个目录的路径 |
+
+# [[嵌套的CMake]]
+
+如果项目很大, 或者项目中有很多的源码目录, 在通过CMake管理项目的时候如果只使用一个CMakeLists.txt, 那么这个文件相对会比较复杂 
+有一种化繁为简的方式就是给每个源码目录都添加一个CMakeLists.txt文件(头文件目录不需要), 这样每个文件都不会太复杂, 而且更灵活, 更容易维护.
+
+先来看一下下面的这个的目录结构:
+
+```bash
+eza --tree
+.
+├── build
+├── calc
+│   ├── add.cpp
+│   ├── CMakeLists.txt
+│   ├── div.cpp
+│   ├── mult.cpp
+│   └── sub.cpp
+├── CMakeLists.txt
+├── include
+│   ├── calc.h
+│   └── sort.h
+├── sort
+│   ├── CMakeLists.txt
+│   ├── insert.cpp
+│   └── select.cpp
+├── test1
+│   ├── calc.cpp
+│   └── CMakeLists.txt
+└── test2
+    ├── CMakeLists.txt
+    └── sort.cpp
+
+6 directories, 15 files
+```
+
+- `include` 目录: 头文件目录
+- `calc` 目录: 目录中的四个源文件对应的加, 减, 乘, 除算法
+  - 对应的头文件是 include 中的 calc.h
+- `sort` 目录: 目录中的两个源文件对应的是插入排序和选择排序算法
+  - 对应的头文件是 include 中的 sort.h
+- `test1` 目录: 测试目录, 对加, 减, 乘, 除算法进行测试
+- `test2` 目录: 测试目录, 对排序算法进行测试
+
+可以看到各个源文件目录所需要的CMakeLists.txt文件现在已经添加完毕了. 接下来庖丁解牛, 我们依次分析一下各个文件中需要添加的内容.
+
+## 4.1. 准备工作
+
+### 4.1.1. 节点关系
+
+众所周知, Linux的目录是树状结构, 所以嵌套的 CMake 也是一个树状结构, 最顶层的 CMakeLists.txt 是根节点, 其次都是子节点 
+因此, 我们需要了解一些关于 CMakeLists.txt 文件变量作用域的一些信息:
+
+- 根节点 CMakeLists.txt 中的变量全局有效
+- 父节点 CMakeLists.txt 中的变量可以在子节点中使用
+- 子节点 CMakeLists.txt 中的变量只能在当前节点中使用
+
+### 4.1.2. 添加子目录
+
+接下来我们还需要知道在 CMake 中父子节点之间的关系是如何建立的, 这里需要用到一个 CMake 命令:
+
+```cmake
+add_subdirectory(source_dir [binary_dir] [EXCLUDE_FROM_ALL])
+```
+
+- `source_dir`: 指定了 CMakeLists.txt 源文件和代码文件的位置, 其实就是指定子目录
+- `binary_dir`: 指定了输出文件的路径, 一般不需要指定, 忽略即可
+- `EXCLUDE_FROM_ALL`: 在子路径下的目标默认不会被包含到父路径的 ALL 目标里, 并且也会被排除在 IDE 工程文件之外,用户必须显式构建在子路径下的目标
+
+通过这种方式 CMakeLists.txt 文件之间的父子关系就被构建出来了.
+
+## 4.2. 解决问题
+
+在上面的目录中我们要做如下事情:
+
+- 通过 test1 目录中的测试文件进行计算器相关的测试
+- 通过 test2 目录中的测试文件进行排序相关的测试
+
+现在相当于是要进行模块化测试, 对于calc和sort目录中的源文件来说, 可以将它们先编译成库文件(可以是静态库也可以是动态库)
+然后在提供给测试文件使用即可. 库文件的本质其实还是代码, 只不过是从文本格式变成了二进制格式.
+
+### 4.2.1. 根目录
+
+根目录中的 CMakeLists.txt 文件内容如下:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(test)
+# 定义变量
+# 静态库生成的路径
+set(LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+# 测试程序生成的路径
+set(EXEC_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+# 头文件目录
+set(HEAD_PATH ${CMAKE_CURRENT_SOURCE_DIR}/include)
+# 静态库的名字
+set(CALC_LIB calc)
+set(SORT_LIB sort)
+# 可执行程序的名字
+set(APP_NAME_1 test1)
+set(APP_NAME_2 test2)
+# 添加子目录
+add_subdirectory(calc)
+add_subdirectory(sort)
+add_subdirectory(test1)
+add_subdirectory(test2)
+```
+
+在根节点对应的文件中主要做了两件事情: 定义全局变量和添加子目录.
+
+- 定义的全局变量主要是给子节点使用, 目的是为了提高子节点中的 CMakeLists.txt 文件的可读性和可维护性, 避免冗余并降低出错的概率
+- 一共添加了四个子目录, 每个子目录中都有一个 CMakeLists.txt 文件, 这样它们的父子关系就被确定下来了
+
+### 4.2.2. calc 目录
+
+calc 目录中的 CMakeLists.txt 文件内容如下:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(CALCLIB)
+aux_source_directory(./ SRC)
+include_directories(${HEAD_PATH})
+set(LIBRARY_OUTPUT_PATH ${LIB_PATH})
+add_library(${CALC_LIB} STATIC ${SRC})
+```
+
+- 第3行 `aux_source_directory`: 搜索当前目录(calc 目录)下的所有源文件
+- 第4行 `include_directories`: 包含头文件路径, HEAD_PATH 是在根节点文件中定义的
+- 第5行 `set`: 设置库的生成的路径, LIB_PATH 是在根节点文件中定义的
+- 第6行 `add_library`: 生成静态库, 静态库名字 CALC_LIB 是在根节点文件中定义的
+
+### 4.2.3. sort 目录
+
+sort 目录中的 CMakeLists.txt 文件内容如下:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(SORTLIB)
+aux_source_directory(./ SRC)
+include_directories(${HEAD_PATH})
+set(LIBRARY_OUTPUT_PATH ${LIB_PATH})
+add_library(${SORT_LIB} SHARED ${SRC})
+```
+
+- 第6行 `add_library`: 生成动态库, 动态库名字 SORT_LIB 是在根节点文件中定义的
+
+这个文件中的内容和 calc 节点文件中的内容类似, 只不过这次生成的是动态库.
+
+在生成库文件的时候, 这个库可以是静态库也可以是动态库, 一般需要根据实际情况来确定. 如果生成的库比较大, 建议将其制作成动态库.
+
+### 4.2.4. test1 目录
+
+test1 目录中的 CMakeLists.txt 文件内容如下:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(CALCTEST)
+aux_source_directory(./ SRC)
+include_directories(${HEAD_PATH})
+link_directories(${LIB_PATH})
+link_libraries(${CALC_LIB})
+set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH})
+add_executable(${APP_NAME_1} ${SRC})
+```
+
+- 第4行 `include_directories`: 指定头文件路径, HEAD_PATH 变量是在根节点文件中定义的
+- 第6行 `link_libraries`: 指定可执行程序要链接的静态库, CALC_LIB 变量是在根节点文件中定义的
+- 第7行 `set`: 指定可执行程序生成的路径, EXEC_PATH 变量是在根节点文件中定义的
+- 第8行 `add_executable`: 生成可执行程序, APP_NAME_1 变量是在根节点文件中定义的
+
+此处的可执行程序链接的是静态库, 最终静态库会被打包到可执行程序中, 可执行程序启动之后, 静态库也就随之被加载到内存中了.
+### 4.2.5. test2 目录
+
+test2 目录中的 CMakeLists.txt 文件内容如下:
+
+```cmake
+cmake_minimum_required(VERSION 3.0)
+project(SORTTEST)
+aux_source_directory(./ SRC)
+include_directories(${HEAD_PATH})
+set(EXECUTABLE_OUTPUT_PATH ${EXEC_PATH})
+link_directories(${LIB_PATH})
+add_executable(${APP_NAME_2} ${SRC})
+target_link_libraries(${APP_NAME_2} ${SORT_LIB})
+```
+
+- 第四行 `include_directories`: 包含头文件路径, HEAD_PATH 变量是在根节点文件中定义的
+- 第五行 `set`: 指定可执行程序生成的路径, EXEC_PATH 变量是在根节点文件中定义的
+- 第六行 `link_directories`: 指定可执行程序要链接的动态库的路径, LIB_PATH 变量是在根节点文件中定义的
+- 第七行 `add_executable`: 生成可执行程序, APP_NAME_2 变量是在根节点文件中定义的
+- 第八行 `target_link_libraries`: 指定可执行程序要链接的动态库的名字
+
+在生成可执行程序的时候, 动态库不会被打包到可执行程序内部. 当可执行程序启动之后动态库也不会被加载到内存, 只有可执行程序调用了动态库中的函数的时候, 动态库才会被加载到内存中, 且多个进程可以共用内存中的同一个动态库, 所以动态库又叫共享库.
+
+### 4.2.6. 构建项目
+
+一切准备就绪之后, 开始构建项目, 进入到根节点目录的 build 目录中, 执行 cmake 命令, 如下:
+
+```bash
+$ cmake ..
+-- The C compiler identification is GNU 5.4.0
+-- The CXX compiler identification is GNU 5.4.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/robin/abc/cmake/calc/build
+```
+
+可以看到在 build 目录中生成了一些文件和目录, 如下所示:
+
+```
+$ tree build -L 1
+build
+├── calc                  # 目录
+├── CMakeCache.txt        # 文件
+├── CMakeFiles            # 目录
+├── cmake_install.cmake   # 文件
+├── Makefile              # 文件
+├── sort                  # 目录
+├── test1                 # 目录
+└── test2                 # 目录
+```
+
+然后在 build 目录下执行 make 命令:
+
+- 在项目根目录的 lib 目录中生成了静态库 `libcalc.a`
+- 在项目根目录的 lib 目录中生成了动态库 `libsort.so`
+- 在项目根目录的 bin 目录中生成了可执行程序 `test1`
+- 在项目根目录的 bin 目录中生成了可执行程序 `test2`
+
+最后再来看一下上面提到的这些文件是否真的被生成到对应的目录中了:
+
+```bash
+cd bin
+eza --tree
+bin/
+├── test1
+└── test2
+cd ../lib
+eza --tree
+lib/
+├── libcalc.a
+└── libsort.so
+```
+
+由此可见, 真实不虚, 至此, 项目构建完毕.
+
+写在最后:
+
+在项目中, 如果将程序中的某个模块制作成了动态库或者静态库并且在 CMakeLists.txt 中指定了库的输出目录, 而后其它模块又需要加载这个生成的库文件
+此时直接使用就可以了, 如果没有指定库的输出路径或者需要直接加载外部提供的库文件, 此时就需要使用 link_directories 将库文件路径指定出来.
+
+# [[流程控制]]
+
+在 CMake 的 CMakeLists.txt 中也可以进行流程控制, 也就是说可以像写 shell 脚本那样进行条件判断和循环.
+
+## 5.1. 条件判断
+
+关于条件判断其语法格式如下:
+
+```cmake
+if(<condition>)
+  <commands>
+elseif(<condition>) # 可选块, 可以重复
+  <commands>
+else()              # 可选块
+  <commands>
+endif()
+```
+
+在进行条件判断的时候, 如果有多个条件, 那么可以写多个 `elseif`, 最后一个条件可以使用 `else`, 但是开始和结束是必须要成对出现的, 分别为 `if` 和 `endif`.
+
+### 5.1.1. 基本表达式
+
+```cmake
+if(<expression>)
+```
+
+如果是基本表达式, expression 有以下三种情况: 常量, 变量, 字符串.
+
+- 如果是 `1`, `ON`, `YES`, `TRUE`, `Y`, 非零值, 非空字符串时, 条件判断返回 True
+- 如果是 `0`, `OFF`, `NO`, `FALSE`, `N`, `IGNORE`, `NOTFOUND`, 空字符串时, 条件判断返回 False
+
+### 5.1.2. 逻辑判断
+
+**NOT** - 取反
+
+```cmake
+if(NOT <condition>)
+```
+
+其实这就是一个取反操作, 如果条件 condition 为 True 将返回 False, 如果条件 condition 为 False 将返回 True.
+
+**AND** - 与
+
+```cmake
+if(<cond1> AND <cond2>)
+```
+
+如果 cond1 和 cond2 同时为 True, 返回 True 否则返回 False.
+
+**OR** - 或
+
+```cmake
+if(<cond1> OR <cond2>)
+```
+
+如果 cond1 和 cond2 两个条件中至少有一个为 True, 返回 True, 如果两个条件都为 False 则返回 False.
+
+### 5.1.3. 比较
+
+**基于数值的比较**
+
+```cmake
+if(<variable|string> LESS <variable|string>)
+if(<variable|string> GREATER <variable|string>)
+if(<variable|string> EQUAL <variable|string>)
+if(<variable|string> LESS_EQUAL <variable|string>)
+if(<variable|string> GREATER_EQUAL <variable|string>)
+```
+
+- `LESS`: 如果左侧数值小于右侧, 返回 True
+- `GREATER`: 如果左侧数值大于右侧, 返回 True
+- `EQUAL`: 如果左侧数值等于右侧, 返回 True
+- `LESS_EQUAL`: 如果左侧数值小于等于右侧, 返回 True
+- `GREATER_EQUAL`: 如果左侧数值大于等于右侧, 返回 True
+
+**基于字符串的比较**
+
+```cmake
+if(<variable|string> STRLESS <variable|string>)
+if(<variable|string> STRGREATER <variable|string>)
+if(<variable|string> STREQUAL <variable|string>)
+if(<variable|string> STRLESS_EQUAL <variable|string>)
+if(<variable|string> STRGREATER_EQUAL <variable|string>)
+```
+
+- `STRLESS`: 如果左侧字符串小于右侧, 返回 True
+- `STRGREATER`: 如果左侧字符串大于右侧, 返回 True
+- `STREQUAL`: 如果左侧字符串等于右侧, 返回 True
+- `STRLESS_EQUAL`: 如果左侧字符串小于等于右侧, 返回 True
+- `STRGREATER_EQUAL`: 如果左侧字符串大于等于右侧, 返回 True
+
+### 5.1.4. 文件操作
+
+**判断文件或者目录是否存在**
+
+```cmake
+if(EXISTS path-to-file-or-directory)
+```
+
+如果文件或者目录存在返回 True, 否则返回 False.
+
+**判断是不是目录**
+
+```cmake
+if(IS_DIRECTORY path)
+```
+
+- 此处目录的 path 必须是绝对路径
+- 如果目录存在返回 True, 目录不存在返回 False
+
+**判断是不是软连接**
+
+```cmake
+if(IS_SYMLINK file-name)
+```
+
+- 此处的 file-name 对应的路径必须是绝对路径
+- 如果软链接存在返回 True, 软链接不存在返回 False
+- 软链接相当于 Windows 里的快捷方式
+
+**判断是不是绝对路径**
+
+```cmake
+if(IS_ABSOLUTE path)
+```
+
+- 关于绝对路径:
+  - 如果是 Linux, 该路径需要从根目录开始描述
+  - 如果是 Windows, 该路径需要从盘符开始描述
+- 如果是绝对路径返回 True, 如果不是绝对路径返回 False
+
+### 5.1.5. 其它
+
+**判断某个元素是否在列表中**
+
+```cmake
+if(<variable|string> IN_LIST <variable>)
+```
+
+- CMake 版本要求: 大于等于 3.3
+- 如果这个元素在列表中返回 True, 否则返回 False
+
+**比较两个路径是否相等**
+
+```cmake
+if(<variable|string> PATH_EQUAL <variable|string>)
+```
+
+- CMake 版本要求: 大于等于 3.24
+- 如果两个路径相等返回 True, 否则返回 False
+
+关于路径的比较其实就是两个字符串的比较, 如果路径格式书写没有问题也可以通过下面这种方式进行比较:
+
+```cmake
+if(<variable|string> STREQUAL <variable|string>)
+```
+
+我们在书写某个路径的时候, 可能由于误操作会多写几个分隔符, 比如把 `/a/b/c` 写成 `/a//b///c` 
+此时通过 `STREQUAL` 对这两个字符串进行比较肯定是不相等的, 但是通过 `PATH_EQUAL` 去比较两个路径, 得到的结果确实相等的, 可以看下面的例子:
+
+```cmake
+cmake_minimum_required(VERSION 3.26)
+project(test)
+
+if("/home//robin///Linux" PATH_EQUAL "/home/robin/Linux")
+    message("路径相等")
+else()
+    message("路径不相等")
+endif()
+
+message(STATUS "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
+if("/home//robin///Linux" STREQUAL "/home/robin/Linux")
+    message("路径相等")
+else()
+    message("路径不相等")
+endif()
+```
+
+输出的日志信息如下:
+
+```
+路径相等
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+路径不相等
+```
+
+通过得到的结果我们可以得到一个结论: 在进行路径比较的时候 
+如果使用 `PATH_EQUAL` 可以自动剔除路径中多余的分割线然后再进行路径的对比
+如果使用 `STREQUAL` 则只能进行字符串比较.
+
+## 5.2. 循环
+
+在 CMake 中循环有两种方式, 分别是: `foreach` 和 `while`.
+
+### 5.2.1. foreach
+
+使用 foreach 进行循环, 语法格式如下:
+
+```cmake
+foreach(<loop_var> <items>)
+    <commands>
+endforeach()
+```
+
+通过 foreach 我们就可以对 items 中的数据进行遍历, 然后通过 loop_var 将遍历到的当前的值取出, 在取值的时候有以下几种用法:
+
+#### 方法1
+
+```cmake
+foreach(<loop_var> RANGE <stop>)
+```
+
+- `RANGE`: 关键字, 表示要遍历范围
+- `stop`: 这是一个正整数, 表示范围的结束值, 在遍历的时候从 0 开始, 最大值为 stop
+- `loop_var`: 存储每次循环取出的值
+
+举例说明:
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+project(test)
+# 循环
+foreach(item RANGE 10)
+    message(STATUS "当前遍历的值为: ${item}" )
+endforeach()
+```
+
+输出的日志信息是这样的:
+
+```bash
+$ cmake ..
+-- 当前遍历的值为: 0
+-- 当前遍历的值为: 1
+-- 当前遍历的值为: 2
+-- 当前遍历的值为: 3
+-- 当前遍历的值为: 4
+-- 当前遍历的值为: 5
+-- 当前遍历的值为: 6
+-- 当前遍历的值为: 7
+-- 当前遍历的值为: 8
+-- 当前遍历的值为: 9
+-- 当前遍历的值为: 10
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/robin/abc/a/build
+```
+
+#### 方法2
+
+```cmake
+foreach(<loop_var> RANGE <start> <stop> [<step>])
+```
+
+这是上面方法1的加强版, 我们在遍历一个整数区间的时候, 除了可以指定起始范围, 还可以指定步长.
+
+- `RANGE`: 关键字, 表示要遍历范围
+- `start`: 这是一个正整数, 表示范围的起始值, 也就是说最小值为 start
+- `stop`: 这是一个正整数, 表示范围的结束值, 也就是说最大值为 stop
+- `step`: 控制每次遍历的时候以怎样的步长增长, 默认为 1, 可以不设置
+- `loop_var`: 存储每次循环取出的值
+
+举例说明:
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+project(test)
+
+foreach(item RANGE 10 30 2)
+    message(STATUS "当前遍历的值为: ${item}" )
+endforeach()
+```
+
+输出的结果如下:
+
+```bash
+$ cmake ..
+-- 当前遍历的值为: 10
+-- 当前遍历的值为: 12
+-- 当前遍历的值为: 14
+-- 当前遍历的值为: 16
+-- 当前遍历的值为: 18
+-- 当前遍历的值为: 20
+-- 当前遍历的值为: 22
+-- 当前遍历的值为: 24
+-- 当前遍历的值为: 26
+-- 当前遍历的值为: 28
+-- 当前遍历的值为: 30
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/robin/abc/a/build
+```
+
+#### 方法3
+
+```cmake
+foreach(<loop_var> IN [LISTS [<lists>]] [ITEMS [<items>]])
+```
+
+这是 foreach 的另一个变体, 通过这种方式我们可以对更加复杂的数据进行遍历, 前两种方式只适用于对某个正整数范围内的遍历.
+
+- `IN`: 关键字, 表示在 xxx 里边
+- `LISTS`: 关键字, 对应的是列表 list, 通过 set, list 可以获得
+- `ITEMS`: 关键字, 对应的也是列表
+- `loop_var`: 存储每次循环取出的值
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+project(test)
+# 创建 list
+set(WORD a b c d)
+set(NAME ace sabo luffy)
+# 遍历 list
+foreach(item IN LISTS WORD NAME)
+    message(STATUS "当前遍历的值为: ${item}" )
+endforeach()
+```
+
+在上面的例子中, 创建了两个 list 列表, 在遍历的时候对它们两个都进行了遍历(可以根据实际需求选择同时遍历多个或者只遍历一个). 
+输出的日志信息如下:
+
+```bash
+$ cd build/
+$ cmake ..
+-- 当前遍历的值为: a
+-- 当前遍历的值为: b
+-- 当前遍历的值为: c
+-- 当前遍历的值为: d
+-- 当前遍历的值为: ace
+-- 当前遍历的值为: sabo
+-- 当前遍历的值为: luffy
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/robin/abc/a/build
+```
+
+一共输出了 7 个字符串, 说明遍历是没有问题的. 接下来看另外一种方式:
+
+```cmake
+cmake_minimum_required(VERSION 3.2)
+project(test)
+
+set(WORD a b c "d e f")
+set(NAME ace sabo luffy)
+foreach(item IN ITEMS ${WORD} ${NAME})
+    message(STATUS "当前遍历的值为: ${item}" )
+endforeach()
+```
+
+在上面的例子中, 遍历过程中将关键字 `LISTS` 改成了 `ITEMS`, 后边跟的还是一个或者多个列表, 只不过此时需要通过 `${}` 将列表中的值取出. 
+其输出的信息和上一个例子是一样的:
+
+```bash
+$ cd build/
+$ cmake ..
+-- 当前遍历的值为: a
+-- 当前遍历的值为: b
+-- 当前遍历的值为: c
+-- 当前遍历的值为: d e f
+-- 当前遍历的值为: ace
+-- 当前遍历的值为: sabo
+-- 当前遍历的值为: luffy
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/robin/abc/a/build
+```
+
+小细节: 在通过 set 组织列表的时候, 如果某个字符串中有空格, 可以通过双引号将其包裹起来, 具体的操作方法可以参考上面的例子.
+
+#### 方法4
+
+注意事项: 这种循环方式要求 CMake 的版本大于等于 3.17.
+
+```cmake
+foreach(<loop_var>... IN ZIP_LISTS <lists>)
+```
+
+通过这种方式, 遍历的还是一个或多个列表, 可以理解为是方式3的加强版. 因为通过上面的方式遍历多个列表, 但是又想把指定列表中的元素取出来使用是做不到的, 在这个加强版中就可以轻松实现.
+
+- `loop_var`: 存储每次循环取出的值, 可以根据要遍历的列表的数量指定多个变量, 用于存储对应的列表当前取出的那个值
+  - 如果指定了多个变量名, 它们的数量应该和列表的数量相等
+  - 如果只给出了一个 loop_var, 那么它将一系列的 `loop_var_N` 变量来存储对应列表中的当前项, 也就是说 loop_var_0 对应第一个列表, loop_var_1 对应第二个列表, 以此类推
+  - 如果遍历的多个列表中一个列表较短, 当它遍历完成之后将不会再参与后续的遍历(因为其它列表还没有遍历完)
+- `IN`: 关键字, 表示在 xxx 里边
+- `ZIP_LISTS`: 关键字, 对应的是列表 list, 通过 set, list 可以获得
+
+```cmake
+cmake_minimum_required(VERSION 3.17)
+project(test)
+# 通过list给列表添加数据
+list(APPEND WORD hello world "hello world")
+list(APPEND NAME ace sabo luffy zoro sanji)
+# 遍历列表
+foreach(item1 item2 IN ZIP_LISTS WORD NAME)
+    message(STATUS "当前遍历的值为: item1 = ${item1}, item2=${item2}" )
+endforeach()
+
+message("=============================")
+# 遍历列表
+foreach(item  IN ZIP_LISTS WORD NAME)
+    message(STATUS "当前遍历的值为: item1 = ${item_0}, item2=${item_1}" )
+endforeach()
+```
+
+在这个例子中关于列表数据的添加是通过 list 来实现的. 在遍历列表的时候一共使用了两种方式, 一种提供了多个变量来存储当前列表中的值, 另一种只有一个变量, 但是实际取值的时候需要通过 `变量名_0`, `变量名_1`, `变量名_N` 的方式来操作.
+
+注意事项: 第一个列表对应的编号是 0, 第二个列表对应的编号是 1, 以此类推.
+
+上面的例子输出的结果如下:
+
+```bash
+$ cd build/
+$ cmake ..
+-- 当前遍历的值为: item1 = hello, item2=ace
+-- 当前遍历的值为: item1 = world, item2=sabo
+-- 当前遍历的值为: item1 = hello world, item2=luffy
+-- 当前遍历的值为: item1 = , item2=zoro
+-- 当前遍历的值为: item1 = , item2=sanji
+=============================
+-- 当前遍历的值为: item1 = hello, item2=ace
+-- 当前遍历的值为: item1 = world, item2=sabo
+-- 当前遍历的值为: item1 = hello world, item2=luffy
+-- 当前遍历的值为: item1 = , item2=zoro
+-- 当前遍历的值为: item1 = , item2=sanji
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/robin/abc/a/build
+```
+
+### 5.2.2. while
+
+除了使用 foreach 也可以使用 while 进行循环, 关于循环结束对应的条件判断的书写格式和 `if`/`elseif` 是一样的. while 的语法格式如下:
+
+```cmake
+while(<condition>)
+    <commands>
+endwhile()
+```
+
+while 循环比较简单, 只需要指定出循环结束的条件即可:
+
+```cmake
+cmake_minimum_required(VERSION 3.5)
+project(test)
+# 创建一个列表 NAME
+set(NAME luffy sanji zoro nami robin)
+# 得到列表长度
+list(LENGTH NAME LEN)
+# 循环
+while(${LEN} GREATER  0)
+    message(STATUS "names = ${NAME}")
+    # 弹出列表头部元素
+    list(POP_FRONT NAME)
+    # 更新列表长度
+    list(LENGTH NAME LEN)
+endwhile()
+```
+
+输出的结果如下:
+
+```bash
+$ cd build/
+$ cmake ..
+-- names = luffy;sanji;zoro;nami;robin
+-- names = sanji;zoro;nami;robin
+-- names = zoro;nami;robin
+-- names = nami;robin
+-- names = robin
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/robin/abc/a/build
+```
+
+可以看到当列表中的元素全部被弹出之后, 列表的长度变成了 0, 此时 while 循环也就退出了.

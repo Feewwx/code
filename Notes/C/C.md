@@ -3217,7 +3217,7 @@ int main() {
     int (*parr3[10])[5];
     parr3[0] = &arr1;  // 必须加 &,类型才是 int(*)[5]
     parr3[1] = &arr2; 
-    parr3[2] = &&nbsp;  // (修正占位符) &arr3;
+    parr3[2] = &arr3;
     
     // 访问方式:必须先通过 (*parr3[1]) 解引用成数组本身,再用 [2] 访问元素
     printf("5. parr3: (*parr3[1])[2] = %d\n", (*parr3[1])[2]);  // 输出:33
@@ -3263,7 +3263,7 @@ void test(int (*arr)[5]) {}
 void test(int **arr) {}  // err
 
 int main() {
-    int arr[3][5]} = {0};
+    int arr[3][5] = {0};
     test(arr);
 ```
 
@@ -3609,7 +3609,7 @@ int cmp_int(const void *e1, const void *e2) {
     //     return 0;
     // else
     //     return -1;
-    return *(const int *)a - *(const int *)b;
+    return *(const int *)e1 - *(const int *)e2;
 }                                            
                                              
 int main() {                                 
@@ -3693,7 +3693,7 @@ void bubble_sort(void *base, int sz, int width, int(*cmp)(const void *e1, const 
 
 int main() {
     char arr9[] = "hello";
-    int len = strlen(arr);
+    int len = strlen(arr9);
     printf("%d\n", len);
     return 0;
 }
@@ -4271,7 +4271,7 @@ int main() {
 
 - **结构体的对齐规则:**
 
-    - 第一个成员在与结构体变量偏移量为0的地址处用由你的代码
+    - 第一个成员在与结构体变量偏移量为0的地址处
     
     - 其他成员变量要对齐到对齐数的整数倍地址处(对齐数=编译器默认的对齐数与该成员类型大小的较小值)
 
@@ -4857,7 +4857,7 @@ static int EnsureCapacity(Contact *p) {
 
 #### 7.2.1. 柔性数组的特点
 
-- 结构中的柔性数组成员面前必须至少有一个其他成员
+- 结构中的柔性数组成员前面必须至少有一个其他成员
 
 - sizeof 返回的这种结构大小不包括柔性数组的内存
 

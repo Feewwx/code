@@ -437,3 +437,29 @@ for (i = 0; i < n; i++)
 - 线性表是一种典型的线性结构
 
 #### 2.1.1.2. 线性表的类型定义
+
+抽象数据类型线性表的定义如下:
+
+```
+ADT List{
+    数据对象: D = {ai | ai属于ElemSet, (i=1,2,...,n, n>=0)}
+    数据关系: R = {<ai-1, ai> | ai-1, ai属于D, (i=2,3,...,n)}
+    基本操作:
+        InitList(&L);           // 构造一个空的线性表
+        DestroyList(&L);        // 销毁线性表
+        ListInsert(&L, i, e);   // 在第 i 个位置插入元素 e
+        ListDelete(&L, i, &e);  // 删除第 i 个元素, 用 e 把删掉的带回来
+        ......等等
+} ADT List
+```
+
+- 基本操作
+    - InitList(&L) (Initialization List)
+        - 操作结果:构造一个空的线性表L
+    - DestroyList(&L)
+        - 初始条件:线性表L已经存在
+        - 操作结果:销毁线性表L
+    - ClearList(&L)
+        - 初始条件:线性表L已经存在
+        - 操作结果:将线性表L重置为空表
+    - ListEmpty

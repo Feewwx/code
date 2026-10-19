@@ -4208,7 +4208,6 @@ struct Node {
     struct Node *next;
 };
 ```
-> 错误示范
 
 ```c
 typedef struct {
@@ -4216,6 +4215,7 @@ typedef struct {
     Node *next;  // err
 } Node;
 ```
+> 错误示范
 
 #### 6.1.3. 结构体变量的定义和初始化
 

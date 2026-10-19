@@ -73,6 +73,23 @@
 
 例: 数据对象:全校所有学生记录 - 性质相同的数据元素的集合
 
+#### 1.2.1.5. 伪代码的壳子
+
+> 严蔚敏教材里的约定,后面所有伪代码(Status,OK,ERROR 等)都基于这套:
+
+```c
+//函数结果状态代码
+#define TRUE 1
+#define FALSE 0
+#define OK 1
+#define ERROR 0
+#define INFEASIBLE -1
+#define OVERFLOW -2
+
+typedef int Status;     //Status是函数的类型,其值是函数结果状态代码
+typedef int Boolean;
+```
+
 ### 1.2.2. 数据结构
 
 #### 1.2.2.1. 数据结构的定义
@@ -562,6 +579,8 @@ ADT List{
 
 #### 2.1.1.4. 线性表的链表表示和实现
 
+##### 2.1.1.4.1. 链表概述
+
 - 链式存储结构
     - 结点在存储器中的位置是任意的,即逻辑上相邻的数据元素在物理上不一定相邻
     - 各结点由两个域组成:数据域和指针域
@@ -598,3 +617,77 @@ ADT List{
         - 无论链表是否为空,头指针都是指向头结点的非空指针,因此空表和非空表的处理也就统一了
 - 头结点的数据域内装的是什么
     - 头结点的数据域可以为空,也可以存放线性表长度等附加信息,但此结点不能记入链表长度值
+
+##### 2.1.1.4.2. 单链表
+
+- 带头结点的单链表
+    - 单链表由表头唯一确定,因此单链表可以用头指针的名字来命名,若头指针名为L,则把链表称为表L
+    - 为了统一链表的操作,通常这样定义:
+    - 元素类型定义:
+
+    ```c
+    typedef struct {
+        char num[8];    //数据域
+        char name[8];   //数据域
+        int score;      //数据域
+    } ElemType;
+    ```
+
+    - 结点类型定义:
+
+    ```c
+    typedef struct Lnode{       //声明结点的类型和指向结点的指针类型
+        ElemType    data;       //结点的数据域
+        struct Lnode *next;     //结点的指针域
+    }Lnode, *LinkList;          //LinkList为指向结构体Lnode的指针类型
+    ```
+
+- 单链表的初始化
+    - 即构造一个空表
+
+```c
+Status InitList_L(LinkList &L){
+    L = new LNode;  //或L= (LinkList) malloc ( sizeof (LNode));
+    L->next=NULL;
+    return OK;
+}
+```
+
+- 补充单链表的几个常用简单算法
+    - [补充算法1]--判断链表是否为空:
+        - 空表:链表中无元素,称为空链表(头指针和头结点仍然在)
+        - 算法思路:判断头结点指针域是否为空
+
+        ```c
+        int ListEmpty(LinkList L){   //若L为空表,则返回1,否则返回0
+            if(L->next)  //非空
+                return 0;
+            else
+                return 1;
+        }
+        ```
+    - [补充算法2]--单链表的销毁:链表销毁后不存在
+        - 算法思路:从头结点开始,依次释放所有结点
+
+        ```c
+        Status DestroyList_L(LinkList &L){  //销毁单链表L
+            Lnode *p;  //或LinkList p;
+            while(L) {
+                p=L;
+                L=L->next;
+                delete p;
+            }
+            return OK;
+        }
+        ```
+
+        - 删除一个结点:必须站在它的前驱上,先接链后释放
+
+            ```c
+            q = p->next;        //q记住要删的结点
+            p->next = q->next;  //前驱绕过q,指向q的后继
+            free(q);            //最后再释放q
+            ```
+
+        - 指针变量里存的是地址;next里存的是下一个结点的地址,先释放就会丢掉后面整条链
+

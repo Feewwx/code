@@ -653,8 +653,16 @@ Status InitList_L(LinkList &L){
 }
 ```
 
+- 重要操作:
+
+```c
+p = L;  // p指向头结点
+s = L -> next;  // s指向首元结点
+p = p -> next;  // p指向下一结点
+```
+
 - 补充单链表的几个常用简单算法
-    - [补充算法1]--判断链表是否为空:
+    - 判断链表是否为空:
         - 空表:链表中无元素,称为空链表(头指针和头结点仍然在)
         - 算法思路:判断头结点指针域是否为空
 
@@ -666,7 +674,7 @@ Status InitList_L(LinkList &L){
                 return 1;
         }
         ```
-    - [补充算法2]--单链表的销毁:链表销毁后不存在
+    - 单链表的销毁:链表销毁后不存在
         - 算法思路:从头结点开始,依次释放所有结点
 
         ```c
@@ -680,14 +688,57 @@ Status InitList_L(LinkList &L){
             return OK;
         }
         ```
+    - 清空链表:链表仍存在,但链表中无元素,成为空链表(头指针和头结点仍然在)
+        - 算法思路:依次释放所有结点,并将头结点指针域设置为空
+        - 循环条件 `p!=NULL`,结束条件 `p==NULL`;最后头结点指针域置空
 
-        - 删除一个结点:必须站在它的前驱上,先接链后释放
+        ```c
+        Status ClearList(LinkList &L){      //将L重置为空表
+            Lnode *p, *q;                   //或LinkList p,q;
+            p = L->next;
+            while(p) {                      //没到表尾
+                q = p->next;
+                delete p;
+                p = q;
+            }
+            L->next = NULL;                 //头结点指针域为空
+            return OK;
+        }
+        ```
 
-            ```c
-            q = p->next;        //q记住要删的结点
-            p->next = q->next;  //前驱绕过q,指向q的后继
-            free(q);            //最后再释放q
-            ```
+        - 和销毁的区别:清空保留头指针和头结点,销毁会把头结点也一起释放
 
-        - 指针变量里存的是地址;next里存的是下一个结点的地址,先释放就会丢掉后面整条链
+    - 求单链表的表长:返回L中数据元素个数
+        - 算法思路:从首元结点开始,依次计数所有结点
+        - 表长不含头结点,所以从 `L->next` 开始数
 
+        ```c
+        int ListLength_L(LinkList L){       //返回L中数据元素个数
+            LinkList p;
+            int i = 0;                      //计数器
+            p = L->next;                    //p指向第一个结点
+            while(p) {                      //遍历单链表,统计结点数
+                i++;
+                p = p->next;
+            }
+            return i;
+        }
+        ```
+
+    - 取值:取单链表中第i个元素的内容
+        - 算法思路:从链表的头指针出发,顺着链域next逐个结点往下搜索,直至搜索到第i个结点为止;因此,链表不是随机存取结构
+        - `if(!p || j>i)`: `!p` 是表长不够,`j>i` 说明 i<1;两种情况都是第 i 个元素不存在
+
+        ```c
+        Status GetElem_L(LinkList L, int i, ElemType &e){  //获取线性表L中的某个数据元素的内容,通过变量e返回
+            LinkList p;
+            int j;
+            p = L->next; j = 1;                            //初始化
+            while(p && j < i) {                            //向后扫描,直到p指向第i个元素或p为空
+                p = p->next; ++j;
+            }
+            if(!p || j > i) return ERROR;                  //第i个元素不存在
+            e = p->data;                                   //取第i个元素
+            return OK;
+        }  // GetElem_L
+        ```

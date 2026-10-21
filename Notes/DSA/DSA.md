@@ -742,3 +742,56 @@ p = p -> next;  // p指向下一结点
             return OK;
         }  // GetElem_L
         ```
+
+    - 查找:
+        - 按值查找(返回地址):根据指定数据获取该数据所在的位置(该数据的地址)
+            - 算法思路:从首元结点开始,顺着 next 找第一个 data == e 的结点
+            - 找到返回结点地址;找不到就走到 NULL,正好拿 NULL 当失败标志
+
+            ```c
+            Lnode *LocateElem_L(LinkList L, ElemType e) {  //在线性表L中查找值为e的数据元素
+                LinkList p = L->next;
+                while(p && p->data != e)                   //没到头且值不等就往后走
+                    p = p->next;
+                return p;                                  //找到返回地址,失败返回NULL
+            }
+            ```
+
+        - 按值查找(返回位序):根据指定数据获取该数据所在的位置序号(是第几个数据元素)
+            - 算法思路:同上,多一个 j 记位置
+            - 找到返回 j(位序从1开始);失败返回 0,因为 0 是非法位序,正好当错误标志
+
+            ```c
+            int LocateElem_L(LinkList L, ElemType e) {     //返回值为e的数据元素的位置序号
+                LinkList p = L->next;
+                int j = 1;
+                while(p && p->data != e) {
+                    p = p->next;
+                    j++;
+                }
+                if(p) return j;                            //找到了
+                else return 0;                             //没找到
+            }
+            ```
+
+    - 插入:在第i个结点前插入值为e的新节点
+        - 算法思路:p 先走到第 i-1 个结点(前驱),因为单链表只能改前驱的 next
+        - 头结点让 i=1 也统一:p=L, j=0;循环停在 j==i-1
+        - 非法条件:`!p` 就是 i>表长+1,`j>i-1` 就是 i<1;两种都返回 ERROR
+        - 找到前驱是 O(n),真正插入只要 O(1)
+
+        ```c
+        Status ListInsert_L(LinkList &L, int i, ElemType e) {  //在L中第i个元素之前插入数据元素e
+            LinkList p = L;
+            int j = 0;
+            Lnode *s;
+            while(p && j < i-1) { p = p->next; ++j; }          //找第i-1个结点,p指向前驱
+            if(!p || j > i-1) return ERROR;                    //i>表长+1 或 i<1,位置非法
+            s = new Lnode; s->data = e;                        //生成新结点s,数据域置e
+            s->next = p->next;                                 //先接s的后继
+            p->next = s;                                       //再让前驱指向s
+            return OK;
+        }  // ListInsert_L
+        ```
+
+        - 两句顺序不能反:先 `s->next=p->next` 再 `p->next=s`;反了 p->next 被覆盖,后面整条链就丢了

@@ -80,7 +80,7 @@ void Del(LinkList L) {
 void Search(LinkList L) {
     cout << "请输入要查找的姓名:";
     char name[20];
-    LinkList p;
+    LinkList p = L->next;
     cin >> name;
     while (p) {
         if (strcmp(name, p->data.name) == 0) {
@@ -90,10 +90,10 @@ void Search(LinkList L) {
             cout << "电话: " << p->data.tele;
             cout << "地址: " << p->data.addr;
             return;
-        } else {
-            cout << "查无此人";
         }
+        p = p->next;
     }
+    cout << "查无此人";
 }
 void Modify(LinkList L) {
     Show(L);
@@ -101,6 +101,16 @@ void Modify(LinkList L) {
     int input = 0;
     cin >> input;
     LinkList p = L;
+    if (p->next == NULL) {
+        return;
+    }
+    int count = 0;
+    while (L->next) {
+        L = L->next;
+        count++;
+    }
+    if (input < 1 || input > count)
+        return;
     for (int i = 0; i < input; i++) {
         p = p->next;
     }
@@ -144,17 +154,19 @@ void Show(LinkList L) {
 void Sort(LinkList L) {
     int count = 0;
     LinkList p = L;
-    while (p) {
+    while (p->next) {
         p = p->next;
         count++;
     }
     for (int i = 0; i < count; i++) {
-        for (int j = 0; j < count; j++) {
+        p = L->next;
+        while (p->next) {
             if (strcmp(p->data.name, p->next->data.name) > 0) {
                 PeoInfo temp = p->data;
                 p->data = p->next->data;
                 p->next->data = temp;
             }
+            p = p->next;
         }
     }
 }

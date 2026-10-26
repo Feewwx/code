@@ -19,22 +19,22 @@ int main() {
         cin >> input;
         switch (input) {
         case 1:
-            Add(&L);
+            Add(L);
             break;
         case 2:
-            Del(&L);
+            Del(L);
             break;
         case 3:
-            Search(&L);
+            Search(L);
             break;
         case 4:
-            Modify(&L);
+            Modify(L);
             break;
         case 5:
-            Show(&L);
+            Show(L);
             break;
         case 6:
-            Sort(&L);
+            Sort(L);
             break;
         case 0:
             printf("再见\n");

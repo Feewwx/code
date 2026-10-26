@@ -16,10 +16,10 @@ typedef struct LNode {
 } LNode, *LinkList;
 
 void InitContact(LinkList *L);
-void Add(LNode *L);
-void Del(LNode *p);
-void Search(LNode *p);
-void Modify(LNode *p);
-void Show(LNode *p);
-void Sort(LNode *p);
-void Destroy(LNode *p);
+void Add(LinkList L);
+void Del(LinkList L);
+void Search(LinkList L);
+void Modify(LinkList L);
+void Show(LinkList L);
+void Sort(LinkList L);
+void Destroy(LinkList *L);

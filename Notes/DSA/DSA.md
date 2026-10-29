@@ -993,4 +993,71 @@ p = p -> next;  // p指向下一结点
 
 #### 2.1.1.6. 线性表的应用
 
-#### 2.1.1.7. 案例分析与实现
+- 线性表的合并
+    - 思路: 遍历 Lb 的每个元素, La 里没有就追加到 La 表尾
+    - 前提: 全程用 ListLength / GetElem / LocateElem / ListInsert 这些基本操作, 不直接碰指针
+    - `++La_len` 是先把长度加一再插入, 位置刚好是表尾, 相当于追加
+    - 时间复杂度 O(ListLength(La) * ListLength(Lb)): 外层扫 Lb, 每扫一个都要在 La 里查找一次
+
+    ```c
+    void union(List &La, List Lb) {
+        La_len = ListLength(La);
+        Lb_len = ListLength(Lb);
+        for(i = 1; i <= Lb_len; i++) {
+            GetElem(Lb, i, e);                        //取出 Lb 的第 i 个元素
+            if(!LocateElem(La, e))                    //La 里没有这个元素
+                ListInsert(&La, ++La_len, e);         //追加到 La 的表尾
+        }
+    }
+    ```
+
+- 有序表的合并
+    - 前提: La、Lb 的元素按值非递减排列, 要求归并成一个新表 Lc, 且 Lc 仍按值非递减
+    - 例: La=(1,7,8), Lb=(2,4,6,8,10,11) → Lc=(1,2,4,6,7,8,8,10,11)
+    - 步骤:
+        - 创建一个空表 Lc
+        - 依次从 La 或 Lb 里摘出元素值较小的, 插到 Lc 最后, 直到其中一个表变空
+        - 把另一个表剩下的结点直接接到 Lc 最后
+    - 用顺序表实现: pa、pb 各扫一个表, 比较后把小的放进 pc; 任一个扫到头就停, 剩下的直接照抄
+    - 时间复杂度 O(ListLength(La) + ListLength(Lb)): 每个元素只被摘一次, 不是嵌套扫描
+    - 空间复杂度 O(ListLength(La) + ListLength(Lb)): 新开了 LC.elem 这个数组, 长度就是两表长度之和
+    - 两个收尾 while 只会有一个真正干活, 另一个一上来条件就不成立; 这么写省得判断是哪个表先空
+
+    ```c
+    void MergeList_Sq(SqList LA, SqList LB, SqList &LC) {
+        pa = LA.elem;
+        pb = LB.elem;                              //pa、pb 分别指向两个表的第一个元素
+        LC.length = LA.length + LB.length;         //新表长度 = 两表长度之和
+        LC.elem = new ElemType[LC.length];         //给合并后的新表分配数组空间
+        pc = LC.elem;                              //pc 指向新表的第一个元素
+        pa_last = LA.elem + LA.length - 1;         //指向 LA 的最后一个元素
+        pb_last = LB.elem + LB.length - 1;         //指向 LB 的最后一个元素
+        while(pa <= pa_last && pb <= pb_last) {    //两个表都非空
+            if(*pa <= *pb) *pc++ = *pa++;          //摘取两表中值较小的结点
+            else *pc++ = *pb++;
+        }
+        while(pa <= pa_last) *pc++ = *pa++;        //LB 已到表尾, 把 LA 中剩余元素加入 LC
+        while(pb <= pb_last) *pc++ = *pb++;        //LA 已到表尾, 把 LB 中剩余元素加入 LC
+    }  // MergeList_Sq
+    ```
+
+    - 用链表实现: 复用 La 的头结点当 Lc 的头结点, 不新开表, 只在原结点上改指针
+        - pa、pb 指向两个表的首元结点, pc 是 Lc 的尾指针
+        - 循环条件 `pa && pb`: 哪个表先走到 NULL 就停
+        - `pc->next = pa ? pa : pb;` 一句把剩下那段整个接上, 顶掉顺序表版的两个收尾 while
+        - 时间同样 O(ListLength(La) + ListLength(Lb))
+
+    ```c
+    void MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc) {
+        pa = La->next;
+        pb = Lb->next;                             //pa、pb 分别指向两个表的首元结点
+        pc = Lc = La;                              //用 La 的头结点作为 Lc 的头结点
+        while(pa && pb) {                          //两个表都非空
+            if(pa->data <= pb->data) { pc->next = pa; pc = pa; pa = pa->next; }
+            else { pc->next = pb; pc = pb; pb = pb->next; }
+        }
+        pc->next = pa ? pa : pb;                   //插入剩余段
+        delete Lb;                                 //释放 Lb 的头结点
+    }  // MergeList_L
+    ```
+

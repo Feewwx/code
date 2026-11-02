@@ -1058,9 +1058,7 @@ p = p -> next;  // p指向下一结点
 
 ### 2.1.2. 栈和队列
 
-#### 2.1.2.1. 栈和队列的定义和特点
-
-##### 2.1.2.1.1. 初识
+#### 2.1.2.1. 初识
 
 - 栈和队列是两种常用的,重要的数据结构
 - 栈和队列是限定插入和删除只能在表的"端点"进行的线性表
@@ -1088,7 +1086,9 @@ p = p -> next;  // p指向下一结点
     - 实时控制系统中,信号按接受的先后顺序依次处理
     - 网络电文传输,按到达时间先后顺序依次进行
 
-##### 2.1.2.1.2. 栈的定义和特点
+#### 2.1.2.2. 栈
+
+##### 2.1.2.2.1. 栈的定义和特点
 
 - 栈(stack)是一个特殊的线性表,是限定仅在一端(通常是表尾)进行插入和删除操作的线性表
     - 又称为后进先出(Last In First Out)的线性表,简称LIFO结构
@@ -1099,18 +1099,169 @@ p = p -> next;  // p指向下一结点
     - 栈的操作特性:后进先出
     - 逻辑结构:与同线性表相同,仍为一对一关系
     - 存储结构:用顺序栈或链栈存储均可,但以顺序栈更常见
-    - 实现方式:关键是编写入栈和出栈函数,具体实现依顺序栈或链栈的不同而不同
     - 和一般线性表的区别:仅在运算规则上不同
         - 一般线性表:随机存取;栈:后进先出(LIFO)
 
-##### 2.1.2.1.3. 队列的定义和特点
+##### 2.1.2.2.2. 栈的抽象数据类型的类型定义
 
-#### 2.1.2.2. 案例引入
+抽象数据类型栈的定义如下:
 
-#### 2.1.2.3. 栈的表示和操作的实现
+```c
+ADT Stack{
+    数据对象: D = {ai | ai属于ElemSet, (i=1,2,...,n, n>=0)}
+    数据关系: R1 = {<ai-1, ai> | ai-1, ai属于D, (i=2,3,...,n)}
+    约定 an 端为栈顶, a1 端为栈底
+    基本操作:
+        InitStack(&S);          // 构造一个空栈
+        DestroyStack(&S);       // 销毁栈
+        Push(&S, e);            // 入栈
+        Pop(&S, &e);            // 出栈
+        GetTop(S, &e);          // 取栈顶元素
+        ......等等
+} ADT Stack
+```
 
-#### 2.1.2.4. 栈和递归
+- 基本操作
+    - InitStack(&S) (Initialization Stack)
+        - 操作结果:构造一个空栈S
+    - DestroyStack(&S)
+        - 初始条件:栈S已存在
+        - 操作结果:栈S被销毁
+    - StackEmpty(S)
+        - 初始条件:栈S已存在
+        - 操作结果:若栈S为空栈,则返回TRUE,否则返回FALSE
+    - StackLength(S)
+        - 初始条件:栈S已存在
+        - 操作结果:返回S的元素个数,即栈的长度
+    - GetTop(S, &e)
+        - 初始条件:栈S已存在且非空
+        - 操作结果:用e返回S的栈顶元素
+    - ClearStack(&S)
+        - 初始条件:栈S已存在
+        - 操作结果:将S清为空栈
+    - Push(&S, e)
+        - 初始条件:栈S已存在
+        - 操作结果:插入元素e为新的栈顶元素
+    - Pop(&S, &e)
+        - 初始条件:栈S已存在且非空
+        - 操作结果:删除S的栈顶元素an,并用e返回其值
 
-#### 2.1.2.5. 队列的表示和操作的实现
+##### 2.1.2.2.3. 顺序栈的表示和实现
 
-#### 2.1.2.6. 案例分析与实现
+- 存储方式:同一般线性表的顺序存储结构完全相同,利用一组地址连续的存储单元依次存放自栈底到栈顶的数据元素,栈底一般在低地址端
+    - 附设top指针,指示栈顶元素在顺序栈中的位置
+        - 但是,为了方便操作,通常top指示真正的栈顶元素之上的下标地址
+    - 另设base指针,指示栈底元素在顺序栈中的位置
+    - 另外,用stacksize表示栈可使用的最大容量
+    - 空栈:base==top是栈空标志
+    - 栈满:top-base==stacksize
+    - 使用数组作为顺序栈存储方式的特点:
+        - 简单,方便,但易产生溢出(数组大小固定)
+            - 上溢(overflow):栈已经满,又要压入元素
+            - 下溢(underflow):栈已经空,还要弹出元素
+                - 注:上溢是一种错误,使问题的处理无法进行;而下溢一般认为是一种结束条件,即问题处理结束
+
+- 顺序栈的表示(类型定义)
+
+```c
+#define MAXSIZE 100
+typedef struct {
+    SElemType *base;      // 栈底指针
+    SElemType *top;       // 栈顶指针
+    int stacksize;        // 栈可用最大容量
+} SqStack;
+```
+
+- 顺序栈的初始化
+
+```c
+Status InitStack(SqStack &S) {              // 构造一个空栈
+    S.base = new SElemType[MAXSIZE];        // C++ 版
+    // S.base = (SElemType*)malloc(MAXSIZE * sizeof(SElemType));  // C 版,二选一
+    if (!S.base) exit(OVERFLOW);            // 存储分配失败
+    S.top = S.base;                         // 栈顶指针等于栈底指针
+    S.stacksize = MAXSIZE;
+    return OK;
+}
+```
+
+- 判断栈是否为空
+```c
+Status StackEmpty(SqStack S) {      // 若栈为空, 返回 TRUE; 否则返回 FALSE
+    if (S.top == S.base)
+        return TRUE;
+    else
+        return FALSE;
+}
+```
+
+- 求顺序栈长度
+```c
+int StackLength(SqStack S) {
+    return S.top - S.base;          // 两个指针相减 = 元素个数
+}
+```
+
+- 清空顺序栈
+```c
+Status ClearStack(SqStack &S) {
+    if (S.base) S.top = S.base;     // top 拉回栈底 = 逻辑清空, 元素值不用动
+    return OK;
+}
+```
+
+- 销毁顺序栈
+```c
+Status DestroyStack(SqStack &S) {
+    if (S.base) {
+        delete S.base;              // 释放那块连续内存
+        S.stacksize = 0;            // 容量清零
+        S.base = S.top = NULL;      // 悬空指针置空, 防二次 delete / 误判非空
+    }
+    return OK;
+}
+```
+
+- 顺序栈的入栈
+```c
+Status Push(SqStack &S, SElemType e) {
+    if (S.top - S.base == S.stacksize)  // 栈满, 上溢
+        return ERROR;
+    *S.top = e;                         // 元素放进 top 指的格子
+    S.top++;                            // 栈顶指针上移
+    return OK;
+}
+```
+
+- 顺序栈的出栈
+```c
+Status Pop(SqStack &S, SElemType &e) {
+    if (S.top == S.base)                // 栈空, 下溢; 等价于 if (StackEmpty(S))
+        return ERROR;
+    --S.top;                            // 指针先下移到实际栈顶
+    e = *S.top;                         // 再取出该元素
+    return OK;
+}
+```
+
+- 要点
+    - top 指向栈顶元素的下一个位置,不是栈顶元素本身
+    - 空栈判据:top == base
+    - 栈满判据:top - base == stacksize
+
+##### 2.1.2.2.4. 链栈的表示和实现
+
+##### 2.1.2.2.5. 栈和递归
+
+#### 2.1.2.3. 队列
+
+##### 2.1.2.3.1. 队列的定义和特点
+
+- 队列(queue)是一种先进先出(Frist In Frist Out -- FIFO)的线性表,在表一端插入(表尾),在另一端(表头)删除
+    - 表头(即a1端)称为队头;表尾(即an端)称为队尾
+        - 例如:队列Q = (a1, a2, a3, ..., an-1, an)
+    - 队列的操作特性:先进先出,头删尾插
+    - 逻辑结构:与同线性表相同,仍为一对一关系
+    - 存储结构:顺序队或链队,以循环顺序队列更常见
+
+##### 2.1.2.3.2. 队列的表示和操作的实现

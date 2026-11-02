@@ -168,3 +168,45 @@ int main() {
 
     cout << data[c].arr;
 }
+
+// P1601 高精度加法
+
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     int a[505] = {0};
+//     int b[505] = {0};
+//     int f[505] = {0};
+//     int carry = 0;
+//     string c;
+//     string d;
+//     cin >> c >> d;
+//     int clen = c.size();
+//     int dlen = d.size();
+//     for (int i = 0; i < clen; i++)
+//         a[clen - 1 - i] = c[i] - '0';
+//     for (int i = 0; i < dlen; i++)
+//         b[dlen - 1 - i] = d[i] - '0';
+//     int maxlen = clen > dlen ? clen : dlen;
+//     for (int p = 0; p < maxlen; p++) {
+//         int g1 = 0;
+//         int g2 = 0;
+//         int g = a[p] + b[p] + carry;
+//         g1 = g / 10;
+//         g2 = g % 10;
+//         f[p] = f[p] + g2;
+//         carry = g1;
+//     }
+//     f[maxlen] = carry;
+//     bool s = false;
+//     for (int i = maxlen; i >= 0; i--) {
+//         if (f[i] == 0 && s == false)
+//             continue;
+//         s = true;
+//         cout << f[i];
+//     }
+//     if (s == false)
+//         cout << 0;
+// }

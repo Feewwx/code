@@ -118,56 +118,56 @@
 
 // P1563 [NOIP 2016 提高组] 玩具谜题
 
-#include <iostream>
-
-using namespace std;
-
-int main() {
-    int n = 0; // 小人的数量  0内1外
-    int m = 0; // 指令的条数字
-
-    int c = 0; // 编号
-
-    cin >> n >> m;
-
-    typedef struct s { // 小人
-        int b = 0;     // 朝向
-        char arr[20] = {0};
-    } peoinfo;
-
-    typedef struct w { // 命令
-        int a = 0;     // 0左1右
-        int s = 0;     // 步数
-    } pro;
-
-    peoinfo data[100008];
-    pro pg[100008];
-
-    // 输入
-
-    for (int i = 0; i < n; i++) {
-        cin >> data[i].b >> data[i].arr;
-    }
-    for (int i = 0; i < m; i++) {
-        cin >> pg[i].a >> pg[i].s;
-    }
-
-    // 执行命令
-
-    for (int i = 0; i < m; i++) {
-        if (pg[i].a == data[c].b) {
-            if (pg[i].s < n) {
-                c = (c + n - pg[i].s) % n;
-            }
-        } else {
-            if (pg[i].s < n) {
-                c = (c + pg[i].s) % n;
-            }
-        }
-    }
-
-    cout << data[c].arr;
-}
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     int n = 0; // 小人的数量  0内1外
+//     int m = 0; // 指令的条数字
+//
+//     int c = 0; // 编号
+//
+//     cin >> n >> m;
+//
+//     typedef struct s { // 小人
+//         int b = 0;     // 朝向
+//         char arr[20] = {0};
+//     } peoinfo;
+//
+//     typedef struct w { // 命令
+//         int a = 0;     // 0左1右
+//         int s = 0;     // 步数
+//     } pro;
+//
+//     peoinfo data[100008];
+//     pro pg[100008];
+//
+//     // 输入
+//
+//     for (int i = 0; i < n; i++) {
+//         cin >> data[i].b >> data[i].arr;
+//     }
+//     for (int i = 0; i < m; i++) {
+//         cin >> pg[i].a >> pg[i].s;
+//     }
+//
+//     // 执行命令
+//
+//     for (int i = 0; i < m; i++) {
+//         if (pg[i].a == data[c].b) {
+//             if (pg[i].s < n) {
+//                 c = (c + n - pg[i].s) % n;
+//             }
+//         } else {
+//             if (pg[i].s < n) {
+//                 c = (c + pg[i].s) % n;
+//             }
+//         }
+//     }
+//
+//     cout << data[c].arr;
+// }
 
 // P1601 高精度加法
 
@@ -210,3 +210,44 @@ int main() {
 //     if (s == false)
 //         cout << 0;
 // }
+
+// P1303 A*B Problem
+
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int a[2005] = {0};
+    int b[2005] = {0};
+    int f[4005] = {0};
+    int h = 0;
+    int carry = 0;
+    string c;
+    string d;
+    cin >> c >> d;
+    int clen = c.size();
+    int dlen = d.size();
+    for (int i = 0; i < clen; i++)
+        a[clen - 1 - i] = c[i] - '0';
+    for (int i = 0; i < dlen; i++)
+        b[dlen - 1 - i] = d[i] - '0';
+    for (int i = 0; i < clen + 1; i++) {
+        for (int j = 0; j < dlen + 1; j++) {
+            int g1 = 0;
+            int g2 = 0;
+            int g3 = 0;
+            int g = a[i] * b[j] + carry;
+            g1 = g / 10;
+            g2 = g % 10;
+            if (f[j + i] + g2 >= 10) {
+                g = f[j + i] + g2;
+                g3 = g / 10;
+                g2 = g % 10;
+                f[j + i] = g2;
+            } else
+                f[j + i] = f[j + i] + g2;
+            carry = g1 + g3;
+        }
+    }
+}

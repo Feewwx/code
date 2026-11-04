@@ -213,41 +213,87 @@
 
 // P1303 A*B Problem
 
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     int a[2005] = {0};
+//     int b[2005] = {0};
+//     int f[4005] = {0};
+//     int h = 0;
+//     int carry = 0;
+//     string c;
+//     string d;
+//     cin >> c >> d;
+//     int clen = c.size();
+//     int dlen = d.size();
+//     for (int i = 0; i < clen; i++)
+//         a[clen - 1 - i] = c[i] - '0';
+//     for (int i = 0; i < dlen; i++)
+//         b[dlen - 1 - i] = d[i] - '0';
+//     for (int i = 0; i < clen + 1; i++) {
+//         for (int j = 0; j < dlen + 1; j++) {
+//             int g1 = 0;
+//             int g2 = 0;
+//             int g3 = 0;
+//             int g = a[i] * b[j] + carry;
+//             g1 = g / 10;
+//             g2 = g % 10;
+//             if (f[j + i] + g2 >= 10) {
+//                 g = f[j + i] + g2;
+//                 g3 = g / 10;
+//                 g2 = g % 10;
+//                 f[j + i] = g2;
+//             } else
+//                 f[j + i] = f[j + i] + g2;
+//             carry = g1 + g3;
+//         }
+//     }
+//     bool s = false;
+//     for (int i = 4004; i >= 0; i--) {
+//         if (f[i] == 0 && s == false)
+//             continue;
+//         s = true;
+//         cout << f[i];
+//     }
+//     if (s == false)
+//         cout << 0;
+// }
+
+// P1009 [NOIP 1998 普及组] 阶乘之和
+
 #include <iostream>
 
 using namespace std;
 
 int main() {
-    int a[2005] = {0};
-    int b[2005] = {0};
-    int f[4005] = {0};
-    int h = 0;
-    int carry = 0;
-    string c;
-    string d;
-    cin >> c >> d;
-    int clen = c.size();
-    int dlen = d.size();
-    for (int i = 0; i < clen; i++)
-        a[clen - 1 - i] = c[i] - '0';
-    for (int i = 0; i < dlen; i++)
-        b[dlen - 1 - i] = d[i] - '0';
-    for (int i = 0; i < clen + 1; i++) {
-        for (int j = 0; j < dlen + 1; j++) {
-            int g1 = 0;
-            int g2 = 0;
-            int g3 = 0;
-            int g = a[i] * b[j] + carry;
-            g1 = g / 10;
-            g2 = g % 10;
-            if (f[j + i] + g2 >= 10) {
-                g = f[j + i] + g2;
-                g3 = g / 10;
-                g2 = g % 10;
-                f[j + i] = g2;
-            } else
-                f[j + i] = f[j + i] + g2;
-            carry = g1 + g3;
+    unsigned int input = 0;
+    int output[100] = {0};
+    output[0] = 1;
+    cin >> input;
+    unsigned int count = 0;
+    int n = 0;
+    for (int i = 1; i <= input; i++) {
+        for (int j = 1; j < i; j++) {
+            count = j;
+            count = count * (j + 1);
+            int c = count;
+            while (c >= 10) {
+                c = c / 10;
+                n++;
+            }
+        }
+        if (n == 0) {
+            output[0] = output[0] + count;
+        }
+        for (int j = 0; j < n; j++) {
+            if (output[j] + count % 10 > 10)
+                output[j] = output[j] + count % 10;
+            else {
+                output[j] = (output[j] + count % 10) % 10;
+                output[j + 1] = (output[j] + count % 10) / 10;
+            }
         }
     }
 }

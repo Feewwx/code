@@ -268,32 +268,38 @@
 using namespace std;
 
 int main() {
-    unsigned int input = 0;
-    int output[100] = {0};
-    output[0] = 1;
+    int input = 0;
     cin >> input;
-    unsigned int count = 0;
-    int n = 0;
+
+    int fact[100] = {0}; // 当前 i!, 个位在 fact[0]
+    int sum[100] = {0};  // 累加和, 个位在 sum[0]
+    fact[0] = 1;
+
     for (int i = 1; i <= input; i++) {
-        for (int j = 1; j < i; j++) {
-            count = j;
-            count = count * (j + 1);
-            int c = count;
-            while (c >= 10) {
-                c = c / 10;
-                n++;
-            }
+        // fact = fact * i: 逐位乘, 进位往高位走
+        int carry = 0;
+        for (int d = 0; d < 100; d++) {
+            int t = fact[d] * i + carry;
+            fact[d] = t % 10;
+            carry = t / 10;
         }
-        if (n == 0) {
-            output[0] = output[0] + count;
-        }
-        for (int j = 0; j < n; j++) {
-            if (output[j] + count % 10 > 10)
-                output[j] = output[j] + count % 10;
-            else {
-                output[j] = (output[j] + count % 10) % 10;
-                output[j + 1] = (output[j] + count % 10) / 10;
-            }
+
+        // sum = sum + fact: 逐位加, 进位往高位走
+        carry = 0;
+        for (int d = 0; d < 100; d++) {
+            int t = sum[d] + fact[d] + carry;
+            sum[d] = t % 10;
+            carry = t / 10;
         }
     }
+
+    // 从最高非零位倒着输出
+    int start = 99;
+    while (start > 0 && sum[start] == 0)
+        start--;
+    for (int d = start; d >= 0; d--)
+        cout << sum[d];
+    cout << endl;
+
+    return 0;
 }

@@ -263,43 +263,102 @@
 
 // P1009 [NOIP 1998 普及组] 阶乘之和
 
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     int input = 0;
+//     cin >> input;
+//
+//     int fact[100] = {0}; // 当前 i!, 个位在 fact[0]
+//     int sum[100] = {0};  // 累加和, 个位在 sum[0]
+//     fact[0] = 1;
+//
+//     for (int i = 1; i <= input; i++) {
+//         // fact = fact * i: 逐位乘, 进位往高位走
+//         int carry = 0;
+//         for (int d = 0; d < 100; d++) {
+//             int t = fact[d] * i + carry;
+//             fact[d] = t % 10;
+//             carry = t / 10;
+//         }
+//
+//         // sum = sum + fact: 逐位加, 进位往高位走
+//         carry = 0;
+//         for (int d = 0; d < 100; d++) {
+//             int t = sum[d] + fact[d] + carry;
+//             sum[d] = t % 10;
+//             carry = t / 10;
+//         }
+//     }
+//
+//     // 从最高非零位倒着输出
+//     int start = 99;
+//     while (start > 0 && sum[start] == 0)
+//         start--;
+//     for (int d = start; d >= 0; d--)
+//         cout << sum[d];
+//     cout << endl;
+//
+//     return 0;
+// }
+
+// P4924 [1007] 魔法少女小Scarlet
+
 #include <iostream>
+
+// 定义
 
 using namespace std;
 
+typedef struct PeoInfo {
+    int x = 0;
+    int y = 0;
+    int r = 0;
+    int z = 0;
+} PeoInfo;
+
+PeoInfo sd[505];
+
 int main() {
-    int input = 0;
-    cin >> input;
-
-    int fact[100] = {0}; // 当前 i!, 个位在 fact[0]
-    int sum[100] = {0};  // 累加和, 个位在 sum[0]
-    fact[0] = 1;
-
-    for (int i = 1; i <= input; i++) {
-        // fact = fact * i: 逐位乘, 进位往高位走
-        int carry = 0;
-        for (int d = 0; d < 100; d++) {
-            int t = fact[d] * i + carry;
-            fact[d] = t % 10;
-            carry = t / 10;
-        }
-
-        // sum = sum + fact: 逐位加, 进位往高位走
-        carry = 0;
-        for (int d = 0; d < 100; d++) {
-            int t = sum[d] + fact[d] + carry;
-            sum[d] = t % 10;
-            carry = t / 10;
+    // 初始化
+    int n = 0;
+    int m = 0;
+    int arr[505][505] = {0};
+    int temp[505][505] = {0};
+    int z = 1;
+    // 输入
+    cin >> n >> m;
+    for (int i = 0; i < m; i++) {
+        cin >> sd[i].x;
+        cin >> sd[i].y;
+        cin >> sd[i].r;
+        cin >> sd[i].z;
+    }
+    // 初始化
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            arr[j][i] = z;
+            z++;
         }
     }
+    // 运行
+    for (int i = 0; i < m; i++) {
+        // 搬运
+        for (int j = 0; j < 2 * (sd[i].r) + 1; j++) {
+            for (int t = 0; t < 2 * (sd[i].r) + 1; t++) {
+            }
+        }
+        // 运算
 
-    // 从最高非零位倒着输出
-    int start = 99;
-    while (start > 0 && sum[start] == 0)
-        start--;
-    for (int d = start; d >= 0; d--)
-        cout << sum[d];
-    cout << endl;
-
-    return 0;
+        // 回家
+    }
+    // 输出
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << "  " << arr[j][i];
+        }
+        cout << endl;
+    }
 }

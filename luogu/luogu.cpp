@@ -308,12 +308,57 @@
 
 #include <iostream>
 
+// 定义
+
 using namespace std;
 
+typedef struct PeoInfo {
+    int x = 0;
+    int y = 0;
+    int r = 0;
+    int z = 0;
+} PeoInfo;
+
+PeoInfo sd[505];
+
 int main() {
+    // 初始化
     int n = 0;
     int m = 0;
+    int arr[505][505] = {0};
+    int temp[505][505] = {0};
+    int z = 1;
+    // 输入
     cin >> n >> m;
     for (int i = 0; i < m; i++) {
+        cin >> sd[i].x;
+        cin >> sd[i].y;
+        cin >> sd[i].r;
+        cin >> sd[i].z;
+    }
+    // 初始化
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            arr[j][i] = z;
+            z++;
+        }
+    }
+    // 运行
+    for (int i = 0; i < m; i++) {
+        // 搬运
+        for (int j = 0; j < 2 * (sd[i].r) + 1; j++) {
+            for (int t = 0; t < 2 * (sd[i].r) + 1; t++) {
+            }
+        }
+        // 运算
+
+        // 回家
+    }
+    // 输出
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << "  " << arr[j][i];
+        }
+        cout << endl;
     }
 }

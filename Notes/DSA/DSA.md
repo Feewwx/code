@@ -1611,3 +1611,48 @@ ADT Queue{
     - 跟出队的区别只有一处:front 不后移
 
 ##### 2.1.2.3.4. 队列的链式表示和实现
+
+- 若用户无法估计所用队列的长度,则宜采用链队列
+
+- 链队的类型定义
+    ```c
+    #define MAXQSIZE 100        // 最大队列长度
+
+    typedef struct Qnode {
+        QElemType data;         // 数据域
+        struct Qnode *next;     // 指针域
+    } QNode, *QueuePtr;
+    ```
+
+- 链队本身的类型定义
+    ```c
+    typedef struct {
+        QueuePtr front;         // 队头指针
+        QueuePtr rear;          // 队尾指针
+    } LinkQueue;
+    ```
+
+- 链队用两个指针管
+    - `Q.front` 指向头结点,`Q.rear` 指向队尾结点
+
+- 链队列初始化
+    ```c
+    Status InitQueue(LinkQueue &Q) {
+        Q.front = Q.rear = (QueuePtr) malloc(sizeof(QNode));
+        if (!Q.front) exit(OVERFLOW);
+        Q.front->next = NULL;
+        return OK;
+    }
+    ```
+
+- 销毁链队列
+    ```c
+    Status DestroyQueue(LinkQueue &Q) {
+        while (Q.front) {
+            p = Q.front->next;
+            free(Q.front);
+            Q.front = p;
+        }//Q.rear=Q.front->next; free(Q.front); Q.front=Q.rear;
+        return OK;
+    }
+    ```

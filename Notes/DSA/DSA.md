@@ -1656,3 +1656,147 @@ ADT Queue{
         return OK;
     }
     ```
+
+- 链队列入队
+    ```c
+    Status EnQueue(LinkQueue &Q, QElemType e) {
+        p = (QueuePtr) malloc(sizeof(QNode));
+        if (!p) exit(OVERFLOW);
+        p->data = e; p->next = NULL;
+        Q.rear->next = p;
+        Q.rear = p;
+        return OK;
+    }
+    ```
+
+- 链队出队
+    ```c
+    Status DeQueue (LinkQueue &Q, QElemType &e) {
+        if (Q.front == Q.rear) return ERROR;
+        p = Q.front->next;
+        e = p->data;
+        Q.front->next = p->next;
+        if (Q.rear == p) Q.rear = Q.front;
+        delete p;
+        return OK;
+    }
+    ```
+
+- 求链队列的队头元素
+    ```c
+    Status GetHead (LinkQueue Q, QElemType &e) {
+        if (Q.front == Q.rear) return ERROR;
+        e = Q.front->next->data;
+        return OK;
+    }
+    ```
+
+### 2.1.3. 串,数组和广义表
+
+#### 2.1.3.1. 串
+
+##### 2.1.3.1.1. 串的定义
+
+串(String)--零个或多个任意字符组成的有限序列
+
+S(串名) = "a1a2...an"(串值,n串长(n=0表示空串))
+
+- 子串:串中任意个连续字符组成的子序列称为该串的子串
+- 主串:包含子串的串相应地称为主串
+- 字符位置:字符在序列中的序号为该字符在串中的位置
+- 子串位置:子串第一个字符在主串中的位置
+- 空格串:由一个或多个空格组成的串,与空串不同
+
+- 串相等:当且仅当两个串的长度相等并且各个对应位置上的字符都相同时,这两个串才是相等的(所有的空串都是相等的)
+
+##### 2.1.3.1.2. 串的存储结构
+
+- 串的顺序存储结构
+    ```c
+    #define MAXLEN 255
+    typedef struct {
+        char ch[MAXLEN + 1];    //存储串的一维数组
+        int length;             //串的当前长度
+    } SString;
+    ```
+- 串的链式存储结构
+    - 优点:操作方便
+    - 缺点:存储密度较低
+        - 可以将多个字符放在一个结点中,以克服其缺点
+    - 块链结构的类型定义
+        ```c
+        #define CHUNKSIZE 80        //块的大小可由用户定义
+        typedef struct Chunk {
+            char ch[CHUNKSIZE];
+            struct Chunk *next;
+        } Chunk;
+
+        typedef struct {
+            Chunk *head, *tail;     //串的头指针和尾指针
+            int curlen;             //串的当前长度
+        } LString;                  //字符串的块链结构
+        ```
+
+##### 2.1.3.1.3. 串的模式匹配算法
+
+- 算法目的:确认主串中所含子串(模式串)第一次出现的位置(定位)
+- 算法应用:
+    - 搜索引擎,拼写检查,语言翻译,数据压缩
+- 算法种类:
+    - BF算法(Brute-Force,又称古典的,经典的,朴素的,穷举的)
+    - KMP算法(特点:速度快)
+- 算法实现:
+    - BF算法:
+        ```c
+        int Index_BF(SString S, SString T, int pos) {
+            int i = pos, j = 1;
+            while (i <= S.length && j <= T.length) {
+                if (s.ch[i] == t.ch[j]) { ++i; ++j; }   //主串和子串依次匹配下一个字符
+                else { i = i - j + 2; j = 1; }          //主串,子串指针回溯重新开始下一次匹配
+            }
+            if (j >= T.length) return i - T.length;     //返回匹配的第一个字符的下标
+            else return 0;                              //模式匹配不成功
+        }
+        ```
+    - KMP算法:
+        ```c
+        int Index_KMP(SString S, SString T, int pos) {
+            i = pos, j = 1;
+            while (i < S.length && j < T.length) {
+                if (j == 0 || S.ch[i] == T.ch[j]) { i++; j++; }
+                else
+                    j = next[j];                        /*i不变,j后退*/
+            }
+            if (j > T.length) return i - T.length;      /*匹配成功*/
+            else return 0;                              /*返回不匹配标志*/
+        }
+        ```
+        - 求 next 数组:
+            ```c
+            void get_next(SString T, int next[]) {
+                int i = 1, j = 0;
+                next[1] = 0;
+                while (i < T.length) {
+                    if (j == 0 || T.ch[i] == T.ch[j]) { ++i; ++j; next[i] = j; }
+                    else j = next[j];
+                }
+            }
+            ```
+        - 求 nextval 数组:
+            ```c
+            void get_nextval(SString T, int nextval[]) {
+                int i = 1, j = 0;
+                nextval[1] = 0;
+                while (i < T.length) {
+                    if (j == 0 || T.ch[i] == T.ch[j]) {
+                        ++i; ++j;
+                        if (T.ch[i] != T.ch[j]) nextval[i] = j;
+                        else nextval[i] = nextval[j];
+                    }
+                    else j = nextval[j];
+                }
+            }
+            ```
+
+
+#### 2.1.3.2. 数组

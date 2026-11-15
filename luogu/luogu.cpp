@@ -306,6 +306,100 @@
 
 // P4924 [1007] 魔法少女小Scarlet
 
+// #include <iostream>
+//
+// // 定义
+//
+// using namespace std;
+//
+// typedef struct PeoInfo {
+//     int x = 0;
+//     int y = 0;
+//     int r = 0;
+//     int z = 0;
+// } PeoInfo;
+//
+// PeoInfo sd[505];
+//
+// int main() {
+//     // 初始化
+//     int n = 0;
+//     int m = 0;
+//     int arr[505][505] = {0};
+//     int temp[505][505] = {0};
+//     int z = 1;
+//     // 输入
+//     cin >> n >> m;
+//     for (int i = 0; i < m; i++) {
+//         cin >> sd[i].x >> sd[i].y >> sd[i].r >> sd[i].z;
+//     }
+//     // 初始化
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             arr[i][j] = z;
+//             z++;
+//         }
+//     }
+//     // 运行
+//     for (int i = 0; i < m; i++) {
+//         // 搬运
+//         for (int j = sd[i].y - sd[i].r - 1; j < sd[i].y + (sd[i].r); j++) {
+//             for (int t = sd[i].x - sd[i].r - 1; t < sd[i].x + (sd[i].r); t++) {
+//                 temp[t][j] = arr[t][j];
+//             }
+//         }
+//         // 运算
+//         if (sd[i].z == 0) {
+//             for (int z = 0; z < sd[i].r; z++) {
+//                 int L = 2 * (sd[i].r - z) + 1;
+//                 // 这一圈的边长
+//                 int gx = sd[i].x - sd[i].r - 1 + z;
+//                 // 这一圈的左上角
+//                 int gy = sd[i].y - sd[i].r - 1 + z;
+//                 for (int j = 0; j < L - 1; j++) {
+//                     int tempp = temp[gx][gy + j];
+//                     // 上
+//                     temp[gx][gy + j] = temp[gx + L - 1 - j][gy];                 // 上 <- 左
+//                     temp[gx + L - 1 - j][gy] = temp[gx + L - 1][gy + L - 1 - j]; // 左 <- 下
+//                     temp[gx + L - 1][gy + L - 1 - j] = temp[gx + j][gy + L - 1]; // 下 <- 右
+//                     temp[gx + j][gy + L - 1] = tempp;
+//                     // 右 <- 上
+//                 }
+//             }
+//         } else {
+//             for (int z = 0; z < sd[i].r; z++) {
+//                 int L = 2 * (sd[i].r - z) + 1;
+//                 int gx = sd[i].x - sd[i].r - 1 + z;
+//                 int gy = sd[i].y - sd[i].r - 1 + z;
+//                 for (int j = 0; j < L - 1; j++) {
+//                     int tempp = temp[gx][gy + j];
+//                     // 上
+//                     temp[gx][gy + j] = temp[gx + j][gy + L - 1];                 // 上 <- 右
+//                     temp[gx + j][gy + L - 1] = temp[gx + L - 1][gy + L - 1 - j]; // 右 <- 下
+//                     temp[gx + L - 1][gy + L - 1 - j] = temp[gx + L - 1 - j][gy]; // 下 <- 左
+//                     temp[gx + L - 1 - j][gy] = tempp;
+//                     // 左 <- 上
+//                 }
+//             }
+//         }
+//         // 回家
+//         for (int j = sd[i].y - sd[i].r - 1; j < sd[i].y + (sd[i].r); j++) {
+//             for (int t = sd[i].x - sd[i].r - 1; t < sd[i].x + (sd[i].r); t++) {
+//                 arr[t][j] = temp[t][j];
+//             }
+//         }
+//     }
+//     // 输出
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             cout << arr[i][j] << " ";
+//         }
+//         cout << endl;
+//     }
+// }
+
+// P4924 不按环的写法: 每格自己算新位置
+
 #include <iostream>
 
 // 定义
@@ -331,33 +425,39 @@ int main() {
     // 输入
     cin >> n >> m;
     for (int i = 0; i < m; i++) {
-        cin >> sd[i].x;
-        cin >> sd[i].y;
-        cin >> sd[i].r;
-        cin >> sd[i].z;
+        cin >> sd[i].x >> sd[i].y >> sd[i].r >> sd[i].z;
     }
     // 初始化
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            arr[j][i] = z;
+            arr[i][j] = z;
             z++;
         }
     }
     // 运行
     for (int i = 0; i < m; i++) {
-        // 搬运
-        for (int j = 0; j < 2 * (sd[i].r) + 1; j++) {
-            for (int t = 0; t < 2 * (sd[i].r) + 1; t++) {
+        int cx = sd[i].x - 1; // 中心行, 换成 0 起始
+        int cy = sd[i].y - 1; // 中心列
+        // 运算: 每格按相对坐标算新位置, 写进 temp
+        for (int dr = -sd[i].r; dr <= sd[i].r; dr++) {
+            for (int dc = -sd[i].r; dc <= sd[i].r; dc++) {
+                if (sd[i].z == 0)
+                    temp[cx + dc][cy - dr] = arr[cx + dr][cy + dc]; // 顺时针 (dr,dc) -> (dc,-dr)
+                else
+                    temp[cx - dc][cy + dr] = arr[cx + dr][cy + dc]; // 逆时针 (dr,dc) -> (-dc,dr)
             }
         }
-        // 运算
-
         // 回家
+        for (int j = cx - sd[i].r; j <= cx + sd[i].r; j++) {
+            for (int t = cy - sd[i].r; t <= cy + sd[i].r; t++) {
+                arr[j][t] = temp[j][t];
+            }
+        }
     }
     // 输出
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout << "  " << arr[j][i];
+            cout << arr[i][j] << " ";
         }
         cout << endl;
     }

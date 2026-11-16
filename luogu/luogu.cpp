@@ -400,65 +400,67 @@
 
 // P4924 不按环的写法: 每格自己算新位置
 
-#include <iostream>
+// #include <iostream>
+//
+// // 定义
+//
+// using namespace std;
+//
+// typedef struct PeoInfo {
+//     int x = 0;
+//     int y = 0;
+//     int r = 0;
+//     int z = 0;
+// } PeoInfo;
+//
+// PeoInfo sd[505];
+//
+// int main() {
+//     // 初始化
+//     int n = 0;
+//     int m = 0;
+//     int arr[505][505] = {0};
+//     int temp[505][505] = {0};
+//     int z = 1;
+//     // 输入
+//     cin >> n >> m;
+//     for (int i = 0; i < m; i++) {
+//         cin >> sd[i].x >> sd[i].y >> sd[i].r >> sd[i].z;
+//     }
+//     // 初始化
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             arr[i][j] = z;
+//             z++;
+//         }
+//     }
+//     // 运行
+//     for (int i = 0; i < m; i++) {
+//         int cx = sd[i].x - 1; // 中心行, 换成 0 起始
+//         int cy = sd[i].y - 1; // 中心列
+//         // 运算: 每格按相对坐标算新位置, 写进 temp
+//         for (int dr = -sd[i].r; dr <= sd[i].r; dr++) {
+//             for (int dc = -sd[i].r; dc <= sd[i].r; dc++) {
+//                 if (sd[i].z == 0)
+//                     temp[cx + dc][cy - dr] = arr[cx + dr][cy + dc]; // 顺时针 (dr,dc) -> (dc,-dr)
+//                 else
+//                     temp[cx - dc][cy + dr] = arr[cx + dr][cy + dc]; // 逆时针 (dr,dc) -> (-dc,dr)
+//             }
+//         }
+//         // 回家
+//         for (int j = cx - sd[i].r; j <= cx + sd[i].r; j++) {
+//             for (int t = cy - sd[i].r; t <= cy + sd[i].r; t++) {
+//                 arr[j][t] = temp[j][t];
+//             }
+//         }
+//     }
+//     // 输出
+//     for (int i = 0; i < n; i++) {
+//         for (int j = 0; j < n; j++) {
+//             cout << arr[i][j] << " ";
+//         }
+//         cout << endl;
+//     }
+// }
 
-// 定义
-
-using namespace std;
-
-typedef struct PeoInfo {
-    int x = 0;
-    int y = 0;
-    int r = 0;
-    int z = 0;
-} PeoInfo;
-
-PeoInfo sd[505];
-
-int main() {
-    // 初始化
-    int n = 0;
-    int m = 0;
-    int arr[505][505] = {0};
-    int temp[505][505] = {0};
-    int z = 1;
-    // 输入
-    cin >> n >> m;
-    for (int i = 0; i < m; i++) {
-        cin >> sd[i].x >> sd[i].y >> sd[i].r >> sd[i].z;
-    }
-    // 初始化
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            arr[i][j] = z;
-            z++;
-        }
-    }
-    // 运行
-    for (int i = 0; i < m; i++) {
-        int cx = sd[i].x - 1; // 中心行, 换成 0 起始
-        int cy = sd[i].y - 1; // 中心列
-        // 运算: 每格按相对坐标算新位置, 写进 temp
-        for (int dr = -sd[i].r; dr <= sd[i].r; dr++) {
-            for (int dc = -sd[i].r; dc <= sd[i].r; dc++) {
-                if (sd[i].z == 0)
-                    temp[cx + dc][cy - dr] = arr[cx + dr][cy + dc]; // 顺时针 (dr,dc) -> (dc,-dr)
-                else
-                    temp[cx - dc][cy + dr] = arr[cx + dr][cy + dc]; // 逆时针 (dr,dc) -> (-dc,dr)
-            }
-        }
-        // 回家
-        for (int j = cx - sd[i].r; j <= cx + sd[i].r; j++) {
-            for (int t = cy - sd[i].r; t <= cy + sd[i].r; t++) {
-                arr[j][t] = temp[j][t];
-            }
-        }
-    }
-    // 输出
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << arr[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
+// P1328 [NOIP 2014 提高组] 生活大爆炸版石头剪刀布

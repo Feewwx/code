@@ -465,49 +465,49 @@
 
 // P1328 [NOIP 2014 提高组] 生活大爆炸版石头剪刀布
 
-#include <iostream>
-
-using namespace std;
-
-int main() {
-    int a = 0; // a的分数
-    int b = 0; // b的分数
-    int arr[210] = {0};
-    int brr[210] = {0};
-    int c;  // 猜拳数量
-    int an; // a的一次性周期数量
-    int bn; // b的一次性周期数量
-    cin >> c >> an >> bn;
-    for (int i = 1; i <= an; i++) {
-        cin >> arr[i];
-        // int count = c / an;
-        // for (int j = 1; j <= count; j++) {
-        // if (i + an * j > c) break;
-        //     arr[i + an * j] = arr[i];
-        // }
-    }
-    for (int i = 1; i <= bn; i++) {
-        cin >> brr[i];
-        // int count = c / bn;
-        // for (int j = 1; j <= count; j++) {
-        // if (i + bn * j > c) break;
-        //     brr[i + bn * j] = brr[i];
-        // }
-    }
-    int t[5][5] = {{0, -1, 1, 1, -1},
-                   {1, 0, -1, 1, -1},
-                   {-1, 1, 0, -1, 1},
-                   {-1, -1, 1, 0, 1},
-                   {1, 1, -1, 1, 0}};
-    for (int i = 1; i <= c; i++) {
-        int d = 0;
-        // d = t[arr[i]][brr[i]];
-        d = t[arr[(i - 1) % an + 1]][brr[(i - 1) % bn + 1]];
-        if (d == 1)
-            a++;
-        if (d == -1)
-            b++;
-    }
-    cout << a << " " << b;
-    return 0;
-}
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     int a = 0; // a的分数
+//     int b = 0; // b的分数
+//     int arr[210] = {0};
+//     int brr[210] = {0};
+//     int c;  // 猜拳数量
+//     int an; // a的一次性周期数量
+//     int bn; // b的一次性周期数量
+//     cin >> c >> an >> bn;
+//     for (int i = 1; i <= an; i++) {
+//         cin >> arr[i];
+//         // int count = c / an;
+//         // for (int j = 1; j <= count; j++) {
+//         // if (i + an * j > c) break;
+//         //     arr[i + an * j] = arr[i];
+//         // }
+//     }
+//     for (int i = 1; i <= bn; i++) {
+//         cin >> brr[i];
+//         // int count = c / bn;
+//         // for (int j = 1; j <= count; j++) {
+//         // if (i + bn * j > c) break;
+//         //     brr[i + bn * j] = brr[i];
+//         // }
+//     }
+//     int t[5][5] = {{0, -1, 1, 1, -1},
+//                    {1, 0, -1, 1, -1},
+//                    {-1, 1, 0, -1, 1},
+//                    {-1, -1, 1, 0, 1},
+//                    {1, 1, -1, 1, 0}};
+//     for (int i = 1; i <= c; i++) {
+//         int d = 0;
+//         // d = t[arr[i]][brr[i]];
+//         d = t[arr[(i - 1) % an + 1]][brr[(i - 1) % bn + 1]];
+//         if (d == 1)
+//             a++;
+//         if (d == -1)
+//             b++;
+//     }
+//     cout << a << " " << b;
+//     return 0;
+// }

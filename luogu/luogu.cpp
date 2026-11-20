@@ -511,3 +511,41 @@
 //     cout << a << " " << b;
 //     return 0;
 // }
+
+// P1518 [USACO2.4] 两只塔姆沃斯牛 The Tamworth Two
+
+#include <iostream>
+
+using namespace std;
+
+void move(int x, int y, char *input[10][10]) {}
+
+int main() {
+    char input[10][10];
+    int f = 0; // john的方向,0上1右2下3左
+    int c = 0; // cow的方向,0上1右2下3左
+    int fx, fy = 0;
+    int cx, cy = 0;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            cin >> input[i][j];
+        }
+    }
+    // 找到cow和john
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            if (input[i][j] == 'F') {
+                fx = i;
+                fy = j;
+            }
+            if (input[i][j] == 'C') {
+                cx = i;
+                cy = j;
+            }
+        }
+    }
+    do {
+        move(fx, fy, &input[10][10]);
+        move(cx, cy, &input[10][10]);
+    } while (fx == cx && fy == cy);
+}

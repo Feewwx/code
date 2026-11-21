@@ -518,22 +518,89 @@
 
 using namespace std;
 
-void move(int x, int y, char *input[10][10]) {}
+void move(int *x, int *y, char (&input)[12][12], int *r) {
+    switch (*r) {
+    case 0:
+        if (input[*x - 1][*y] == '*') {
+            *r = *r + 1;
+        } else {
+            char temp = 0;
+            temp = input[*x - 1][*y];
+            input[*x - 1][*y] = input[*x][*y];
+            input[*x][*y] = temp;
+            *x = *x - 1;
+        }
+        break;
+    case 1:
+        if (input[*x][*y + 1] == '*') {
+            *r = *r + 1;
+        } else {
+            char temp = 0;
+            temp = input[*x][*y + 1];
+            input[*x][*y + 1] = input[*x][*y];
+            input[*x][*y] = temp;
+            *y = *y + 1;
+        }
+        break;
+    case 2:
+        if (input[*x + 1][*y] == '*') {
+            *r = *r + 1;
+        } else {
+            char temp = 0;
+            temp = input[*x + 1][*y];
+            input[*x + 1][*y] = input[*x][*y];
+            input[*x][*y] = temp;
+            *x = *x + 1;
+        }
+        break;
+    case 3:
+        if (input[*x][*y - 1] == '*') {
+            *r = 0;
+        } else {
+            char temp = 0;
+            temp = input[*x][*y - 1];
+            input[*x][*y - 1] = input[*x][*y];
+            input[*x][*y] = temp;
+            *y = *y - 1;
+        }
+        break;
+    }
+}
 
 int main() {
-    char input[10][10];
+    char input[12][12];
     int f = 0; // john的方向,0上1右2下3左
     int c = 0; // cow的方向,0上1右2下3左
-    int fx, fy = 0;
-    int cx, cy = 0;
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    int fx = 0, fy = 0;
+    int cx = 0, cy = 0;
+    int count = 0;
+    bool vis[12][12][4][12][12][4] = {};
+    // 初始化
+    for (int i = 0; i < 12; i++) {
+        for (int j = 0; j < 12; j++) {
+            input[i][j] = '*';
+        }
+    }
+    for (int i = 1; i < 11; i++) {
+        for (int j = 1; j < 11; j++) {
             cin >> input[i][j];
         }
     }
+    // char input[12][12] = {{'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+    //                       {'*', '*', '.', '.', '.', '*', '.', '.', '.', '.', '.', '*'},
+    //                       {'*', '.', '.', '.', '.', '.', '.', '*', '.', '.', '.', '*'},
+    //                       {'*', '.', '.', '.', '*', '.', '.', '.', '*', '.', '.', '*'},
+    //                       {'*', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '*'},
+    //                       {'*', '.', '.', '.', '*', '.', 'F', '.', '.', '.', '.', '*'},
+    //                       {'*', '*', '.', '.', '.', '.', '.', '*', '.', '.', '.', '*'},
+    //                       {'*', '.', '.', '.', '*', '.', '.', '.', '.', '.', '.', '*'},
+    //                       {'*', '.', '.', 'C', '.', '.', '.', '.', '.', '.', '*', '*'},
+    //                       {'*', '.', '.', '.', '*', '.', '*', '.', '.', '.', '.', '*'},
+    //                       {'*', '.', '*', '.', '*', '.', '.', '.', '.', '.', '.', '*'},
+    //                       {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
     // 找到cow和john
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 1; i < 11; i++) {
+        for (int j = 1; j < 11; j++) {
             if (input[i][j] == 'F') {
                 fx = i;
                 fy = j;
@@ -545,7 +612,15 @@ int main() {
         }
     }
     do {
-        move(fx, fy, &input[10][10]);
-        move(cx, cy, &input[10][10]);
-    } while (fx == cx && fy == cy);
+        if (vis[fx][fy][f][cx][cy][c]) {
+            cout << 0;
+            return 0;
+        }
+        vis[fx][fy][f][cx][cy][c] = true;
+        move(&fx, &fy, input, &f);
+        move(&cx, &cy, input, &c);
+        count++;
+    } while (!(fx == cx && fy == cy));
+    cout << count;
+    return 0;
 }

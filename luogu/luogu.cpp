@@ -627,13 +627,95 @@
 
 // P1067 [NOIP 2009 普及组] 多项式输出
 
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     int n = 0;
+//     cin >> n;
+//     int arr[105];
+//     for (int i = 0; i <= n; i++) {
+//         cin >> arr[i];
+//     }
+//     int cn = n;
+//     for (int i = 0; i < n; i++) {
+//         if (cn == 1) {
+//             if (arr[i] < 0) {
+//                 if (arr[i] == 1 || arr[i] == -1)
+//                     cout << '-' << "x";
+//                 else
+//                     cout << arr[i] << "x";
+//             }
+//             if (arr[i] > 0) {
+//                 if (i == 0) {
+//                     if (arr[i] != 1)
+//                         cout << arr[i] << "x";
+//                     else
+//                         cout << "x";
+//                 } else {
+//                     cout << '+';
+//                     if (arr[i] != 1)
+//                         cout << arr[i] << "x";
+//                     else
+//                         cout << "x";
+//                 }
+//             }
+//         } else {
+//             if (arr[i] < 0) {
+//                 if (arr[i] == 1 || arr[i] == -1)
+//                     cout << '-' << "x^" << cn;
+//                 else
+//                     cout << arr[i] << "x^" << cn;
+//             }
+//             if (arr[i] > 0) {
+//                 if (i == 0) {
+//                     if (arr[i] != 1)
+//                         cout << arr[i] << "x^" << cn;
+//                     else
+//                         cout << "x^" << cn;
+//                 } else {
+//                     cout << '+';
+//                     if (arr[i] != 1)
+//                         cout << arr[i] << "x^" << cn;
+//                     else
+//                         cout << "x^" << cn;
+//                 }
+//             }
+//         }
+//         cn--;
+//     }
+//     if (n == 0) {
+//         cout << arr[n];
+//     } else {
+//         if (arr[n] > 0)
+//             cout << '+' << arr[n];
+//         if (arr[n] < 0)
+//             cout << arr[n];
+//     }
+//     return 0;
+// }
+
+// P1098 [NOIP 2007 提高组] 字符串的展开
+
+#include <cstring>
 #include <iostream>
 
 using namespace std;
 
 int main() {
-    int n = 0;
-    cin >> n;
-    for (int i = 0; i <= n; i++) {
+    char input[105] = {0};
+    int p1 = 0;
+    int p2 = 0;
+    int p3 = 0;
+    cin >> p1 >> p2 >> p3 >> input;
+    int len = strlen(input);
+    for (int i = 0; i < len; i++) {
+        if (input[i] == '-') {
+            // 判断左右两边是否合法
+        } else {
+            cout << input[i];
+        }
     }
+    return 0;
 }

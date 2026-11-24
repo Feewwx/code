@@ -698,24 +698,102 @@
 
 // P1098 [NOIP 2007 提高组] 字符串的展开
 
-#include <cstring>
-#include <iostream>
+// #include <cstring>
+// #include <iostream>
+//
+// using namespace std;
+//
+// int main() {
+//     char input[105] = {0};
+//     int p1 = 0;
+//     int p2 = 0;
+//     int p3 = 0;
+//     int x = 'a' - 'A';
+//     cin >> p1 >> p2 >> p3 >> input;
+//     int len = strlen(input);
+//     for (int i = 0; i < len; i++) {
+//         if (input[i] == '-') {
+//             if (i > 0) {
+//                 int y = input[i + 1] - input[i - 1] - 1;
+//                 if (input[i - 1] < input[i + 1] && input[i - 1] >= 'a' && input[i + 1] <= 'z') {
+//                     if (input[i + 1] - input[i - 1] == 1) {
+//                         continue;
+//                     } else {
+//                         if (p3 == 1) {
+//                             for (int j = 0; j < y; j++) {
+//                                 if (p1 == 1) {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << char(input[i - 1] + j + 1);
+//                                     }
+//                                 } else if (p1 == 2) {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << char(input[i - 1] + j - x + 1);
+//                                     }
+//                                 } else {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << '*';
+//                                     }
+//                                 }
+//                             }
+//                         } else {
+//                             for (int j = y; j > 0; j--) {
+//                                 if (p1 == 1) {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << char(input[i - 1] + j);
+//                                     }
+//                                 } else if (p1 == 2) {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << char(input[i - 1] + j - x);
+//                                     }
+//                                 } else {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << '*';
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 } else if (input[i - 1] < input[i + 1] && input[i - 1] >= '0' &&
+//                            input[i + 1] <= '9') {
+//                     if (input[i + 1] - input[i - 1] == 1) {
+//                         continue;
+//                     } else {
+//                         if (p3 == 1) {
+//                             for (int j = 0; j < y; j++) {
+//                                 if (p1 == 3) {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << '*';
+//                                     }
+//                                 } else {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << char(input[i - 1] + j + 1);
+//                                     }
+//                                 }
+//                             }
+//                         } else {
+//                             for (int j = y; j > 0; j--) {
+//                                 if (p1 == 3) {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << '*';
+//                                     }
+//                                 } else {
+//                                     for (int z = 0; z < p2; z++) {
+//                                         cout << char(input[i - 1] + j);
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 } else {
+//                     cout << input[i];
+//                 }
+//             } else {
+//                 cout << input[i];
+//             }
+//         } else
+//             cout << input[i];
+//     }
+//     return 0;
+// }
 
-using namespace std;
-
-int main() {
-    char input[105] = {0};
-    int p1 = 0;
-    int p2 = 0;
-    int p3 = 0;
-    cin >> p1 >> p2 >> p3 >> input;
-    int len = strlen(input);
-    for (int i = 0; i < len; i++) {
-        if (input[i] == '-') {
-            // 判断左右两边是否合法
-        } else {
-            cout << input[i];
-        }
-    }
-    return 0;
-}
+// P1065 [NOIP 2006 提高组] 作业调度方案

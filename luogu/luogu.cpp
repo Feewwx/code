@@ -797,3 +797,9 @@
 // }
 
 // P1065 [NOIP 2006 提高组] 作业调度方案
+
+#include <iostream>
+
+using namespace std;
+
+int main() {}

@@ -802,4 +802,13 @@
 
 using namespace std;
 
-int main() {}
+int main() {
+    // 输入
+    int m = 0;
+    int n = 0;
+    cin >> m >> n;
+    int step[400] = {0};
+    for (int i = 0; i < (m * n); i++) {
+        cin >> step[i];
+    }
+}

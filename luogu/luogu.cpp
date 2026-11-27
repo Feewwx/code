@@ -811,4 +811,12 @@ int main() {
     for (int i = 0; i < (m * n); i++) {
         cin >> step[i];
     }
+    int machine[20] = {0};
+    for (int i = 0; i < n; i++) {
+        cin >> machine[i];
+    }
+    int time[20] = {0};
+    for (int i = 0; i < n; i++) {
+        cin >> time[i];
+    }
 }

@@ -807,16 +807,27 @@ int main() {
     int m = 0;
     int n = 0;
     cin >> m >> n;
-    int step[400] = {0};
+    int step[404] = {0};
     for (int i = 0; i < (m * n); i++) {
         cin >> step[i];
     }
-    int machine[20] = {0};
+    int machine[22][22] = {0};
     for (int i = 0; i < n; i++) {
-        cin >> machine[i];
+        for (int j = 0; j < m; j++) {
+            cin >> machine[i][j];
+        }
     }
-    int time[20] = {0};
+    int time[22][22] = {0};
     for (int i = 0; i < n; i++) {
-        cin >> time[i];
+        for (int j = 0; j < m; j++) {
+            cin >> time[i][j];
+        }
+    }
+    int temp = 0;
+    int ma[22][22] = {0};
+    for (int i = 0; i < (m * n); i++) {
+        for (int j = 0; j < time[step[i]][temp]; j++) {
+            ma[machine[step[i]][temp]][j] = step[i];
+        }
     }
 }
